@@ -2,6 +2,7 @@ import { Search, Mic } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface GoogleSearchBoxProps {
   onSearch?: (query: string) => void;
@@ -10,6 +11,7 @@ interface GoogleSearchBoxProps {
 
 export const GoogleSearchBox = ({ onSearch, placeholder = "Search my CV..." }: GoogleSearchBoxProps) => {
   const [query, setQuery] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,9 +41,13 @@ export const GoogleSearchBox = ({ onSearch, placeholder = "Search my CV..." }: G
           </button>
         </div>
       </form>
-      
+
       <div className="flex justify-center mt-8 space-x-4">
-        <Button variant="google-search" onClick={() => onSearch?.(query)}>
+        <Button variant="google-search" onClick={() => {
+          onSearch?.(query);
+          navigate(`/search?query=${encodeURIComponent(query)}`);
+        }}
+        >
           CV Search
         </Button>
         <Button variant="google-lucky">
