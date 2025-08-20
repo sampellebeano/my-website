@@ -41,17 +41,18 @@ const Index = () => {
         {/* Logo/Name area */}
         <div className="mb-8">
           <h1 className="text-6xl lg:text-7xl font-normal text-foreground mb-2 tracking-tight">
-            <span className="text-google-blue">J</span>
-            <span className="text-google-red">o</span>
-            <span className="text-google-yellow">h</span>
-            <span className="text-google-blue">n</span>
-            <span className="text-google-green"> </span>
-            <span className="text-google-red">D</span>
-            <span className="text-google-blue">o</span>
+            <span className="text-google-blue">S</span>
+            <span className="text-google-red">a</span>
+            <span className="text-google-yellow">m</span>
+            <span className="text-google-blue"> </span>
+            <span className="text-google-green">G</span>
+            <span className="text-google-red">r</span>
+            <span className="text-google-blue">e</span>
             <span className="text-google-yellow">e</span>
+            <span className="text-google-green">n</span>
           </h1>
           <p className="text-center text-google-gray text-lg">
-            Full Stack Developer & Problem Solver
+            Solution Consultant & Problem Solver
           </p>
         </div>
 
