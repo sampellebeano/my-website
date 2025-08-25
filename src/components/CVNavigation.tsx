@@ -14,13 +14,13 @@ export const CVNavigation = ({ onNavigate }: CVNavigationProps) => {
   ];
 
   return (
-    <nav className="flex items-center space-x-6">
+    <nav className="flex flex-wrap items-center justify-center gap-2 w-full">
       {navItems.map((item) => (
         <Button
           key={item.section}
           variant="google-nav"
           onClick={() => onNavigate?.(item.section)}
-          className="text-sm"
+          className="text-xs flex-1 min-w-0"
         >
           {item.label}
         </Button>
