@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { GoogleSearchBox } from "@/components/GoogleSearchBox";
+import { SearchBox } from "@/components/SearchBox";
 import { CVNavigation } from "@/components/CVNavigation";
 import { CVFooter } from "@/components/CVFooter";
 import { Button } from "@/components/ui/button";
@@ -41,15 +41,7 @@ const Index = () => {
         {/* Logo/Name area */}
         <div className="mb-8">
           <h1 className="text-6xl lg:text-7xl font-normal text-foreground mb-2 tracking-tight">
-            <span className="text-google-blue">S</span>
-            <span className="text-google-red">a</span>
-            <span className="text-google-yellow">m</span>
-            <span className="text-google-blue"> </span>
-            <span className="text-google-green">G</span>
-            <span className="text-google-red">r</span>
-            <span className="text-google-blue">e</span>
-            <span className="text-google-yellow">e</span>
-            <span className="text-google-green">n</span>
+            <span style={{ color: "#4285F4" }}>Sam Green</span>
           </h1>
           <p className="text-center text-google-gray text-lg">
             Solution Consultant & Problem Solver
@@ -57,7 +49,7 @@ const Index = () => {
         </div>
 
         {/* Search box */}
-        <GoogleSearchBox 
+        <SearchBox 
           onSearch={handleSearch}
           placeholder="Search my experience, skills, projects..."
         />
