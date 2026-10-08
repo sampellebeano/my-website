@@ -35,11 +35,11 @@ npm run preview
 
 ## Publishing
 
-The GitHub Actions workflow in `.github/workflows/jekyll-gh-pages.yml` builds the Vite application and deploys `dist` to GitHub Pages on pushes to `main`. The workflow filename is retained from the original project; it does not run Jekyll.
+Vercel hosts the site and deploys the GitHub repository `sampellebeano/my-website`. The production branch is `main`; other branches receive preview deployments. The project belongs to the `samjgreen` Vercel account.
 
-GitHub Pages must use **GitHub Actions** as its publishing source under Settings > Pages. Hash-based navigation and relative asset paths allow page refreshes on GitHub Pages and deployments at a repository subdirectory or domain root.
+`vercel.json` configures the Vite build, checks TypeScript before building, and publishes `dist`. The GitHub Actions workflow in `.github/workflows/verify.yml` checks TypeScript and the production build; it does not publish the site.
 
-The custom domain in Settings > Pages is `samjgreen.com`. Cloudflare manages registration and DNS. Both the root (`@`) and `www` use DNS-only CNAME records pointing to `sampellebeano.github.io`; Cloudflare flattens the root record. GitHub Pages handles HTTPS and redirects `www` to the root domain. Keep **Enforce HTTPS** enabled once GitHub has issued the certificate. Because publishing uses GitHub Actions, the custom domain is managed in repository settings rather than a `CNAME` file.
+Cloudflare manages registration and DNS for `samjgreen.com`. The root domain serves the Vercel production deployment, and `www.samjgreen.com` redirects to `https://samjgreen.com/`. Use the exact DNS targets shown in the Vercel project's Domains settings and keep these records **DNS only**. Vercel manages HTTPS certificates. GitHub Pages is disabled.
 
 Dependencies and generated build output are ignored for future additions. The existing repository already tracks historical copies of `node_modules` and `dist`; removing these from history is a separate maintenance task.
 
