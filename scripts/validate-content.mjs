@@ -1,4 +1,5 @@
-import { readFile } from 'node:fs/promises';
+import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { resolve, join } from 'node:path';
 import { createServer } from 'vite';
@@ -23,12 +24,15 @@ try {
   const [activity, books, versions] = await Promise.all([
     readCollection(directory, 'activity'), readCollection(directory, 'books'), readCollection(directory, 'site-versions'),
   ]);
-  const server = await createServer({ root, mode: 'production', logLevel: 'silent', server: { middlewareMode: true, watch: null }, appType: 'custom' });
+  const cacheDir = await mkdtemp(join(tmpdir(), 'website-validator-'));
   let cvIds;
   try {
-    const { entries } = await server.ssrLoadModule('/src/data/cv.ts');
-    cvIds = entries.filter(entry => entry.section === 'work').map(entry => entry.id);
-  } finally { await server.close(); }
+    const server = await createServer({ root, cacheDir, mode: 'production', logLevel: 'silent', server: { middlewareMode: true, watch: null }, appType: 'custom' });
+    try {
+      const { entries } = await server.ssrLoadModule('/src/data/cv.ts');
+      cvIds = entries.filter(entry => entry.section === 'work').map(entry => entry.id);
+    } finally { await server.close(); }
+  } finally { await rm(cacheDir, { recursive: true, force: true }); }
   const content = parsePublicContent({ activity, books, versions }, cvIds);
   console.log(`Public content valid: ${content.activity.length} activity, ${content.books.length} books, ${content.versions.length} previous versions.`);
 } catch (error) {

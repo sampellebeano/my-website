@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, writeFile, rm } from 'node:fs/promises';
+import { mkdtemp, mkdir, readFile, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -32,4 +32,15 @@ test('the content CLI rejects private fields with a redacted actionable error', 
 test('the content CLI resolves project links from the existing CV', async () => {
   const result = await validate([daily({ links: [{ label: 'Project', href: '#/projects?entry=presight' }] })]);
   assert.equal(result.status, 0, result.stderr);
+});
+test('the content CLI preserves the live development dependency cache', async () => {
+  const cache = join(process.cwd(), 'node_modules', '.vite', 'deps');
+  const marker = join(cache, 'website-validation-test-marker');
+  await mkdir(cache, { recursive: true });
+  await writeFile(marker, 'live-development-cache');
+  try {
+    const result = await validate([daily()]);
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal(await readFile(marker, 'utf8'), 'live-development-cache');
+  } finally { await rm(marker, { force: true }); }
 });

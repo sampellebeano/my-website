@@ -2,7 +2,7 @@
 
 Date: 8 October 2026
 
-Status: Approved in conversation on 8 October 2026; implementation plan awaiting review.
+Status: Design and implementation plan approved in conversation on 8 October 2026; native implementation selected.
 
 ## Purpose and agreed direction
 
