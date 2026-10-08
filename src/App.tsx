@@ -8,6 +8,8 @@ import NotFound from "./pages/NotFound";
 import SearchResults from "./pages/SearchResults";
 import Experience from "./pages/Experience";
 import Projects from "./pages/Projects";
+import Updates from "./pages/Updates";
+import Books from "./pages/Books";
 import { RouteScroll } from "./components/RouteScroll";
 
 const queryClient = new QueryClient();
@@ -24,6 +26,8 @@ const App = () => (
           <Route path="/search" element={<SearchResults />} />
           <Route path="/experience" element={<Experience />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/updates" element={<Updates />} />
+          <Route path="/books" element={<Books />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

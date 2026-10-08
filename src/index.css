@@ -42,7 +42,7 @@
 
 @layer components {
   .site-frame { @apply mx-auto grid min-h-screen w-full max-w-[1248px] gap-12 px-6 py-10 md:grid-cols-[250px_minmax(0,1fr)] md:gap-16 md:px-10 md:py-14 lg:gap-24; }
-  .site-sidebar { @apply flex min-w-0 flex-col gap-8 md:sticky md:top-14 md:self-start; }
+  .site-sidebar { @apply flex min-w-0 flex-col gap-6 md:sticky md:top-14 md:self-start; }
   .identity-name { @apply text-[34px] font-semibold leading-tight tracking-[-0.04em]; }
   .identity-name span { @apply text-primary; }
   .identity-role { @apply mt-4 text-[15px] font-medium leading-relaxed; }
@@ -89,6 +89,40 @@
   .empty-state h2 { @apply text-lg font-medium; }
   .empty-state p { @apply mt-3 max-w-lg text-sm leading-relaxed text-muted-foreground; }
   .skip-link { @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-card focus:p-4; }
+  .overview-heading { @apply mb-6; }
+  .overview-section { @apply mb-6; }
+  .section-heading { @apply mb-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-2; }
+  .section-heading h2 { @apply text-base font-medium; }
+  .section-heading > a { @apply text-xs; }
+  .featured-projects { @apply grid gap-6 sm:grid-cols-2; }
+  .featured-project { @apply border-t border-border pt-4; }
+  .featured-project h3 { @apply mt-3 text-lg font-medium leading-snug tracking-[-0.015em]; }
+  .featured-project h3 a { @apply hover:text-primary; }
+  .featured-project h3 span { @apply text-primary; }
+  .featured-project > p:last-child { @apply mt-3 text-sm leading-relaxed text-muted-foreground; }
+  .career-list { @apply divide-y divide-border border-y border-border; }
+  .career-row { @apply flex flex-col justify-between gap-1 py-2 sm:flex-row sm:items-center sm:gap-4; }
+  .career-row h3 { @apply text-sm font-medium; }
+  .career-row p { @apply mt-1 text-xs leading-relaxed text-muted-foreground; }
+  .career-row .career-date { @apply mt-0 shrink-0; }
+  .quiet-empty { @apply border-t border-border pt-4 text-sm text-muted-foreground; }
+  .latest-update { @apply border-t border-border pt-4; }
+  .latest-update h3 { @apply mt-2 text-base font-medium; }
+  .latest-update h3 a { @apply hover:text-primary; }
+  .overview-reading { @apply border-t border-border pt-4 text-sm; }
+  .overview-reading h2 { @apply mb-2 text-xs text-muted-foreground; }
+  .overview-reading p { @apply mt-1 text-sm; }
+  .reading-author { @apply text-xs text-muted-foreground; }
+  .latest-recap { @apply mb-10 border border-border bg-card px-5 pt-5 sm:px-7; }
+  .latest-recap .content-article { @apply pt-0; }
+  .activity-week, .book-group { @apply mb-9; }
+  .week-heading { @apply mb-4 text-sm font-medium text-muted-foreground; }
+  .activity-article h3, .book-article h3 { @apply mt-2 text-xl font-medium leading-snug tracking-[-0.015em]; }
+  .activity-article h3 a, .book-article h3 a { @apply hover:text-primary; }
+  .content-article > .publication-date { @apply mt-5 text-xs; }
+  .recap-references { @apply mt-5 text-sm; }
+  .recap-references > p { @apply mb-2 text-xs text-muted-foreground; }
+  .recap-references ul { @apply space-y-2; }
 }
 
 :focus-visible { outline: 2px solid hsl(var(--primary)); outline-offset: 4px; }

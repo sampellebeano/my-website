@@ -4,6 +4,8 @@ const destinations = [
   { path: "/", label: "Overview" },
   { path: "/experience", label: "Experience" },
   { path: "/projects", label: "Projects" },
+  { path: "/updates", label: "Updates" },
+  { path: "/books", label: "Books" },
 ];
 
 export const SiteNavigation = () => (
