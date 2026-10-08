@@ -1,3 +1,5 @@
+import { matchesQuery } from "../lib/text-search.ts";
+
 export type CVSection = "about" | "experience" | "work" | "qualifications" | "contact";
 
 export interface CVEntry {
@@ -162,13 +164,9 @@ export const entries: CVEntry[] = [
   },
 ];
 
-const normalise = (value: string) => value.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-
 export function searchEntries(query: string, section?: string): CVEntry[] {
-  const words = normalise(query.trim()).split(/\s+/).filter(Boolean);
   return entries.filter((entry) => {
     if (section && entry.section !== section) return false;
-    const text = normalise([entry.title, entry.context, ...entry.paragraphs, entry.keywords ?? ""].join(" "));
-    return words.every((word) => text.includes(word));
+    return matchesQuery([entry.title, entry.context, ...entry.paragraphs, entry.keywords ?? ""].join(" "), query);
   });
 }
