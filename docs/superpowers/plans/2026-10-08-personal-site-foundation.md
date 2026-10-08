@@ -153,6 +153,6 @@ Atlas source selection, schedules, publishing permissions and the local LLM API 
 
 ## Execution completion
 
-Completed locally on 8 October 2026 on `codex/personal-site-foundation`. All six tasks and fresh review are complete; 30 focused tests, content validation, TypeScript and production build pass. Desktop/mobile and `/portfolio/` production checks pass, including downloads and the actual archived site. The review identified a 404 contrast regression, repaired and verified at 15.85:1.
+Completed locally on 8 October 2026 on `codex/personal-site-foundation`. All six tasks and fresh review are complete; 31 focused tests, content validation, TypeScript and production build pass. Desktop/mobile and `/portfolio/` production checks pass, including downloads and the actual archived site. The review identified a 404 contrast regression, repaired and verified at 15.85:1.
 
 The original snapshot records the current approved source revision `6390bafdf6350745703e52a3c8f651c9eddd610a`, including existing canonical metadata, and opens through `history/2026-10-08/index.html` so Vite resolves the saved build correctly. No private drafts or fabricated public records were added. Atlas connection and visitor inference remain follow-on work.

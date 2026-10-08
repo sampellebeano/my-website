@@ -33,6 +33,10 @@ test('public project and activity links resolve against their records', () => {
   const entry = daily({ links: [{ label: 'Project', href: '#/projects?entry=presight' }, { label: 'Note', href: '#/updates?entry=daily-2026-10-08' }] });
   assert.equal(parsePublicContent(collection([entry]), ['presight']).activity[0].links.length, 2);
 });
+test('hash links must name the actual route rather than a normalised URL path', () => {
+  const links = [{ label: 'Note', href: '#/books/../updates?entry=daily-2026-10-08' }];
+  assert.throws(() => parsePublicContent(collection([daily({ links })]), []));
+});
 test('book dates and reading statuses are validated', () => {
   assert.throws(() => parsePublicContent(collection([], [book({ completedOn: '2026-02-30' })]), []));
   assert.throws(() => parsePublicContent(collection([], [book({ status: 'private' })]), []));
