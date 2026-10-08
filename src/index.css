@@ -123,6 +123,11 @@
   .recap-references { @apply mt-5 text-sm; }
   .recap-references > p { @apply mb-2 text-xs text-muted-foreground; }
   .recap-references ul { @apply space-y-2; }
+  .career-owner { @apply mb-5 text-sm leading-relaxed text-muted-foreground; }
+  .career-highlights { @apply mt-6 border-l border-border pl-4 text-sm; }
+  .career-highlights > p { @apply mb-3 text-xs text-muted-foreground; }
+  .career-highlights ul { @apply space-y-4; }
+  .career-highlights li > span { @apply mt-1 block text-xs leading-relaxed text-muted-foreground; }
 }
 
 :focus-visible { outline: 2px solid hsl(var(--primary)); outline-offset: 4px; }

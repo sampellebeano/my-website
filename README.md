@@ -4,13 +4,13 @@ A personal CV, portfolio and public activity feed for Sam Green, Senior Solution
 
 The primary website address is [samjgreen.com](https://samjgreen.com/). The `www.samjgreen.com` address redirects to the primary domain.
 
-The compact overview features Presight and aviation work, four career roles and the latest published update. Navigation opens Experience, Projects, Updates and Books. Project copy distinguishes proposals and demonstrations from completed implementation. Daily notes and books start empty; add only real, publication-approved content.
+The compact overview features personal projects, four career roles and the latest published update. Navigation opens Experience, Projects, Updates and Books. Personal builds such as Kapture and bassh live in `src/data/projects.ts`. Employer initiatives belong to career records in `src/data/cv.ts`, associated with their role through `roleId`; they appear under Experience. Career copy distinguishes proposals and demonstrations from completed implementation. Client names are omitted from the current website copy. Daily notes and books start empty; add only real, publication-approved content.
 
 ## Views and search
 
-Routes live inside the URL hash: `#/`, `#/experience`, `#/projects`, `#/updates`, `#/books` and `#/search`. Projects, updates and books accept `?entry=<stable-id>` for a readable individual record; unavailable IDs return the collection with a notice.
+Routes live inside the URL hash: `#/`, `#/experience`, `#/projects`, `#/updates`, `#/books` and `#/search`. Experience, projects, updates and books accept `?entry=<stable-id>` for a readable individual record; unavailable IDs return the collection with a notice. Old project links to career highlights redirect to their Experience detail.
 
-A nonempty query at `#/search?query=...` searches the CV, published activity and books. Matching ignores case and accents and requires every query word. Existing `?section=about|experience|work|qualifications|contact` links filter the CV only. An empty or whitespace-only query browses the full CV or selected CV section; an unknown section returns no results.
+A nonempty query at `#/search?query=...` searches the CV, personal projects, published activity and books. Matching ignores case and accents and requires every query word. Existing `?section=about|experience|work|qualifications|contact` links filter the CV only; `work` is labelled Career highlights. An empty or whitespace-only query browses the full CV or selected CV section; an unknown section returns no results.
 
 ## Public content
 
@@ -28,7 +28,7 @@ Never rebuild over a saved snapshot or copy an existing history tree into a new 
 
 ## CV downloads
 
-The current CV, including the Presight example, is available in both formats:
+The original downloadable CV is available in both formats:
 
 [PDF CV](public/cv/Sam-Green-Solution-Architecture-CV.pdf)
 

@@ -33,6 +33,14 @@ test('public project and activity links resolve against their records', () => {
   const entry = daily({ links: [{ label: 'Project', href: '#/projects?entry=presight' }, { label: 'Note', href: '#/updates?entry=daily-2026-10-08' }] });
   assert.equal(parsePublicContent(collection([entry]), ['presight']).activity[0].links.length, 2);
 });
+test('career highlight links resolve in Experience', () => {
+  const entry = daily({ links: [{ label: 'Career work', href: '#/experience?entry=aviation' }] });
+  assert.equal(parsePublicContent(collection([entry]), ['kapture', 'bassh'], ['aviation']).activity.length, 1);
+});
+test('career IDs cannot be linked as personal projects', () => {
+  const entry = daily({ links: [{ label: 'Career work', href: '#/projects?entry=aviation' }] });
+  assert.throws(() => parsePublicContent(collection([entry]), ['kapture', 'bassh'], ['aviation']));
+});
 test('hash links must name the actual route rather than a normalised URL path', () => {
   const links = [{ label: 'Note', href: '#/books/../updates?entry=daily-2026-10-08' }];
   assert.throws(() => parsePublicContent(collection([daily({ links })]), []));

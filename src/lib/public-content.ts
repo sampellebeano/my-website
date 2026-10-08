@@ -71,7 +71,7 @@ function invalid(path: string, reason: string): never {
   throw new Error(`Public content: ${path}: ${reason}.`);
 }
 
-function validateLink(href: string, path: string, content: PublicContent, cvIds: readonly string[]): void {
+function validateLink(href: string, path: string, content: PublicContent, projectIds: readonly string[], careerIds: readonly string[]): void {
   if (href.startsWith("https://")) {
     try {
       const url = new URL(href);
@@ -90,12 +90,13 @@ function validateLink(href: string, path: string, content: PublicContent, cvIds:
   if (selected.length) {
     const ids = route.pathname === "/updates" ? content.activity.map(entry => entry.id)
       : route.pathname === "/books" ? content.books.map(entry => entry.id)
-      : route.pathname === "/projects" ? cvIds : [];
+      : route.pathname === "/projects" ? projectIds
+      : route.pathname === "/experience" ? careerIds : [];
     if (selected.length !== 1 || !ids.includes(selected[0])) invalid(path, "entry must reference a published record in this view");
   }
 }
 
-export function parsePublicContent(input: unknown, cvIds: readonly string[]): PublicContent {
+export function parsePublicContent(input: unknown, projectIds: readonly string[], careerIds: readonly string[] = []): PublicContent {
   const result = contentSchema.safeParse(input);
   if (!result.success) {
     // Zod's default messages can contain input values. Keep errors useful without exposing them.
@@ -127,10 +128,10 @@ export function parsePublicContent(input: unknown, cvIds: readonly string[]): Pu
         }
       });
     }
-    entry.links?.forEach((link, linkIndex) => validateLink(link.href, `activity.${index}.links.${linkIndex}.href`, content, cvIds));
+    entry.links?.forEach((link, linkIndex) => validateLink(link.href, `activity.${index}.links.${linkIndex}.href`, content, projectIds, careerIds));
   });
   content.books.forEach((entry, index) => {
-    if (entry.url) validateLink(entry.url, `books.${index}.url`, content, cvIds);
+    if (entry.url) validateLink(entry.url, `books.${index}.url`, content, projectIds, careerIds);
   });
   content.versions.forEach((version, index) => {
     if (version.path !== `history/${version.capturedOn}/index.html`) invalid(`versions.${index}.path`, "path must match the snapshot capture date");

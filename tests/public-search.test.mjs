@@ -20,7 +20,7 @@ test('matching ignores case and accents and requires every word', () => {
 test('CV keywords remain searchable', () => assert.equal(searchPublicContent('presight', '', cv, content)[0].id, 'project'));
 test('results link to their actual published record', () => {
   const results = searchPublicContent('architecture', '', cv, content);
-  assert.equal(results[0].href, '/search?section=work&query=architecture');
+  assert.equal(results[0].href, '/experience?entry=project');
   assert.equal(results[2].href, '/updates?entry=daily-2026-10-08');
   assert.equal(results[3].href, '/books?entry=book-example');
   assert.equal(results[3].context, 'Example Author · Reading');
@@ -35,4 +35,4 @@ test('a recognised section searches only its CV records', () => {
 });
 test('unknown sections retain the legacy empty result', () => assert.deepEqual(searchPublicContent('architecture', 'missing', cv, content), []));
 test('unmatched queries return no invented answer', () => assert.deepEqual(searchPublicContent('unfindableword', '', cv, content), []));
-test('query text is encoded in result links', () => assert.equal(searchPublicContent('architecture & adoption', '', [{ ...cv[1], paragraphs: ['Architecture & adoption.'] }], collection())[0].href, '/search?section=experience&query=architecture%20%26%20adoption'));
+test('query text is encoded in CV section result links', () => assert.equal(searchPublicContent('architecture & adoption', '', [{ ...cv[1], section: 'about', paragraphs: ['Architecture & adoption.'] }], collection())[0].href, '/search?section=about&query=architecture%20%26%20adoption'));

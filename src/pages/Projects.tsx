@@ -1,15 +1,19 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, Navigate, useSearchParams } from "react-router-dom";
 import { SiteShell } from "@/components/SiteShell";
 import { entries } from "@/data/cv";
+import { projects } from "@/data/projects";
 
 const Projects = () => {
   const [params] = useSearchParams();
   const requested = params.get("entry");
-  const projects = entries.filter(entry => entry.section === "work");
+  const careerId = requested === "presight" ? "enterprise-front-door" : requested;
+  if (entries.some(entry => entry.section === "work" && entry.id === careerId)) {
+    return <Navigate replace to={`/experience?entry=${encodeURIComponent(careerId!)}`} />;
+  }
   const selected = projects.find(entry => entry.id === requested);
   return (
     <SiteShell>
-      <div className="page-heading"><p className="eyebrow">Selected work</p><h1>Projects</h1><p>A few initiatives, demonstrations and programmes I’ve worked on.</p></div>
+      <div className="page-heading"><p className="eyebrow">Personal builds</p><h1>Projects</h1><p>Apps and tools I’m building outside my day job.</p></div>
       {requested && !selected && <p role="status" className="entry-notice">That project is unavailable. Browse the projects below.</p>}
       {selected && <Link className="text-link back-link" to="/projects">← All projects</Link>}
       <div className="article-list">

@@ -38,7 +38,7 @@ Daily records additionally require `activityDate`, a real `YYYY-MM-DD` calendar 
     "body": ["This is a format example, not a real update."],
     "publishedAt": "2026-10-08T20:00:00+04:00",
     "activityDate": "2026-10-08",
-    "links": [{ "label": "A public project", "href": "#/projects?entry=presight" }]
+    "links": [{ "label": "A personal project", "href": "#/projects?entry=kapture" }]
   },
   {
     "id": "weekly-example-2026-10-05",
@@ -82,7 +82,7 @@ Add real books and Sam's actual notes. The overview shows a book only when a `re
 
 IDs must be unique across activity, books and previous-version records. Keep them stable because direct links and weekly references use them.
 
-Public links allow HTTPS without embedded credentials, or these hash routes: `#/`, `#/experience`, `#/projects`, `#/updates`, `#/books` and `#/search`. An `entry` parameter must resolve to a published record in Projects, Updates or Books. Current project IDs are `presight`, `aviation`, `executive-briefings` and `quip`. Executable schemes, HTTP and unknown routes are rejected. Authored text renders as text, not HTML or Markdown.
+Public links allow HTTPS without embedded credentials, or these hash routes: `#/`, `#/experience`, `#/projects`, `#/updates`, `#/books` and `#/search`. An `entry` parameter must resolve to a published record in its view. Personal project IDs are `kapture` and `bassh`. Career highlight IDs are `enterprise-front-door`, `aviation`, `executive-briefings` and `quip`, and use `#/experience?entry=<id>`. Projects contains Sam's personal builds; employer initiatives stay under Experience unless Sam explicitly changes that classification. Add further personal builds to `src/data/projects.ts` with approved public descriptions. Executable schemes, HTTP and unknown routes are rejected. Authored text renders as text, not HTML or Markdown.
 
 ```sh
 npm run validate:content

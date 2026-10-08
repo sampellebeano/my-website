@@ -29,8 +29,8 @@ test('the content CLI rejects private fields with a redacted actionable error', 
   assert.match(result.stderr, /activity\.0.*unrecognised/);
   assert.ok(!`${result.stdout}${result.stderr}`.includes('SECRET-TEST-VALUE'));
 });
-test('the content CLI resolves project links from the existing CV', async () => {
-  const result = await validate([daily({ links: [{ label: 'Project', href: '#/projects?entry=presight' }] })]);
+test('the content CLI resolves personal project and career links separately', async () => {
+  const result = await validate([daily({ links: [{ label: 'Project', href: '#/projects?entry=kapture' }, { label: 'Career', href: '#/experience?entry=aviation' }] })]);
   assert.equal(result.status, 0, result.stderr);
 });
 test('the content CLI preserves the live development dependency cache', async () => {

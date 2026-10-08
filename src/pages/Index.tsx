@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import { SiteShell } from "@/components/SiteShell";
 import { entries } from "@/data/cv";
+import { projects } from "@/data/projects";
 import { publicContent } from "@/data/public-content";
 import { formatPublicDate, sortActivity } from "@/lib/public-content";
 
 const Index = () => {
-  const projects = ["presight", "aviation"].map(id => entries.find(entry => entry.id === id)!);
+  const featuredProjects = projects.slice(0, 2);
   const career = entries.filter(entry => entry.section === "experience");
   const latest = sortActivity(publicContent.activity)[0];
   const reading = publicContent.books.find(book => book.status === "reading");
@@ -13,13 +14,13 @@ const Index = () => {
     <SiteShell>
       <div className="page-heading overview-heading"><p className="eyebrow">Solution engineering · Architecture · AI</p><h1>Overview</h1></div>
       <section aria-labelledby="work-title" className="overview-section">
-        <div className="section-heading"><h2 id="work-title">Selected work</h2><Link className="text-link" to="/projects">All projects <span aria-hidden="true">↗</span></Link></div>
+        <div className="section-heading"><h2 id="work-title">Personal projects</h2><Link className="text-link" to="/projects">All projects <span aria-hidden="true">↗</span></Link></div>
         <div className="featured-projects">
-          {projects.map(project => (
+          {featuredProjects.map(project => (
             <article key={project.id} className="featured-project">
               <p className="article-context">{project.context}</p>
               <h3><Link to={`/projects?entry=${project.id}`}>{project.title} <span aria-hidden="true">↗</span></Link></h3>
-              <p>{project.id === "presight" ? "A proposed single front door across IT, HR, Customer Experience, App Development and Asset Management." : "Connecting enterprise needs with ServiceNow use cases and demonstrations for an airport and an international airline."}</p>
+              <p>{project.summary}</p>
             </article>
           ))}
         </div>

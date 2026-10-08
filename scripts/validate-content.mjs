@@ -25,15 +25,17 @@ try {
     readCollection(directory, 'activity'), readCollection(directory, 'books'), readCollection(directory, 'site-versions'),
   ]);
   const cacheDir = await mkdtemp(join(tmpdir(), 'website-validator-'));
-  let cvIds;
+  let projectIds;
+  let careerIds;
   try {
     const server = await createServer({ root, cacheDir, mode: 'production', logLevel: 'silent', server: { middlewareMode: true, watch: null }, appType: 'custom' });
     try {
-      const { entries } = await server.ssrLoadModule('/src/data/cv.ts');
-      cvIds = entries.filter(entry => entry.section === 'work').map(entry => entry.id);
+      const [{ entries }, { projects }] = await Promise.all([server.ssrLoadModule('/src/data/cv.ts'), server.ssrLoadModule('/src/data/projects.ts')]);
+      projectIds = projects.map(project => project.id);
+      careerIds = entries.filter(entry => entry.section === 'experience' || entry.section === 'work').map(entry => entry.id);
     } finally { await server.close(); }
   } finally { await rm(cacheDir, { recursive: true, force: true }); }
-  const content = parsePublicContent({ activity, books, versions }, cvIds);
+  const content = parsePublicContent({ activity, books, versions }, projectIds, careerIds);
   console.log(`Public content valid: ${content.activity.length} activity, ${content.books.length} books, ${content.versions.length} previous versions.`);
 } catch (error) {
   console.error(error.message);

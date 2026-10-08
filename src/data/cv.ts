@@ -9,12 +9,13 @@ export interface CVEntry {
   context: string;
   paragraphs: string[];
   keywords?: string;
+  roleId?: string;
 }
 
 export const sections: { id: CVSection; label: string }[] = [
   { id: "about", label: "About" },
   { id: "experience", label: "Experience" },
-  { id: "work", label: "Selected work" },
+  { id: "work", label: "Career highlights" },
   { id: "qualifications", label: "Qualifications" },
   { id: "contact", label: "Contact" },
 ];
@@ -43,7 +44,7 @@ export const entries: CVEntry[] = [
     context: "March 2025 to present",
     paragraphs: [
       "Support aviation and wealth management accounts through ServiceNow use cases, demonstrations and application adoption. Current work includes autonomous workforce solutions for an airport planned to become the world’s largest by passenger capacity and one of the world’s largest international airlines.",
-      "Proposed and demonstrated a single enterprise front door for Presight and structured its architecture across five independent business units. Lead global enterprise Executive Briefing Centre sessions across Ireland, the UK, UAE and Singapore.",
+      "Proposed and demonstrated a single enterprise front door and structured its architecture across five independent business units. Lead global enterprise Executive Briefing Centre sessions across Ireland, the UK, UAE and Singapore.",
     ],
     keywords: "AI architecture finance financial services EBC automation",
   },
@@ -69,12 +70,13 @@ export const entries: CVEntry[] = [
     paragraphs: ["Led the Quip Black Belt programme and UK & Ireland SMB solution engineering for professional services. Built an integrated weekly webinar platform and created materials adopted across EMEA sales onboarding."],
   },
   {
-    id: "presight",
+    id: "enterprise-front-door",
     section: "work",
-    title: "A single enterprise front door for Presight",
-    context: "Enterprise solution architecture | Proposal and demonstration",
+    roleId: "servicenow-uae",
+    title: "A single enterprise front door",
+    context: "ServiceNow | Proposal and demonstration",
     paragraphs: [
-      "Presight is an ADX-listed AI and big data analytics company. The initiative brought together five independent business units around a proposed single front door for the enterprise.",
+      "The initiative brought together five independent business units around a proposed single front door for the enterprise.",
       "I proposed and demonstrated the solution and structured its architecture across IT, HR, Customer Experience, App Development and Asset Management.",
     ],
     keywords: "human resources information technology customer service application development assets transformation",
@@ -82,6 +84,7 @@ export const entries: CVEntry[] = [
   {
     id: "aviation",
     section: "work",
+    roleId: "servicenow-uae",
     title: "Autonomous workforce solutions for aviation",
     context: "ServiceNow | Current initiatives",
     paragraphs: ["Develop autonomous workforce solutions for an airport planned to become the world’s largest by passenger capacity and one of the world’s largest international airlines. Work focuses on connecting enterprise needs with ServiceNow use cases and demonstrations."],
@@ -90,14 +93,16 @@ export const entries: CVEntry[] = [
   {
     id: "executive-briefings",
     section: "work",
+    roleId: "servicenow-uae",
     title: "Global enterprise executive briefings",
-    context: "Ireland, UK, UAE and Singapore",
+    context: "ServiceNow | Ireland, UK, UAE and Singapore",
     paragraphs: ["Lead Executive Briefing Centre sessions for enterprise customers, connecting customer business priorities with ServiceNow capabilities and application adoption."],
     keywords: "EBC CxO stakeholder engagement",
   },
   {
     id: "quip",
     section: "work",
+    roleId: "salesforce",
     title: "Quip Black Belt programme",
     context: "Salesforce | Programme leadership and enablement",
     paragraphs: ["Led the Quip Black Belt programme during my time at Salesforce. Created enablement materials adopted across EMEA sales onboarding and built an integrated platform for weekly webinars."],
