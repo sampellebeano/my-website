@@ -2,6 +2,8 @@
 
 A searchable personal CV and portfolio for Sam Green, Senior Solution Consultant at ServiceNow, based in the UAE. Built with React, TypeScript, Vite and Tailwind CSS.
 
+The primary website address is [samjgreen.com](https://samjgreen.com/). The `www.samjgreen.com` address redirects to the primary domain.
+
 The homepage features the Presight enterprise architecture initiative and current career history. Search and section navigation cover experience, selected work, education, courses and credentials. Project copy distinguishes proposals and demonstrations from completed implementation.
 
 ## CV downloads
@@ -36,6 +38,8 @@ npm run preview
 The GitHub Actions workflow in `.github/workflows/jekyll-gh-pages.yml` builds the Vite application and deploys `dist` to GitHub Pages on pushes to `main`. The workflow filename is retained from the original project; it does not run Jekyll.
 
 GitHub Pages must use **GitHub Actions** as its publishing source under Settings > Pages. Hash-based navigation and relative asset paths allow page refreshes on GitHub Pages and deployments at a repository subdirectory or domain root.
+
+The custom domain in Settings > Pages is `samjgreen.com`. Cloudflare manages registration and DNS. Both the root (`@`) and `www` use DNS-only CNAME records pointing to `sampellebeano.github.io`; Cloudflare flattens the root record. GitHub Pages handles HTTPS and redirects `www` to the root domain. Keep **Enforce HTTPS** enabled once GitHub has issued the certificate. Because publishing uses GitHub Actions, the custom domain is managed in repository settings rather than a `CNAME` file.
 
 Dependencies and generated build output are ignored for future additions. The existing repository already tracks historical copies of `node_modules` and `dist`; removing these from history is a separate maintenance task.
 
