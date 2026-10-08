@@ -2,7 +2,7 @@
 
 Date: 8 October 2026
 
-Status: Written design for review; implementation planning follows approval.
+Status: Approved in conversation on 8 October 2026; implementation plan awaiting review.
 
 ## Purpose and agreed direction
 
