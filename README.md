@@ -1,73 +1,42 @@
-# Welcome to your Lovable project
+# Sam Green: personal website
 
-## Project info
+A searchable personal CV and portfolio for Sam Green, Senior Solution Consultant at ServiceNow, based in the UAE. Built with React, TypeScript, Vite and Tailwind CSS.
 
-**URL**: https://lovable.dev/projects/3f3c17b9-b82f-422a-9f3d-f8b7e44a6f86
+The homepage features the Presight enterprise architecture initiative and current career history. Search and section navigation cover experience, selected work, education, courses and credentials. Project copy distinguishes proposals and demonstrations from completed implementation.
 
-## How can I edit this code?
+## CV downloads
 
-There are several ways of editing your application.
+The current CV, including the Presight example, is available in both formats:
 
-**Use Lovable**
+[PDF CV](public/cv/Sam-Green-Solution-Architecture-CV.pdf)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/3f3c17b9-b82f-422a-9f3d-f8b7e44a6f86) and start prompting.
+[Word CV](public/cv/Sam-Green-Solution-Architecture-CV.docx)
 
-Changes made via Lovable will be committed automatically to this repo.
+Replace these files when updating the CV. Vite copies them unchanged into the published site. Website content is maintained in `src/data/cv.ts`, with the homepage introduction and featured work in `src/pages/Index.tsx`.
 
-**Use your preferred IDE**
+## Local development
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+Use Node.js 22 or later.
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+npm ci --include=dev
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Verification and build
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```sh
+npx tsc --noEmit -p tsconfig.app.json
+npm run build
+npm run preview
+```
 
-**Use GitHub Codespaces**
+## Publishing
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+The GitHub Actions workflow in `.github/workflows/jekyll-gh-pages.yml` builds the Vite application and deploys `dist` to GitHub Pages on pushes to `main`. The workflow filename is retained from the original project; it does not run Jekyll.
 
-## What technologies are used for this project?
+GitHub Pages must use **GitHub Actions** as its publishing source under Settings > Pages. Hash-based navigation and relative asset paths allow page refreshes on GitHub Pages and deployments at a repository subdirectory or domain root.
 
-This project is built with:
+Dependencies and generated build output are ignored for future additions. The existing repository already tracks historical copies of `node_modules` and `dist`; removing these from history is a separate maintenance task.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/3f3c17b9-b82f-422a-9f3d-f8b7e44a6f86) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+The original project remains editable in [Lovable](https://lovable.dev/projects/3f3c17b9-b82f-422a-9f3d-f8b7e44a6f86).

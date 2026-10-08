@@ -1,40 +1,12 @@
-import { Button } from "@/components/ui/button";
-
-export const CVFooter = () => {
-  const footerLinks = [
-    { label: "LinkedIn", href: "#" },
-    { label: "GitHub", href: "#" },
-    { label: "Twitter", href: "#" },
-    { label: "Email", href: "#" },
-  ];
-
-  return (
-    <footer className="fixed bottom-0 left-0 right-0 bg-google-light-gray border-t border-border py-4">
-      <div className="container mx-auto px-6">
-        <div className="flex justify-between items-center text-sm">
-          <div className="flex space-x-6">
-            <Button variant="google-nav" className="text-xs">
-              Privacy
-            </Button>
-            <Button variant="google-nav" className="text-xs">
-              Terms
-            </Button>
-          </div>
-          
-          <div className="flex space-x-6">
-            {footerLinks.map((link) => (
-              <Button 
-                key={link.label} 
-                variant="google-nav" 
-                className="text-xs"
-                onClick={() => window.open(link.href, '_blank')}
-              >
-                {link.label}
-              </Button>
-            ))}
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-};
+export const CVFooter = () => (
+  <footer className="mt-auto border-t border-border bg-google-light-gray">
+    <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-5 px-6 py-6 text-sm">
+      <p className="text-muted-foreground">Sam Green · UAE</p>
+      <nav aria-label="Contact links" className="flex flex-wrap gap-6">
+        <a className="nav-link" href="https://www.linkedin.com/in/samjohngreen" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a className="nav-link" href="https://github.com/sampellebeano" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a className="nav-link" href="mailto:sam.jgreen@icloud.com">Email</a>
+      </nav>
+    </div>
+  </footer>
+);
