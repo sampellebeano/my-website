@@ -41,6 +41,8 @@ Vercel hosts the site and deploys the GitHub repository `sampellebeano/my-websit
 
 Cloudflare manages registration and DNS for `samjgreen.com`. The root domain serves the Vercel production deployment, and `www.samjgreen.com` redirects to `https://samjgreen.com/`. Use the exact DNS targets shown in the Vercel project's Domains settings and keep these records **DNS only**. Vercel manages HTTPS certificates. GitHub Pages is disabled.
 
+The custom domain in Settings > Pages is `samjgreen.com`. Cloudflare manages registration and DNS. Both the root (`@`) and `www` use DNS-only CNAME records pointing to `sampellebeano.github.io`; Cloudflare flattens the root record. GitHub Pages handles HTTPS and redirects `www` to the root domain. Keep **Enforce HTTPS** enabled once GitHub has issued the certificate. Because publishing uses GitHub Actions, the custom domain is managed in repository settings rather than a `CNAME` file.
+
 Dependencies and generated build output are ignored for future additions. The existing repository already tracks historical copies of `node_modules` and `dist`; removing these from history is a separate maintenance task.
 
 The original project remains editable in [Lovable](https://lovable.dev/projects/3f3c17b9-b82f-422a-9f3d-f8b7e44a6f86).
