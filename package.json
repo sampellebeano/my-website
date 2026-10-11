@@ -5,7 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "test": "node --experimental-strip-types --test tests/*.test.mjs",
+    "validate:content": "node --experimental-strip-types scripts/validate-content.mjs",
+    "prebuild": "npm run validate:content",
     "build": "vite build",
+    "prebuild:dev": "npm run validate:content",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview"

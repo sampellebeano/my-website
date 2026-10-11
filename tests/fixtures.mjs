@@ -1,0 +1,4 @@
+export const daily = (overrides = {}) => ({ id: 'daily-2026-10-08', kind: 'daily', title: 'Architecture notes', body: ['A public test example about architecture.'], publishedAt: '2026-10-08T20:00:00+04:00', activityDate: '2026-10-08', ...overrides });
+export const weekly = (overrides = {}) => ({ id: 'weekly-2026-10-05', kind: 'weekly', title: 'The week in review', body: ['A recap of the published architecture note.'], publishedAt: '2026-10-11T20:00:00+04:00', startDate: '2026-10-05', endDate: '2026-10-11', dailyEntryIds: ['daily-2026-10-08'], ...overrides });
+export const book = (overrides = {}) => ({ id: 'book-example', title: 'Architecture in Practice', author: 'Example Author', status: 'reading', note: 'A test-only reading note.', ...overrides });
+export const collection = (activity = [], books = [], versions = []) => ({ activity, books, versions });

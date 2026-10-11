@@ -2,148 +2,135 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
 @layer base {
   :root {
-    /* Google-inspired design system */
-    --background: 0 0% 100%;
-    --foreground: 0 0% 13%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 13%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 13%;
-
-    --primary: 217 90% 42%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 13%;
-
-    --muted: 0 0% 98%;
-    --muted-foreground: 0 0% 45%;
-
-    --accent: 217 89% 61%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 0 0% 90%;
-    --input: 0 0% 100%;
-    --ring: 217 89% 61%;
-
-    /* Google-specific design tokens */
-    --google-blue: 217 90% 42%;
-    --google-red: 0 84% 60%;
-    --google-yellow: 45 100% 51%;
-    --google-green: 134 61% 41%;
-    --google-gray: 0 0% 45%;
-    --google-light-gray: 0 0% 96%;
-    
-    /* Shadows */
-    --shadow-subtle: 0 2px 10px 0 hsl(0 0% 0% / 0.1);
-    --shadow-search: 0 2px 5px 1px hsl(0 0% 0% / 0.16);
-    --shadow-button: 0 1px 1px hsl(0 0% 0% / 0.1);
-    
-    /* Transitions */
-    --transition-fast: 0.2s ease;
-    --transition-search: 0.3s ease;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --background: 216 19.231% 10.196%;
+    --foreground: 214.286 30.435% 95.490%;
+    --card: 216 20% 14.706%;
+    --card-foreground: var(--foreground);
+    --popover: var(--card);
+    --popover-foreground: var(--foreground);
+    --primary: 218.020 100% 80.196%;
+    --primary-foreground: var(--background);
+    --secondary: var(--card);
+    --secondary-foreground: var(--foreground);
+    --muted: var(--card);
+    --muted-foreground: 213.913 16.547% 72.745%;
+    --accent: var(--primary);
+    --accent-foreground: var(--background);
+    --destructive: 0 75% 65%;
+    --destructive-foreground: var(--background);
+    --border: 215 17.391% 27.059%;
+    --input: var(--card);
+    --ring: var(--primary);
+    --radius: 0.375rem;
+    --google-blue: var(--primary);
+    --google-gray: var(--muted-foreground);
+    --google-light-gray: var(--card);
   }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-
+  * { @apply border-border; }
   body {
     @apply bg-background text-foreground;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     -webkit-font-smoothing: antialiased;
+    margin: 0;
   }
+  button, input { font: inherit; }
+  a, p, h1, h2, h3 { overflow-wrap: anywhere; }
+  ::selection { @apply bg-primary text-primary-foreground; }
 }
 
 @layer components {
-  .nav-link {
-    @apply text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline;
-  }
-  .download-link {
-    @apply inline-flex min-h-10 items-center gap-2 rounded-full border border-primary bg-primary px-4 py-2 font-medium text-primary-foreground hover:bg-primary/90;
-  }
-  .secondary-download {
-    @apply bg-background text-primary hover:bg-secondary;
-  }
-  .skip-link {
-    @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-background focus:p-4;
-  }
+  .site-frame { @apply mx-auto grid min-h-screen w-full max-w-[1248px] gap-12 px-6 py-10 md:grid-cols-[250px_minmax(0,1fr)] md:gap-16 md:px-10 md:py-14 lg:gap-24; }
+  .site-sidebar { @apply flex min-w-0 flex-col gap-6 md:sticky md:top-14 md:self-start; }
+  .identity-name { @apply text-[34px] font-semibold leading-tight tracking-[-0.04em]; }
+  .identity-name span { @apply text-primary; }
+  .identity-role { @apply mt-4 text-[15px] font-medium leading-relaxed; }
+  .identity-role span { @apply text-muted-foreground; }
+  .identity-about { @apply mt-5 text-sm leading-[1.75] text-muted-foreground; }
+  .site-navigation { @apply flex flex-wrap gap-x-5 gap-y-1 md:flex-col md:gap-1; }
+  .site-nav-link { @apply flex min-h-10 items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-foreground; }
+  .site-nav-link.is-active { @apply font-medium text-primary; }
+  .nav-marker { @apply hidden h-1 w-1 rounded-full bg-transparent md:block; }
+  .is-active .nav-marker { @apply bg-primary; }
+  .site-search { @apply relative flex min-w-0 items-center rounded-md border border-border bg-card; }
+  .site-search .search-icon { @apply ml-3 shrink-0 text-muted-foreground; }
+  .site-search input { @apply min-w-0 flex-1 bg-transparent py-3 pl-2 text-sm outline-none placeholder:text-muted-foreground; }
+  .site-search:focus-within { @apply border-primary; }
+  .site-search button { @apply flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-r-md text-primary hover:bg-background; }
+  .sidebar-links { @apply flex flex-col gap-3; }
+  .cv-downloads { @apply flex flex-wrap gap-3; }
+  .download-link { @apply inline-flex min-h-10 items-center gap-2 rounded-md border border-border px-3 py-2 text-xs font-medium text-foreground hover:border-primary hover:text-primary; }
+  .full-cv-link { @apply self-start text-sm; }
+  .sidebar-bottom { @apply flex flex-col gap-5 border-t border-border pt-5; }
+  .site-contact nav { @apply flex flex-wrap gap-x-5 gap-y-3 text-xs; }
+  .nav-link { @apply text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline; }
+  .text-link { @apply text-primary underline-offset-4 hover:underline; }
+  .previous-versions { @apply text-xs text-muted-foreground; }
+  .previous-versions summary { @apply min-h-8 cursor-pointer py-1.5 hover:text-foreground; }
+  .previous-versions ul { @apply mt-2 space-y-3; }
+  .version-date { @apply mt-1 block leading-relaxed; }
+  .site-main { @apply min-w-0; }
+  .site-main:focus { outline: none; }
+  .page-heading { @apply mb-9; }
+  .eyebrow { @apply mb-3 text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground; }
+  .page-heading h1 { @apply text-[30px] font-medium leading-tight tracking-[-0.025em]; }
+  .page-heading > p:last-child:not(.eyebrow) { @apply mt-4 max-w-xl text-[15px] leading-relaxed text-muted-foreground; }
+  .article-list { @apply divide-y divide-border border-y border-border; }
+  .content-article { @apply py-7; }
+  .content-article h2 { @apply mt-2 text-xl font-medium leading-snug tracking-[-0.015em]; }
+  .content-article h2 a { @apply hover:text-primary; }
+  .content-article > p:not(.article-context) { @apply mt-4 max-w-[68ch] text-[15px] leading-[1.75] text-muted-foreground; }
+  .article-context { @apply text-xs leading-relaxed text-muted-foreground; }
+  .collection-links { @apply mt-7 flex flex-wrap gap-5 text-sm; }
+  .back-link { @apply mb-5 inline-block text-sm; }
+  .entry-notice { @apply mb-6 rounded-md border border-border bg-card p-4 text-sm leading-relaxed; }
+  .empty-state { @apply border-y border-border py-9; }
+  .empty-state h2 { @apply text-lg font-medium; }
+  .empty-state p { @apply mt-3 max-w-lg text-sm leading-relaxed text-muted-foreground; }
+  .skip-link { @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-card focus:p-4; }
+  .overview-heading { @apply mb-6; }
+  .overview-section { @apply mb-6; }
+  .section-heading { @apply mb-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-2; }
+  .section-heading h2 { @apply text-base font-medium; }
+  .section-heading > a { @apply text-xs; }
+  .featured-projects { @apply grid gap-6 sm:grid-cols-2; }
+  .featured-project { @apply border-t border-border pt-4; }
+  .featured-project h3 { @apply mt-3 text-lg font-medium leading-snug tracking-[-0.015em]; }
+  .featured-project h3 a { @apply hover:text-primary; }
+  .featured-project h3 span { @apply text-primary; }
+  .featured-project > p:last-child { @apply mt-3 text-sm leading-relaxed text-muted-foreground; }
+  .career-list { @apply divide-y divide-border border-y border-border; }
+  .career-row { @apply flex flex-col justify-between gap-1 py-2 sm:flex-row sm:items-center sm:gap-4; }
+  .career-row h3 { @apply text-sm font-medium; }
+  .career-row p { @apply mt-1 text-xs leading-relaxed text-muted-foreground; }
+  .career-row .career-date { @apply mt-0 shrink-0; }
+  .quiet-empty { @apply border-t border-border pt-4 text-sm text-muted-foreground; }
+  .latest-update { @apply border-t border-border pt-4; }
+  .latest-update h3 { @apply mt-2 text-base font-medium; }
+  .latest-update h3 a { @apply hover:text-primary; }
+  .overview-reading { @apply border-t border-border pt-4 text-sm; }
+  .overview-reading h2 { @apply mb-2 text-xs text-muted-foreground; }
+  .overview-reading p { @apply mt-1 text-sm; }
+  .reading-author { @apply text-xs text-muted-foreground; }
+  .latest-recap { @apply mb-10 border border-border bg-card px-5 pt-5 sm:px-7; }
+  .latest-recap .content-article { @apply pt-0; }
+  .activity-week, .book-group { @apply mb-9; }
+  .week-heading { @apply mb-4 text-sm font-medium text-muted-foreground; }
+  .activity-article h3, .book-article h3 { @apply mt-2 text-xl font-medium leading-snug tracking-[-0.015em]; }
+  .activity-article h3 a, .book-article h3 a { @apply hover:text-primary; }
+  .content-article > .publication-date { @apply mt-5 text-xs; }
+  .recap-references { @apply mt-5 text-sm; }
+  .recap-references > p { @apply mb-2 text-xs text-muted-foreground; }
+  .recap-references ul { @apply space-y-2; }
+  .career-owner { @apply mb-5 text-sm leading-relaxed text-muted-foreground; }
+  .career-highlights { @apply mt-6 border-l border-border pl-4 text-sm; }
+  .career-highlights > p { @apply mb-3 text-xs text-muted-foreground; }
+  .career-highlights ul { @apply space-y-4; }
+  .career-highlights li > span { @apply mt-1 block text-xs leading-relaxed text-muted-foreground; }
 }
 
-:focus-visible {
-  outline: 2px solid hsl(var(--primary));
-  outline-offset: 4px;
-}
-
+:focus-visible { outline: 2px solid hsl(var(--primary)); outline-offset: 4px; }
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+  *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
 }
