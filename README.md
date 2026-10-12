@@ -34,8 +34,10 @@ the connected account:
 git config --local user.email '64439967+sampellebeano@users.noreply.github.com'
 ```
 
-If a push creates no deployment, check Vercel’s **Settings → Git** for repository
-access errors. A GitHub rate-limit error can interrupt automatic deployments;
+If a push creates no deployment, check [Vercel status](https://www.vercel-status.com/)
+for a Git integration or deployment incident before changing project settings.
+Then check Vercel’s **Settings → Git** for repository access errors.
+A GitHub rate-limit error can interrupt automatic deployments;
 allow the limit to clear and use **Reconnect** on the existing repository link.
 If the link is healthy but pushes still produce no deployment, disconnect and
 connect the same repository again; Vercel preserves the project settings.
