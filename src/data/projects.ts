@@ -30,13 +30,13 @@ export const projects: PersonalProject[] = [
       "I’m building bassh to put my Mac’s shell in my hand. The native iPhone app connects over SSH, so development tools, scripts and Git run on the Mac while I work from my phone.",
       "Saved connections and multiple terminal sessions make it easy to return to work. Terminal controls keep keys such as Escape, Tab, Control and the arrows within reach alongside the iPhone keyboard.",
       "The Mac companion guides you through connecting your own devices with Tailscale and macOS Remote Login, authorizing your iPhone’s SSH public key and checking the Mac’s host fingerprint.",
-      "The Mac companion is available as an early preview for macOS 15 or later on Apple Silicon and Intel. It is not yet notarized by Apple, and the iPhone app requires a TestFlight invitation. The download page includes installation notes and a setup guide.",
+      "The Mac companion is available as an early preview for macOS 15 or later on Apple Silicon and Intel. It is not yet notarized by Apple, and the iPhone app is in private testing ahead of its App Store release. The download page includes installation notes, a setup guide and an email link to express interest in the release.",
     ],
     keywords: "terminal SSH remote access development tools Tailscale TestFlight Mac companion download preview",
     download: {
       href: "/bassh",
       label: "Download Mac preview",
-      availability: "Mac companion preview · macOS 15+. iPhone beta invitation required.",
+      availability: "Mac companion preview · macOS 15+. iPhone app in private testing.",
     },
   },
 ];

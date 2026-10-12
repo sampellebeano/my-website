@@ -20,6 +20,26 @@ See [public authoring and the future Atlas connection](docs/atlas-publishing.md)
 
 Atlas publishing and visitor LLM answers are follow-on integrations. This release provides ordinary search and a validated publishing format; it has no active model service or schedule.
 
+## Deployment
+
+Vercel’s Git integration connects `sampellebeano/my-website` to the `my-website`
+project in the `samjgreen` account. Pushes to `main` create production deployments
+and automatically assign `samjgreen.com` after a successful build. GitHub Actions
+runs verification separately; it does not deploy the site.
+
+Use Sam’s GitHub commit email in this repository so GitHub attributes commits to
+the connected account:
+
+```sh
+git config --local user.email '64439967+sampellebeano@users.noreply.github.com'
+```
+
+If a push creates no deployment, check Vercel’s **Settings → Git** for repository
+access errors. A GitHub rate-limit error can interrupt automatic deployments;
+allow the limit to clear and use **Reconnect** on the existing repository link.
+Confirm the next push produces a Git-triggered production deployment before
+considering the connection restored.
+
 ## Previous website
 
 The CV/search site captured on 8 October 2026 is saved independently at `public/history/2026-10-08/index.html`, including its own assets and both CV files. `content/site-versions.json` records the capture date and source revision. The Previous versions control opens this actual snapshot. Use the explicit `index.html` URL: Vite's development server otherwise falls back to the current SPA for the directory URL.
@@ -31,22 +51,23 @@ Never rebuild over a saved snapshot or copy an existing history tree into a new 
 The public download and setup page lives at [samjgreen.com/bassh](https://samjgreen.com/bassh).
 It is a standalone, script-free page in `public/bassh/`; the Vercel rewrite serves
 it at the clean URL without changing the existing hash routes. Projects links to it.
-The page includes a prefilled email link to request iPhone TestFlight access and
-an expandable five-step installation guide. Beta requests go to Sam’s email;
-there is no signup form or mailing-list service.
+The page includes a prefilled email link to express interest in the iPhone App
+Store release and an expandable five-step installation guide. Release interest
+goes to Sam’s email; there is no signup form or mailing-list service.
 
 Versioned release assets live in `public/downloads/bassh/0.2.0-3-preview/`.
 The DMG and ZIP are the unchanged universal Mac preview from the private bassh
 release, accompanied by installation notes, metadata and SHA-256 checksums.
 The companion supports macOS 15 or later, Tailscale and ordinary Remote Login.
 It is ad hoc signed and **not notarized by Apple**. The page also explains the
-separate requirement for an invitation to the iPhone TestFlight beta.
+separate requirement for the private iPhone TestFlight beta when following the
+setup guide. The beta is not open for public access requests.
 
 For each new release, add a fresh versioned directory, verify the assets against
 the release checksums, update the page's version, size, date and download links,
 and update the independently verified asset hashes in `tests/bassh-downloads.test.mjs`.
 Never replace bytes in an existing release directory: these URLs are cached as
-immutable. Developer ID signing/notarization and a public iPhone TestFlight link
+immutable. Developer ID signing/notarization and the iPhone App Store release
 are separate release steps; only change the page's status when verified.
 
 ## CV downloads

@@ -53,12 +53,12 @@ h1 { margin-top: 17px; font-size: clamp(40px, 5.3vw, 64px); font-weight: 500; li
 .download-alternatives a { font-size: 12px; padding-block: 8px; }
 .release-links { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 15px; }
 .release-links a { padding-block: 8px; font-size: 12px; text-decoration: none; }
-.iphone-beta { margin-top: 25px; border-top: 1px solid var(--border); padding-top: 24px; }
-.iphone-beta h3 { font-size: 17px; font-weight: 500; letter-spacing: -0.015em; }
-.iphone-beta p { margin-top: 10px; color: var(--muted); font-size: 13px; line-height: 1.75; }
-.beta-button { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 48px; margin-top: 17px; padding: 13px 17px; border: 1px solid var(--accent); border-radius: 6px; font-size: 14px; font-weight: 500; text-decoration: none; }
-.beta-button:hover { background: var(--surface); text-decoration: none; }
-.iphone-beta .email-hint { margin-top: 12px; font-size: 12px; }
+.iphone-release { margin-top: 25px; border-top: 1px solid var(--border); padding-top: 24px; }
+.iphone-release h3 { font-size: 17px; font-weight: 500; letter-spacing: -0.015em; }
+.iphone-release p { margin-top: 10px; color: var(--muted); font-size: 13px; line-height: 1.75; }
+.release-interest-button { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 48px; margin-top: 17px; padding: 13px 17px; border: 1px solid var(--accent); border-radius: 6px; font-size: 14px; font-weight: 500; text-decoration: none; }
+.release-interest-button:hover { background: var(--surface); text-decoration: none; }
+.iphone-release .email-hint { margin-top: 12px; font-size: 12px; }
 .setup-section { border-top: 1px solid var(--border); padding-top: 46px; scroll-margin-top: 24px; }
 .section-heading { max-width: 600px; }
 .section-heading h2 { margin-top: 12px; font-size: 30px; font-weight: 500; line-height: 1.2; letter-spacing: -0.025em; }
