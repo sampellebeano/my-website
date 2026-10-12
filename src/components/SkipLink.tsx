@@ -5,7 +5,7 @@ export const SkipLink = () => (
     onClick={(event) => {
       event.preventDefault();
       const main = document.getElementById("main-content");
-      main?.focus();
+      main?.focus({ preventScroll: true });
       main?.scrollIntoView();
     }}
   >

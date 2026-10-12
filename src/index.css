@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @layer base {
+  html { scroll-behavior: smooth; }
   :root {
     --background: 216 19.231% 10.196%;
     --foreground: 214.286 30.435% 95.490%;

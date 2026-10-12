@@ -15,6 +15,7 @@
     <meta name="twitter:card" content="summary" />
     <link rel="icon" href="/bassh/icon.png" type="image/png" />
     <link rel="stylesheet" href="/bassh/style.css" />
+    <script src="/bassh/download.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -39,11 +40,7 @@
           <h2 id="download-title">bassh for Mac</h2>
           <p class="release-info">Version 0.2.0 (3) · <time datetime="2026-10-12">12 October 2026</time></p>
           <p class="compatibility">macOS 15 or later<br />Apple Silicon &amp; Intel</p>
-          <div class="release-notice" id="release-status">
-            <h3>Signed &amp; notarized</h3>
-            <p>Signed by Sam Green with a Developer ID and notarized by Apple. Install it with the <a href="#install">three steps below</a>; keep macOS security enabled.</p>
-          </div>
-          <a class="download-button" href="/downloads/bassh/0.2.0-3-notarized/bassh-mac-0.2.0-3-notarized.zip" download aria-describedby="release-status download-format">Download for Mac <span aria-hidden="true">↓</span></a>
+          <a class="download-button" id="mac-download" href="/downloads/bassh/0.2.0-3-notarized/bassh-mac-0.2.0-3-notarized.zip" download aria-describedby="download-format">Download for Mac <span aria-hidden="true">↓</span></a>
           <p class="download-format" id="download-format">ZIP · 13.0 MB · Universal app</p>
           <div class="release-links">
             <a href="#setup">Installation guide</a>
@@ -161,5 +158,6 @@
       <p>A personal project by <a href="/">Sam Green</a>.</p>
       <a class="text-link" href="/#/projects?entry=bassh">About the project <span aria-hidden="true">↗</span></a>
     </footer>
+    <a class="download-button floating-download" id="floating-download" href="/downloads/bassh/0.2.0-3-notarized/bassh-mac-0.2.0-3-notarized.zip" download aria-describedby="download-format" hidden>Download for Mac <span aria-hidden="true">↓</span></a>
   </body>
 </html>

@@ -24,7 +24,8 @@ test('the public Mac download serves the verified notarized ZIP and release file
     const links = [...html.matchAll(/<a\b[^>]*\bhref="([^"]+)"[^>]*\bdownload(?:\s|=|>)/g)]
       .map(match => new URL(match[1], `${origin}/bassh`))
       .filter(url => /\.(dmg|zip)$/.test(url.pathname));
-    assert.equal(links.length, 1, 'The notarized ZIP must be the only current installer');
+    assert.equal(links.length, 2, 'Both the original and floating buttons must expose the download');
+    assert.equal(new Set(links.map(link => link.href)).size, 1, 'Both buttons must serve the same verified installer');
     // Independently verified GitHub release asset hashes, not page-derived values.
     const expected = {
       'bassh-mac-0.2.0-3-notarized.zip': 'c40cdd409950a02345dd981e56950f2fad55fa4cc51cd0fe4e27f55c06938b76',
