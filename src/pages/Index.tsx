@@ -20,7 +20,11 @@ const Index = () => {
             <article key={project.id} className="featured-project">
               <p className="article-context">{project.context}</p>
               <h3><Link to={`/projects?entry=${project.id}`}>{project.title} <span aria-hidden="true">↗</span></Link></h3>
-              <p>{project.summary}</p>
+              <p className="project-summary">{project.summary}</p>
+              {project.download && <div className="project-download">
+                <p>{project.download.availability}</p>
+                <a className="project-button" href={project.download.href}>{project.download.label} <span aria-hidden="true">↓</span></a>
+              </div>}
             </article>
           ))}
         </div>

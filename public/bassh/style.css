@@ -23,7 +23,10 @@ p { overflow-wrap: anywhere; }
 ::selection { color: var(--background); background: var(--accent); }
 main, .page-nav, .page-footer { width: min(100% - 80px, 1040px); margin-inline: auto; }
 main:focus { outline: none; }
-.page-nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 36px; }
+.page-nav { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px 24px; padding-block: 36px; }
+.page-nav nav { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 24px; }
+.back-button { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 10px 15px; border: 1px solid var(--border); border-radius: 6px; color: var(--foreground); font-size: 14px; text-decoration: none; }
+.back-button:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
 .home-link { color: var(--foreground); font-size: 24px; font-weight: 600; letter-spacing: -0.04em; text-decoration: none; }
 .home-link span { color: var(--accent); }
 .text-link { font-size: 14px; text-decoration: none; }

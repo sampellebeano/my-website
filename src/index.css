@@ -99,7 +99,10 @@
   .featured-project h3 { @apply mt-3 text-lg font-medium leading-snug tracking-[-0.015em]; }
   .featured-project h3 a { @apply hover:text-primary; }
   .featured-project h3 span { @apply text-primary; }
-  .featured-project > p:last-child { @apply mt-3 text-sm leading-relaxed text-muted-foreground; }
+  .project-summary { @apply mt-3 text-sm leading-relaxed text-muted-foreground; }
+  .project-download { @apply mt-4 flex flex-col items-start gap-3; }
+  .project-download > p { @apply max-w-[44ch] text-xs leading-relaxed text-muted-foreground; }
+  .project-button { @apply inline-flex min-h-11 items-center gap-3 rounded-md border border-primary/40 px-4 py-2 text-sm font-medium text-primary transition-colors hover:border-primary hover:bg-primary/10; }
   .career-list { @apply divide-y divide-border border-y border-border; }
   .career-row { @apply flex flex-col justify-between gap-1 py-2 sm:flex-row sm:items-center sm:gap-4; }
   .career-row h3 { @apply text-sm font-medium; }
