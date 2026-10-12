@@ -34,3 +34,9 @@ test('career highlights have readable Experience details', () => {
 test('the current full CV no longer publishes the client name', () => {
   assert.ok(!/Presight/i.test(render('/search')), 'Current full CV must remove the client name');
 });
+
+test('the overview gives career the first position before personal projects', () => {
+  const html = render('/');
+  const sections = [...html.matchAll(/<section[^>]*aria-labelledby="([^"]+)"/g)].map(match => match[1]);
+  assert.deepEqual(sections.slice(0, 2), ['career-title', 'work-title']);
+});

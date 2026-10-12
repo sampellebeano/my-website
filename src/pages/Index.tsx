@@ -13,6 +13,15 @@ const Index = () => {
   return (
     <SiteShell>
       <div className="page-heading overview-heading"><p className="eyebrow">Solution engineering · Architecture · AI</p><h1>Overview</h1></div>
+      <section aria-labelledby="career-title" className="overview-section">
+        <div className="section-heading"><h2 id="career-title">Career</h2><Link className="text-link" to="/experience">Experience <span aria-hidden="true">↗</span></Link></div>
+        <div className="career-list">
+          {career.map(entry => {
+            const [company, role] = entry.title.split(" | ");
+            return <article key={entry.id} className="career-row"><div><h3>{company}</h3><p>{role}</p></div><p className="career-date">{entry.context}</p></article>;
+          })}
+        </div>
+      </section>
       <section aria-labelledby="work-title" className="overview-section">
         <div className="section-heading"><h2 id="work-title">Personal projects</h2><Link className="text-link" to="/projects">All projects <span aria-hidden="true">↗</span></Link></div>
         <div className="featured-projects">
@@ -27,15 +36,6 @@ const Index = () => {
               </div>}
             </article>
           ))}
-        </div>
-      </section>
-      <section aria-labelledby="career-title" className="overview-section">
-        <div className="section-heading"><h2 id="career-title">Career</h2><Link className="text-link" to="/experience">Experience <span aria-hidden="true">↗</span></Link></div>
-        <div className="career-list">
-          {career.map(entry => {
-            const [company, role] = entry.title.split(" | ");
-            return <article key={entry.id} className="career-row"><div><h3>{company}</h3><p>{role}</p></div><p className="career-date">{entry.context}</p></article>;
-          })}
         </div>
       </section>
       <section aria-labelledby="recent-title" className="overview-section">

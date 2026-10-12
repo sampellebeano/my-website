@@ -10,18 +10,31 @@ function createViewport(initialBottom = 1100) {
   let bottom = initialBottom;
   const listeners = new Map();
   const floating = { hidden: true };
+  const page = {
+    scrollTop: 1000, clientHeight: 800, scrollHeight: 3000,
+    scrollTo: ({ top }) => { page.scrollTop = Math.max(0, Math.min(top, 2200)); },
+  };
+  const dock = { hidden: true };
   const primary = {
     getBoundingClientRect: () => ({ bottom }),
     focus: () => { document.activeElement = primary; },
   };
   const document = {
+    body: {},
     activeElement: null,
-    getElementById: id => ({ 'mac-download': primary, 'floating-download': floating })[id],
+    getElementById: id => ({ 'mac-download': primary, 'floating-download': floating, 'download-dock': dock, 'page-content': page })[id],
   };
   const window = { addEventListener: (type, callback) => listeners.set(type, callback) };
   runInNewContext(source, { document, window });
   return {
-    primary, floating, document,
+    primary, floating, dock, document, page,
+    press: (key, modifiers = {}, focus = floating) => {
+      document.activeElement = focus;
+      let prevented = false;
+      const event = { key, ...modifiers, preventDefault: () => { prevented = true; } };
+      listeners.get("keydown")?.(event);
+      return { prevented, top: page.scrollTop };
+    },
     update: (nextBottom, type = 'scroll') => { bottom = nextBottom; listeners.get(type)?.(); },
   };
 }
@@ -69,4 +82,47 @@ test('scrolling leaves focus alone when the floating button is not focused', () 
   viewport.update(-100);
   viewport.update(30);
   assert.equal(viewport.document.activeElement, otherControl);
+});
+
+test('the download gets its own reserved reading space only while it is floating', () => {
+  const viewport = createViewport();
+  assert.equal(viewport.dock.hidden, true);
+  viewport.update(-1);
+  assert.equal(viewport.floating.hidden, false);
+  assert.equal(viewport.dock.hidden, false, 'Show the reserved strip with the floating button');
+  viewport.update(20);
+  assert.equal(viewport.dock.hidden, true, 'Return the space when the original becomes visible');
+});
+
+test('paging keys on the floating download still scroll the instructions', () => {
+  const cases = [
+    ['PageDown', {}, 1700], ['PageUp', {}, 300],
+    ['ArrowDown', {}, 1040], ['ArrowUp', {}, 960],
+    ['Home', {}, 0], ['End', {}, 2200],
+    [' ', {}, 1700], [' ', { shiftKey: true }, 300],
+    ['ArrowUp', { metaKey: true }, 0], ['ArrowDown', { metaKey: true }, 2200],
+  ];
+  for (const [key, modifiers, top] of cases) {
+    const viewport = createViewport(-100);
+    assert.deepEqual(viewport.press(key, modifiers), { prevented: true, top }, key);
+  }
+});
+
+test('Enter and Tab keep their native download activation and focus behavior', () => {
+  const viewport = createViewport(-100);
+  assert.deepEqual(viewport.press('Enter'), { prevented: false, top: 1000 });
+  assert.deepEqual(viewport.press('Tab'), { prevented: false, top: 1000 });
+});
+
+
+test('paging from the initial page focus scrolls the reading area', () => {
+  const viewport = createViewport();
+  assert.deepEqual(viewport.press('PageDown', {}, viewport.document.body), { prevented: true, top: 1700 });
+});
+
+test('paging and Space within native controls are left to the browser', () => {
+  const viewport = createViewport();
+  const disclosureControl = {};
+  assert.deepEqual(viewport.press(' ', {}, disclosureControl), { prevented: false, top: 1000 });
+  assert.deepEqual(viewport.press('PageDown', {}, disclosureControl), { prevented: false, top: 1000 });
 });
