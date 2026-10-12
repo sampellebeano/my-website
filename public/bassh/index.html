@@ -48,10 +48,15 @@
             <span>DMG · 14.3 MB</span>
             <a class="text-link" href="/downloads/bassh/0.2.0-3-preview/bassh-mac-0.2.0-3-preview.zip" download aria-describedby="preview-status">ZIP alternative</a>
           </div>
-          <p class="beta-note"><strong>iPhone beta access required.</strong> You’ll also need an invitation to bassh on TestFlight. There is no public iPhone beta link on this page yet.</p>
           <div class="release-links">
-            <a href="/downloads/bassh/0.2.0-3-preview/Install.txt">Installation notes</a>
+            <a href="#setup">Installation guide</a>
             <a href="/downloads/bassh/0.2.0-3-preview/SHA256SUMS">SHA-256 checksums</a>
+          </div>
+          <div class="iphone-beta" aria-labelledby="iphone-beta-title">
+            <h3 id="iphone-beta-title">Try bassh on iPhone</h3>
+            <p>The iPhone app is available by TestFlight invitation. Email me to request access.</p>
+            <a class="beta-button" href="mailto:sam.jgreen@icloud.com?subject=bassh%20iPhone%20TestFlight%20beta%20request&amp;body=Hi%20Sam%2C%0D%0A%0D%0AI%27d%20like%20to%20try%20the%20bassh%20iPhone%20TestFlight%20beta.%20Please%20let%20me%20know%20if%20there%27s%20space.%0D%0A%0D%0AThanks!">Request iPhone beta access <span aria-hidden="true">↗</span></a>
+            <p class="email-hint">Opens your email app. You can also email <a href="mailto:sam.jgreen@icloud.com">sam.jgreen@icloud.com</a>.</p>
           </div>
         </div>
       </section>
@@ -59,34 +64,84 @@
       <section class="setup-section" id="setup" aria-labelledby="setup-title">
         <div class="section-heading">
           <p class="eyebrow">Getting started</p>
-          <h2 id="setup-title">Connect your own Mac.</h2>
-          <p>You’ll need the Mac preview, the bassh iPhone beta and Tailscale on both devices. Xcode and Go are not required.</p>
+          <h2 id="setup-title">From download to your first shell.</h2>
+          <p>Five steps to connect your Mac and iPhone. Open each step as you go.</p>
         </div>
+        <ul class="setup-requirements" aria-label="Before you start">
+          <li><strong>Mac</strong><span>macOS 15 or later, with bassh installed</span></li>
+          <li><strong>iPhone</strong><span>bassh installed through TestFlight</span></li>
+          <li><strong>Tailscale</strong><span>Both devices on the same network</span></li>
+        </ul>
+        <p class="setup-note">Keep your Mac awake and connected. You don’t need Xcode or Go.</p>
         <ol class="setup-steps">
           <li id="install">
-            <h3>Install the Mac preview</h3>
-            <p>Open the DMG, drag <strong>bassh.app</strong> into <strong>Applications</strong>, then open it from there.</p>
-            <p>If macOS says it cannot verify the developer or check the app, and you trust this download, open <strong>System Settings → Privacy &amp; Security → Open Anyway</strong> after attempting to launch it. Confirm the per-app exception. Keep Gatekeeper enabled.</p>
-            <a class="text-link" href="https://support.apple.com/en-us/102445">Apple’s instructions for opening an unnotarized app <span aria-hidden="true">↗</span></a>
+            <details class="setup-step" open>
+              <summary><span class="step-heading"><span class="step-title">Install the Mac preview</span><span class="step-brief">Move bassh to Applications, then open it.</span></span><span class="step-toggle" aria-hidden="true">+</span></summary>
+              <div class="step-content">
+                <ol class="step-instructions">
+                  <li>Download the Mac preview using the button above and open the DMG.</li>
+                  <li>Drag <strong>bassh.app</strong> into <strong>Applications</strong>.</li>
+                  <li>Open bassh from Applications.</li>
+                </ol>
+                <aside class="setup-callout" aria-labelledby="first-launch-title">
+                  <h3 id="first-launch-title">If macOS blocks the first launch</h3>
+                  <p>This preview is not notarized by Apple. If you trust the download, try opening it once, then go to:</p>
+                  <p class="settings-path"><strong>System Settings → Privacy &amp; Security → Open Anyway</strong></p>
+                  <p>Confirm the exception for bassh, then open it again. Keep Gatekeeper enabled.</p>
+                  <a class="text-link" href="https://support.apple.com/en-us/102445">Apple’s first-launch guide <span aria-hidden="true">↗</span></a>
+                </aside>
+              </div>
+            </details>
           </li>
-          <li>
-            <h3>Connect both devices to Tailscale</h3>
-            <p>Install the official <a href="https://tailscale.com/download/mac">Tailscale Mac app</a> and <a href="https://tailscale.com/docs/install/ios">iPhone app</a>. Sign your Mac and iPhone into the same Tailscale network and keep it connected. In the Mac companion, choose <strong>Add iPhone</strong> to open the walkthrough.</p>
+          <li id="tailscale">
+            <details class="setup-step">
+              <summary><span class="step-heading"><span class="step-title">Connect with Tailscale</span><span class="step-brief">Put your Mac and iPhone on the same private network.</span></span><span class="step-toggle" aria-hidden="true">+</span></summary>
+              <div class="step-content">
+                <div class="setup-links"><a class="back-button" href="https://tailscale.com/download/mac">Tailscale for Mac <span aria-hidden="true">↗</span></a><a class="back-button" href="https://tailscale.com/docs/install/ios">Tailscale for iPhone <span aria-hidden="true">↗</span></a></div>
+                <ol class="step-instructions">
+                  <li>Install Tailscale on both devices.</li>
+                  <li>Sign both into the same Tailscale network and leave Tailscale connected.</li>
+                  <li>Open bassh on your Mac and choose <strong>Add iPhone</strong> to start the walkthrough.</li>
+                </ol>
+              </div>
+            </details>
           </li>
-          <li>
-            <h3>Enable Remote Login for your account</h3>
-            <p>On the Mac, open <strong>System Settings → General → Sharing → Remote Login</strong>. Enable it and allow only the Mac account you intend to use. The companion does not switch this on automatically.</p>
-            <a class="text-link" href="https://support.apple.com/guide/mac-help/allow-a-remote-computer-to-access-your-mac-mchlp1066/mac">Apple’s Remote Login guide <span aria-hidden="true">↗</span></a>
+          <li id="remote-login">
+            <details class="setup-step">
+              <summary><span class="step-heading"><span class="step-title">Enable Remote Login</span><span class="step-brief">Allow SSH access for the Mac account you’ll use.</span></span><span class="step-toggle" aria-hidden="true">+</span></summary>
+              <div class="step-content">
+                <p>On your Mac, go to:</p>
+                <p class="settings-path"><strong>System Settings → General → Sharing → Remote Login</strong></p>
+                <ol class="step-instructions">
+                  <li>Open the Remote Login settings and turn it on.</li>
+                  <li>Under <strong>Allow access for</strong>, choose <strong>Only these users</strong> and add the Mac account you intend to use.</li>
+                </ol>
+                <p>The companion leaves this permission in your hands.</p>
+                <a class="text-link" href="https://support.apple.com/guide/mac-help/allow-a-remote-computer-to-access-your-mac-mchlp1066/mac">Apple’s Remote Login guide <span aria-hidden="true">↗</span></a>
+              </div>
+            </details>
           </li>
-          <li>
-            <h3>Authorize your iPhone’s public key</h3>
-            <p>On iPhone, open <strong>bassh → Set up with Tailscale</strong>, then create or choose an SSH key. Copy its <strong>public key</strong> to the Mac.</p>
-            <p>Paste it into <strong>Authorize iPhone key</strong> in the Mac walkthrough. Compare the key fingerprint and explicitly authorize it for the displayed Mac account. Your private key stays on the iPhone.</p>
+          <li id="authorize-key">
+            <details class="setup-step">
+              <summary><span class="step-heading"><span class="step-title">Authorize your iPhone’s key</span><span class="step-brief">Give this iPhone permission to connect to your Mac.</span></span><span class="step-toggle" aria-hidden="true">+</span></summary>
+              <div class="step-content">
+                <div class="device-steps">
+                  <div><h3>On your iPhone</h3><ol class="step-instructions"><li>Open <strong>bassh → Set up with Tailscale</strong>.</li><li>Create or choose an SSH key, then copy its <strong>public key</strong> to the Mac.</li></ol></div>
+                  <div><h3>On your Mac</h3><ol class="step-instructions"><li>Paste the public key into <strong>Authorize iPhone key</strong> in the walkthrough.</li><li>Compare the key fingerprint, check the displayed Mac account, then authorize it.</li></ol></div>
+                </div>
+                <p class="key-note">Copy only the public key. Your private key stays on the iPhone.</p>
+              </div>
+            </details>
           </li>
-          <li>
-            <h3>Save your Mac and open a shell</h3>
-            <p>Use the Mac’s Tailscale address, the short username shown in the Mac guide and SSH port <strong>22</strong>. Choose the SSH key you authorized.</p>
-            <p>Before trusting the first connection, compare the full SSH host fingerprint shown on iPhone with the matching fingerprint in the Mac guide. Approve a match, then open the terminal. Keep the Mac awake and connected while you use it.</p>
+          <li id="first-shell">
+            <details class="setup-step">
+              <summary><span class="step-heading"><span class="step-title">Open your first shell</span><span class="step-brief">Save the connection and verify your Mac’s identity.</span></span><span class="step-toggle" aria-hidden="true">+</span></summary>
+              <div class="step-content">
+                <p>Save your Mac in the iPhone app with these details:</p>
+                <dl class="connection-details"><div><dt>Address</dt><dd>Your Mac’s Tailscale address</dd></div><div><dt>Username</dt><dd>The short username shown in the Mac guide</dd></div><div><dt>SSH port</dt><dd>22</dd></div><div><dt>SSH key</dt><dd>The key you just authorized</dd></div></dl>
+                <p>On the first connection, compare the full SSH host fingerprint on your iPhone with the matching fingerprint in the Mac guide. Approve it only if they match, then open the terminal.</p>
+              </div>
+            </details>
           </li>
         </ol>
       </section>

@@ -31,6 +31,9 @@ Never rebuild over a saved snapshot or copy an existing history tree into a new 
 The public download and setup page lives at [samjgreen.com/bassh](https://samjgreen.com/bassh).
 It is a standalone, script-free page in `public/bassh/`; the Vercel rewrite serves
 it at the clean URL without changing the existing hash routes. Projects links to it.
+The page includes a prefilled email link to request iPhone TestFlight access and
+an expandable five-step installation guide. Beta requests go to Sam’s email;
+there is no signup form or mailing-list service.
 
 Versioned release assets live in `public/downloads/bassh/0.2.0-3-preview/`.
 The DMG and ZIP are the unchanged universal Mac preview from the private bassh
