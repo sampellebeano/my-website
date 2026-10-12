@@ -37,8 +37,10 @@ git config --local user.email '64439967+sampellebeano@users.noreply.github.com'
 If a push creates no deployment, check Vercel’s **Settings → Git** for repository
 access errors. A GitHub rate-limit error can interrupt automatic deployments;
 allow the limit to clear and use **Reconnect** on the existing repository link.
-Confirm the next push produces a Git-triggered production deployment before
-considering the connection restored.
+If the link is healthy but pushes still produce no deployment, disconnect and
+connect the same repository again; Vercel preserves the project settings.
+Check that Production still tracks `main` with automatic domain assignment,
+then confirm a fresh push produces a Git-triggered production deployment.
 
 ## Previous website
 
