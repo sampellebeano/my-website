@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>bassh for Mac — Preview download | Sam Green</title>
-    <meta name="description" content="Download the bassh Mac companion preview for macOS 15 or later. Set up your iPhone terminal with Tailscale and SSH. This preview is not notarized by Apple." />
+    <title>bassh for Mac — Download | Sam Green</title>
+    <meta name="description" content="Download the signed and Apple-notarized bassh Mac companion for macOS 15 or later. Follow the ZIP installation guide. The iPhone app remains in private testing." />
     <link rel="canonical" href="https://samjgreen.com/bassh" />
-    <meta property="og:title" content="bassh for Mac — Preview download" />
-    <meta property="og:description" content="Your Mac. From your iPhone. Download the Mac companion preview and follow the Tailscale setup guide. Not yet notarized by Apple." />
+    <meta property="og:title" content="bassh for Mac — Download" />
+    <meta property="og:description" content="Your Mac. From your iPhone. Download the signed and notarized Mac companion preview. The iPhone app is in private testing." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://samjgreen.com/bassh" />
     <meta property="og:image" content="https://samjgreen.com/bassh/icon.png" />
@@ -35,26 +35,23 @@
           <p class="hero-note">The Mac companion walks you through connecting your own devices with Tailscale and macOS Remote Login.</p>
         </div>
         <div class="download-panel" aria-labelledby="download-title">
-          <p class="eyebrow">Public preview</p>
+          <p class="eyebrow">Mac companion preview</p>
           <h2 id="download-title">bassh for Mac</h2>
           <p class="release-info">Version 0.2.0 (3) · <time datetime="2026-10-12">12 October 2026</time></p>
           <p class="compatibility">macOS 15 or later<br />Apple Silicon &amp; Intel</p>
-          <div class="preview-notice" id="preview-status">
-            <h3>Not notarized by Apple yet</h3>
-            <p>This is an early preview with an ad hoc signature. macOS may block its first launch. Read the <a href="#install">installation steps</a> before opening it.</p>
+          <div class="release-notice" id="release-status">
+            <h3>Signed &amp; notarized</h3>
+            <p>Signed by Sam Green with a Developer ID and notarized by Apple. Install it with the <a href="#install">three steps below</a>; keep macOS security enabled.</p>
           </div>
-          <a class="download-button" href="/downloads/bassh/0.2.0-3-preview/bassh-mac-0.2.0-3-preview.dmg" download aria-describedby="preview-status">Download Mac preview <span aria-hidden="true">↓</span></a>
-          <div class="download-alternatives">
-            <span>DMG · 14.3 MB</span>
-            <a class="text-link" href="/downloads/bassh/0.2.0-3-preview/bassh-mac-0.2.0-3-preview.zip" download aria-describedby="preview-status">ZIP alternative</a>
-          </div>
+          <a class="download-button" href="/downloads/bassh/0.2.0-3-notarized/bassh-mac-0.2.0-3-notarized.zip" download aria-describedby="release-status download-format">Download for Mac <span aria-hidden="true">↓</span></a>
+          <p class="download-format" id="download-format">ZIP · 13.0 MB · Universal app</p>
           <div class="release-links">
             <a href="#setup">Installation guide</a>
-            <a href="/downloads/bassh/0.2.0-3-preview/SHA256SUMS">SHA-256 checksums</a>
+            <a href="/downloads/bassh/0.2.0-3-notarized/SHA256SUMS">SHA-256 checksums</a>
           </div>
           <div class="iphone-release" aria-labelledby="iphone-release-title">
             <h3 id="iphone-release-title">Coming to iPhone</h3>
-            <p>The iPhone app is in private testing. Email me if you’d like to hear when bassh is available on the App Store.</p>
+            <p>The iPhone app is in private testing and isn’t available to download yet. Email me if you’d like to hear when bassh is available on the App Store.</p>
             <a class="release-interest-button" href="mailto:sam.jgreen@icloud.com?subject=bassh%20App%20Store%20release&amp;body=Hi%20Sam%2C%0D%0A%0D%0APlease%20let%20me%20know%20when%20bassh%20is%20available%20on%20the%20App%20Store.%0D%0A%0D%0AThanks!">Let me know when bassh goes live <span aria-hidden="true">↗</span></a>
             <p class="email-hint">Opens your email app. You can also email <a href="mailto:sam.jgreen@icloud.com">sam.jgreen@icloud.com</a>.</p>
           </div>
@@ -65,7 +62,7 @@
         <div class="section-heading">
           <p class="eyebrow">Getting started</p>
           <h2 id="setup-title">From download to your first shell.</h2>
-          <p>Already testing the iPhone app? Follow these five steps to connect your Mac and iPhone. Open each step as you go.</p>
+          <p>Install the Mac companion with step 1. The remaining steps are for existing private iPhone testers: open each one as you connect your devices.</p>
         </div>
         <ul class="setup-requirements" aria-label="Before you start">
           <li><strong>Mac</strong><span>macOS 15 or later, with bassh installed</span></li>
@@ -76,19 +73,17 @@
         <ol class="setup-steps">
           <li id="install">
             <details class="setup-step" open>
-              <summary><span class="step-heading"><span class="step-title">Install the Mac preview</span><span class="step-brief">Move bassh to Applications, then open it.</span></span><span class="step-toggle" aria-hidden="true">+</span></summary>
+              <summary><span class="step-heading"><span class="step-title">Install bassh for Mac</span><span class="step-brief">Extract the ZIP, move bassh to Applications, then open it.</span></span><span class="step-toggle" aria-hidden="true">+</span></summary>
               <div class="step-content">
                 <ol class="step-instructions">
-                  <li>Download the Mac preview using the button above and open the DMG.</li>
+                  <li>Download the ZIP using the button above. Double-click it in Finder to extract <strong>bassh.app</strong>.</li>
                   <li>Drag <strong>bassh.app</strong> into <strong>Applications</strong>.</li>
                   <li>Open bassh from Applications.</li>
                 </ol>
                 <aside class="setup-callout" aria-labelledby="first-launch-title">
-                  <h3 id="first-launch-title">If macOS blocks the first launch</h3>
-                  <p>This preview is not notarized by Apple. If you trust the download, try opening it once, then go to:</p>
-                  <p class="settings-path"><strong>System Settings → Privacy &amp; Security → Open Anyway</strong></p>
-                  <p>Confirm the exception for bassh, then open it again. Keep Gatekeeper enabled.</p>
-                  <a class="text-link" href="https://support.apple.com/en-us/102445">Apple’s first-launch guide <span aria-hidden="true">↗</span></a>
+                  <h3 id="first-launch-title">On the first open</h3>
+                  <p>macOS may ask you to confirm opening an app downloaded from the internet. Choose <strong>Open</strong>. This signed, notarized release includes Apple’s notarization ticket and needs no security override.</p>
+                  <p>You may also see a permission prompt if you choose a folder. Keep Gatekeeper enabled.</p>
                 </aside>
               </div>
             </details>
@@ -149,8 +144,8 @@
       <section class="questions" aria-labelledby="questions-title">
         <h2 id="questions-title">A few things to know</h2>
         <details>
-          <summary>What’s included in this preview?</summary>
-          <p>The guided Tailscale and macOS Remote Login setup. Tailscale is installed separately; advanced QR pairing is outside this preview. No public router port forwarding is needed, and your Tailscale network must allow the iPhone to reach the Mac’s SSH port.</p>
+          <summary>What’s included in the Mac companion?</summary>
+          <p>The guided Tailscale and macOS Remote Login setup. The Mac download is signed and notarized; the iPhone beta remains private. Tailscale is installed separately; advanced QR pairing is outside this preview. No public router port forwarding is needed, and your Tailscale network must allow the iPhone to reach the Mac’s SSH port.</p>
         </details>
         <details>
           <summary>How do I update bassh for Mac?</summary>

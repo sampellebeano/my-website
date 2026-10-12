@@ -1,0 +1,21 @@
+{
+  "name": "bassh",
+  "bundleIdentifier": "media.bassh.SSHAccessMac",
+  "version": "0.2.0",
+  "build": "3",
+  "minimumMacOS": "15.0",
+  "architectures": [
+    "arm64",
+    "x86_64"
+  ],
+  "signing": "developer-id",
+  "notarized": true,
+  "builtAt": "2026-10-12T15:01:26.967601+00:00",
+  "sourceRevision": "b3109d707fb4d8db44972440126ca5a92a6b08b4",
+  "packagingRevision": "2e3162978bed67331f81fc0bad91ef569e02dcdf",
+  "packagingHasUncommittedChanges": false,
+  "notarizationSubmission": "5F8ED936-6237-4400-85A4-1721F3E33CE1",
+  "notarizationAcceptedAt": "2026-10-12T14:03Z",
+  "gatekeeper": "accepted: Notarized Developer ID",
+  "nativeLaunch": "Verified matching quarantined/translocated app on the build Mac"
+}

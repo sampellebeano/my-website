@@ -43,14 +43,13 @@ h1 { margin-top: 17px; font-size: clamp(40px, 5.3vw, 64px); font-weight: 500; li
 .download-panel h2 { margin-top: 12px; font-size: 25px; font-weight: 500; letter-spacing: -0.02em; }
 .release-info { margin-top: 9px; font-size: 12px; line-height: 1.75; color: var(--muted); }
 .compatibility { margin-top: 24px; font-size: 14px; line-height: 1.8; }
-.preview-notice { margin-block: 23px; border-left: 2px solid var(--notice); padding: 14px 16px; background: var(--surface); }
-.preview-notice h3 { font-size: 14px; font-weight: 600; color: var(--notice); }
-.preview-notice p { margin-top: 8px; font-size: 13px; line-height: 1.7; color: var(--muted); }
+.release-notice { margin-block: 23px; border-left: 2px solid var(--accent); padding: 14px 16px; background: var(--surface); }
+.release-notice h3 { font-size: 14px; font-weight: 600; color: var(--accent); }
+.release-notice p { margin-top: 8px; font-size: 13px; line-height: 1.7; color: var(--muted); }
 .download-button { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 52px; padding: 15px 20px; border-radius: 6px; background: var(--accent); color: var(--background); font-size: 15px; font-weight: 600; text-decoration: none; }
 .download-button:hover { background: #b4ceff; text-decoration: none; }
 .download-button span { font-size: 20px; }
-.download-alternatives { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-top: 13px; font-size: 12px; color: var(--muted); }
-.download-alternatives a { font-size: 12px; padding-block: 8px; }
+.download-format { margin-top: 13px; font-size: 12px; line-height: 1.7; color: var(--muted); }
 .release-links { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 15px; }
 .release-links a { padding-block: 8px; font-size: 12px; text-decoration: none; }
 .iphone-release { margin-top: 25px; border-top: 1px solid var(--border); padding-top: 24px; }

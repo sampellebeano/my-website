@@ -1,0 +1,14 @@
+bassh for Mac — Developer ID signed and notarized
+Requires macOS 15 or later. Includes Apple Silicon and Intel code.
+
+Extract the ZIP, move bassh.app to Applications, then open bassh.
+The app is signed by Sam Green and notarized by Apple. Apple's ticket is
+attached to the app. Keep Gatekeeper enabled; no Open Anyway override is needed.
+macOS may still show its normal first-open confirmation for a downloaded app
+or request access to a folder you choose.
+
+Follow Add iPhone to set up Tailscale and macOS Remote Login.
+Tailscale is installed separately. You approve SSH access for your account.
+
+The bundle identifier and private Keychain group preserve existing pairings.
+Removing bassh does not disable Remote Login or revoke authorized SSH keys.
