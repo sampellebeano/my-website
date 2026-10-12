@@ -26,6 +26,26 @@ The CV/search site captured on 8 October 2026 is saved independently at `public/
 
 Never rebuild over a saved snapshot or copy an existing history tree into a new one. Historical snapshots are deliberate public artifacts, distinct from root build output.
 
+## bassh Mac preview
+
+The public download and setup page lives at [samjgreen.com/bassh](https://samjgreen.com/bassh).
+It is a standalone, script-free page in `public/bassh/`; the Vercel rewrite serves
+it at the clean URL without changing the existing hash routes. Projects links to it.
+
+Versioned release assets live in `public/downloads/bassh/0.2.0-3-preview/`.
+The DMG and ZIP are the unchanged universal Mac preview from the private bassh
+release, accompanied by installation notes, metadata and SHA-256 checksums.
+The companion supports macOS 15 or later, Tailscale and ordinary Remote Login.
+It is ad hoc signed and **not notarized by Apple**. The page also explains the
+separate requirement for an invitation to the iPhone TestFlight beta.
+
+For each new release, add a fresh versioned directory, verify the assets against
+the release checksums, update the page's version, size, date and download links,
+and update the independently verified asset hashes in `tests/bassh-downloads.test.mjs`.
+Never replace bytes in an existing release directory: these URLs are cached as
+immutable. Developer ID signing/notarization and a public iPhone TestFlight link
+are separate release steps; only change the page's status when verified.
+
 ## CV downloads
 
 The original downloadable CV is available in both formats:

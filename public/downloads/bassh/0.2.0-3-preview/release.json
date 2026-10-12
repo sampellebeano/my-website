@@ -1,0 +1,16 @@
+{
+  "name": "bassh",
+  "bundleIdentifier": "media.bassh.SSHAccessMac",
+  "version": "0.2.0",
+  "build": "3",
+  "minimumMacOS": "15.0",
+  "architectures": [
+    "arm64",
+    "x86_64"
+  ],
+  "signing": "ad-hoc-preview",
+  "notarized": false,
+  "builtAt": "2026-10-12T12:37:09.039595+00:00",
+  "sourceRevision": "bbc606bd457ce898a414d38befaf4b30fcc17b00",
+  "sourceHasUncommittedChanges": false
+}

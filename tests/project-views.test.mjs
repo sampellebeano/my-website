@@ -21,6 +21,10 @@ test('the overview features personal projects', () => {
   assert.ok(/projects\?entry=bassh/.test(html), 'Overview must link to bassh');
   assert.ok(!/projects\?entry=(presight|aviation)/.test(html), 'Overview must not feature employer initiatives as personal projects');
 });
+test('the bassh project detail opens the public companion download page', () => {
+  const html = render('/projects?entry=bassh');
+  assert.ok(/href="\/bassh"/.test(html), 'The project must expose its public download page');
+});
 test('career highlights have readable Experience details', () => {
   const html = render('/experience?entry=aviation');
   assert.ok(/id="aviation"/.test(html), 'Career detail must identify the aviation record');

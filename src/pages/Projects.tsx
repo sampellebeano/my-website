@@ -22,6 +22,7 @@ const Projects = () => {
             <p className="article-context">{entry.context}</p>
             <h2 id={`title-${entry.id}`}><Link to={`/projects?entry=${encodeURIComponent(entry.id)}`}>{entry.title}</Link></h2>
             {entry.paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+            {entry.id === "bassh" && <p><a className="text-link" href="/bassh">Download the Mac preview <span aria-hidden="true">↗</span></a></p>}
           </article>
         ))}
       </div>

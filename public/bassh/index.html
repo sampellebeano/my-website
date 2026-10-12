@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>bassh for Mac — Preview download | Sam Green</title>
+    <meta name="description" content="Download the bassh Mac companion preview for macOS 15 or later. Set up your iPhone terminal with Tailscale and SSH. This preview is not notarized by Apple." />
+    <link rel="canonical" href="https://samjgreen.com/bassh" />
+    <meta property="og:title" content="bassh for Mac — Preview download" />
+    <meta property="og:description" content="Your Mac. From your iPhone. Download the Mac companion preview and follow the Tailscale setup guide. Not yet notarized by Apple." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://samjgreen.com/bassh" />
+    <meta property="og:image" content="https://samjgreen.com/bassh/icon.png" />
+    <meta property="og:image:alt" content="bassh terminal icon" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/bassh/icon.png" type="image/png" />
+    <link rel="stylesheet" href="/bassh/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="page-nav">
+      <a class="home-link" href="/">Sam Green<span aria-hidden="true">.</span></a>
+      <a class="text-link" href="#setup">Setup guide <span aria-hidden="true">↓</span></a>
+    </header>
+    <main id="main-content" tabindex="-1">
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <div class="app-identity"><img src="/bassh/icon.png" width="64" height="64" alt="" /><span>bassh</span></div>
+          <p class="eyebrow">iPhone terminal · Mac companion</p>
+          <h1 id="page-title">Your Mac.<br />From your iPhone.</h1>
+          <p class="intro">An iPhone terminal for your Mac over SSH. Your tools, scripts and Git run on the Mac; bassh puts the shell in your hand.</p>
+          <p class="hero-note">The Mac companion walks you through connecting your own devices with Tailscale and macOS Remote Login.</p>
+        </div>
+        <div class="download-panel" aria-labelledby="download-title">
+          <p class="eyebrow">Public preview</p>
+          <h2 id="download-title">bassh for Mac</h2>
+          <p class="release-info">Version 0.2.0 (3) · <time datetime="2026-10-12">12 October 2026</time></p>
+          <p class="compatibility">macOS 15 or later<br />Apple Silicon &amp; Intel</p>
+          <div class="preview-notice" id="preview-status">
+            <h3>Not notarized by Apple yet</h3>
+            <p>This is an early preview with an ad hoc signature. macOS may block its first launch. Read the <a href="#install">installation steps</a> before opening it.</p>
+          </div>
+          <a class="download-button" href="/downloads/bassh/0.2.0-3-preview/bassh-mac-0.2.0-3-preview.dmg" download aria-describedby="preview-status">Download Mac preview <span aria-hidden="true">↓</span></a>
+          <div class="download-alternatives">
+            <span>DMG · 14.3 MB</span>
+            <a class="text-link" href="/downloads/bassh/0.2.0-3-preview/bassh-mac-0.2.0-3-preview.zip" download aria-describedby="preview-status">ZIP alternative</a>
+          </div>
+          <p class="beta-note"><strong>iPhone beta access required.</strong> You’ll also need an invitation to bassh on TestFlight. There is no public iPhone beta link on this page yet.</p>
+          <div class="release-links">
+            <a href="/downloads/bassh/0.2.0-3-preview/Install.txt">Installation notes</a>
+            <a href="/downloads/bassh/0.2.0-3-preview/SHA256SUMS">SHA-256 checksums</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="setup-section" id="setup" aria-labelledby="setup-title">
+        <div class="section-heading">
+          <p class="eyebrow">Getting started</p>
+          <h2 id="setup-title">Connect your own Mac.</h2>
+          <p>You’ll need the Mac preview, the bassh iPhone beta and Tailscale on both devices. Xcode and Go are not required.</p>
+        </div>
+        <ol class="setup-steps">
+          <li id="install">
+            <h3>Install the Mac preview</h3>
+            <p>Open the DMG, drag <strong>bassh.app</strong> into <strong>Applications</strong>, then open it from there.</p>
+            <p>If macOS says it cannot verify the developer or check the app, and you trust this download, open <strong>System Settings → Privacy &amp; Security → Open Anyway</strong> after attempting to launch it. Confirm the per-app exception. Keep Gatekeeper enabled.</p>
+            <a class="text-link" href="https://support.apple.com/en-us/102445">Apple’s instructions for opening an unnotarized app <span aria-hidden="true">↗</span></a>
+          </li>
+          <li>
+            <h3>Connect both devices to Tailscale</h3>
+            <p>Install the official <a href="https://tailscale.com/download/mac">Tailscale Mac app</a> and <a href="https://tailscale.com/docs/install/ios">iPhone app</a>. Sign your Mac and iPhone into the same Tailscale network and keep it connected. In the Mac companion, choose <strong>Add iPhone</strong> to open the walkthrough.</p>
+          </li>
+          <li>
+            <h3>Enable Remote Login for your account</h3>
+            <p>On the Mac, open <strong>System Settings → General → Sharing → Remote Login</strong>. Enable it and allow only the Mac account you intend to use. The companion does not switch this on automatically.</p>
+            <a class="text-link" href="https://support.apple.com/guide/mac-help/allow-a-remote-computer-to-access-your-mac-mchlp1066/mac">Apple’s Remote Login guide <span aria-hidden="true">↗</span></a>
+          </li>
+          <li>
+            <h3>Authorize your iPhone’s public key</h3>
+            <p>On iPhone, open <strong>bassh → Set up with Tailscale</strong>, then create or choose an SSH key. Copy its <strong>public key</strong> to the Mac.</p>
+            <p>Paste it into <strong>Authorize iPhone key</strong> in the Mac walkthrough. Compare the key fingerprint and explicitly authorize it for the displayed Mac account. Your private key stays on the iPhone.</p>
+          </li>
+          <li>
+            <h3>Save your Mac and open a shell</h3>
+            <p>Use the Mac’s Tailscale address, the short username shown in the Mac guide and SSH port <strong>22</strong>. Choose the SSH key you authorized.</p>
+            <p>Before trusting the first connection, compare the full SSH host fingerprint shown on iPhone with the matching fingerprint in the Mac guide. Approve a match, then open the terminal. Keep the Mac awake and connected while you use it.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="questions" aria-labelledby="questions-title">
+        <h2 id="questions-title">A few things to know</h2>
+        <details>
+          <summary>What’s included in this preview?</summary>
+          <p>The guided Tailscale and macOS Remote Login setup. Tailscale is installed separately; advanced QR pairing is outside this preview. No public router port forwarding is needed, and your Tailscale network must allow the iPhone to reach the Mac’s SSH port.</p>
+        </details>
+        <details>
+          <summary>How do I update bassh for Mac?</summary>
+          <p>Download a newer version from this page and replace bassh.app in Applications. This preview has no automatic updater. Your Mac companion identity and saved pairing data use the existing storage locations.</p>
+        </details>
+        <details>
+          <summary>How do I remove SSH access?</summary>
+          <p>Remove the exact iPhone public-key line from your Mac’s <code>~/.ssh/authorized_keys</code> to block new SSH logins, and close any existing sessions. You can also turn off Remote Login if you no longer need it. Removing the app or a saved Mac on iPhone does not revoke SSH access. The companion’s QR pairing controls do not manage macOS Remote Login.</p>
+        </details>
+      </section>
+    </main>
+    <footer class="page-footer">
+      <p>A personal project by <a href="/">Sam Green</a>.</p>
+      <a class="text-link" href="/#/projects?entry=bassh">About the project <span aria-hidden="true">↗</span></a>
+    </footer>
+  </body>
+</html>

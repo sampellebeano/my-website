@@ -3,5 +3,32 @@
   "framework": "vite",
   "installCommand": "npm ci --include=dev",
   "buildCommand": "npx tsc --noEmit -p tsconfig.app.json && npm run build",
-  "outputDirectory": "dist"
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/bassh", "destination": "/bassh/index.html" },
+    { "source": "/bassh/", "destination": "/bassh/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/downloads/bassh/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/downloads/bassh/:version/:file.dmg",
+      "headers": [
+        { "key": "Content-Type", "value": "application/x-apple-diskimage" },
+        { "key": "Content-Disposition", "value": "attachment" }
+      ]
+    },
+    {
+      "source": "/downloads/bassh/:version/:file.zip",
+      "headers": [
+        { "key": "Content-Type", "value": "application/zip" },
+        { "key": "Content-Disposition", "value": "attachment" }
+      ]
+    }
+  ]
 }

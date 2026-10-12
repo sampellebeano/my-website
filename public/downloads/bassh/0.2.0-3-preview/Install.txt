@@ -1,0 +1,18 @@
+bassh for Mac — personal preview
+Requires macOS 15 or later. Includes Apple Silicon and Intel code.
+
+Drag bassh.app to Applications, then open bassh from Applications.
+Follow Add iPhone to set up Tailscale and macOS Remote Login.
+Tailscale is installed separately. You approve SSH access for your account.
+
+This download is ad hoc signed and is not notarized by Apple.
+macOS Gatekeeper may block it. If you trust this preview, use the per-app
+Open Anyway control in System Settings > Privacy & Security after opening it.
+Do not disable Gatekeeper globally.
+
+This preview is for the Tailscale/Remote Login setup guide. Advanced QR pairing
+requires a Developer ID signed build with its private-Keychain provisioning
+profile; the preview does not claim those restricted entitlements.
+
+Your existing companion data and pairing identity are preserved.
+Removing bassh does not disable Remote Login or revoke authorized SSH keys.
