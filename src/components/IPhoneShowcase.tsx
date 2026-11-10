@@ -34,7 +34,8 @@ const DemoClock = () => {
     };
   }, []);
 
-  return <time dateTime={now.toISOString()}>{now.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })}</time>;
+  const localTime = now.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
+  return <time dateTime={now.toISOString()}>{localTime}</time>;
 };
 
 interface ShowcaseHandsetProps {

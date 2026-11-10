@@ -17,7 +17,7 @@ const BookArticle = ({ book }: { book: BookEntry }) => {
       <h3 id={`title-${book.id}`}>{book.title}</h3>
       {book.note && <p>{book.note}</p>}
       {book.completedOn && <p className="publication-date">Finished <time dateTime={book.completedOn}>{formatPublicDate(book.completedOn)}</time></p>}
-      {book.url && <a className="text-link mt-4 inline-block text-sm" href={book.url}>About this book <span aria-hidden="true">↗</span></a>}
+      {book.url && <a className="text-link mt-4 inline-block" href={book.url}>About this book <span aria-hidden="true">↗</span></a>}
     </article>
   );
 };

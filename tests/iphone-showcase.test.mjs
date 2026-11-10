@@ -48,15 +48,18 @@ test('the compact launcher loads app identities without mounting any recording',
   assert.doesNotMatch(html, /<img\b[^>]*src="[^"]+(?:\.gif|-demo-poster\.png)"/, 'No recording or poster loads before a selection');
 });
 
-test('the launcher shows the current local time to the minute', () => {
-  const beforeRender = Date.now();
-  const clock = render().match(/<time datetime="([^"]+)">([^<]+)<\/time>/i);
-  const afterRender = Date.now();
+test('the launcher shows local time in 24-hour format, including midnight as 00', ({ mock }) => {
+  const midnight = new Date(2026, 10, 10, 0, 5);
+  const evening = new Date(2026, 10, 10, 19, 5);
+  mock.timers.enable({ apis: ['Date'], now: midnight });
 
-  assert.ok(clock, 'The launcher exposes a time element');
-  const renderedTime = new Date(clock[1]);
-  assert.ok(renderedTime.getTime() >= beforeRender && renderedTime.getTime() <= afterRender);
-  assert.equal(clock[2], renderedTime.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' }));
+  for (const localTime of [midnight, evening]) {
+    mock.timers.setTime(localTime.getTime());
+    const clock = render().match(/<time datetime="([^"]+)">([^<]+)<\/time>/i);
+    assert.ok(clock, 'The launcher exposes a time element');
+    assert.equal(clock[1], localTime.toISOString());
+    assert.equal(clock[2], localTime.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }));
+  }
   assert.doesNotMatch(render({ selectedId: 'bassh' }), /<time\b/, 'The clock stays on the launcher');
 });
 

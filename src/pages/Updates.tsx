@@ -26,7 +26,7 @@ const Updates = () => {
     <SiteShell>
       <PageHeading eyebrow="Lately" title="Updates" description="A place for notes on what I’m working on and learning." />
       {publicContent.activity.length === 0 ? (
-        <div className="empty-state"><h2>I haven’t posted anything yet.</h2><p>For now, you can see what I’m building.</p><Link className="text-link mt-5 inline-block text-sm" to="/projects">My projects <span aria-hidden="true">↗</span></Link></div>
+        <div className="empty-state"><h2>I haven’t posted anything yet.</h2><p>For now, you can see what I’m building.</p><Link className="text-link mt-5 inline-block" to="/projects">My projects <span aria-hidden="true">↗</span></Link></div>
       ) : (
         <>
           {latestRecap && <section className="latest-recap" aria-label="Latest weekly recap"><p className="eyebrow">Latest weekly recap</p><ActivityArticle entry={latestRecap} level="h2" /></section>}

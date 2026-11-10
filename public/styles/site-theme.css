@@ -2,20 +2,21 @@
 :root {
   color-scheme: light;
   --site-font: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --site-reading-font: Charter, "Bitstream Charter", "Iowan Old Style", Georgia, serif;
   --site-canvas: #e7e0d4;
   --site-canvas-hsl: 37.8947 28.3582% 86.8627%;
   --site-canvas-shading: radial-gradient(ellipse at 50% 12%, #f1ede4 8%, #e1dbcf 58%, #c7bdad 100%);
-  --site-paper: #fffdf7;
-  --site-paper-hsl: 45 100% 98.4314%;
+  --site-paper: #fffcf4;
+  --site-paper-hsl: 43.6364 100% 97.8431%;
   --site-paper-finish:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='grain' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23grain)' opacity='.05'/%3E%3C/svg%3E"),
-    linear-gradient(135deg, #ffffff80, transparent 46%, #e1cfac24);
+    url("./book-paper.svg"),
+    linear-gradient(100deg, #a88b6226, transparent 5%, #ffffff50 28%, transparent 76%, #ae8d6017);
   --site-ink: #191b1e;
   --site-ink-hsl: 216.0000 9.0909% 10.7843%;
-  --site-muted: #65666b;
-  --site-muted-hsl: 230.0000 2.8846% 40.7843%;
-  --site-line: #e7e5e2;
-  --site-line-hsl: 36.0000 9.4340% 89.6078%;
+  --site-muted: #514e48;
+  --site-muted-hsl: 40 5.8824% 30%;
+  --site-line: #dcd3c2;
+  --site-line-hsl: 39.2308 27.0833% 81.1765%;
   --site-accent: #2455e8;
   --site-accent-hsl: 225.0000 80.9917% 52.5490%;
   --site-surface: #f5f4f1;
@@ -37,7 +38,7 @@
   --site-header-height: 86px;
   --site-corner-inset: clamp(16px, 1vw, 24px);
   --site-brand-size: clamp(40px, 30px + 1.15vw, 50px);
-  --site-title-size: clamp(2.25rem, 1.8rem + .9vw, 3.25rem);
+  --site-title-size: clamp(2.375rem, 1.8rem + 1.05vw, 3.5rem);
   --site-title-weight: 500;
   --site-title-line: 1.12;
   --site-title-tracking: -.045em;
@@ -45,16 +46,17 @@
   --site-hero-weight: 450;
   --site-hero-line: 1.05;
   --site-hero-tracking: -.055em;
-  --site-small-size: clamp(.8125rem, .74rem + .16vw, .9375rem);
-  --site-label-size: clamp(.875rem, .78rem + .24vw, 1rem);
+  --site-small-size: clamp(.9375rem, .86rem + .22vw, 1.125rem);
+  --site-label-size: clamp(1rem, .91rem + .29vw, 1.25rem);
   --site-kicker-size: var(--site-small-size);
-  --site-kicker-tracking: .17em;
-  --site-lede-size: clamp(1rem, .9rem + .35vw, 1.3125rem);
-  --site-body-size: clamp(1rem, .94rem + .23vw, 1.125rem);
+  --site-kicker-tracking: .13em;
+  --site-lede-size: clamp(1.25rem, 1.05rem + .39vw, 1.5625rem);
+  --site-body-size: clamp(1.1875rem, 1.03rem + .32vw, 1.4375rem);
   --site-body-line: 1.7;
 }
 
 html { background: var(--site-canvas) var(--site-canvas-shading) fixed; scrollbar-gutter: stable; }
+.site-frame, .page-content, .project-frame { background-image: var(--site-paper-finish); }
 .site-header {
   display: flex;
   align-items: center;

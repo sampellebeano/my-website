@@ -48,17 +48,17 @@
   .eyebrow { @apply mb-3 font-medium uppercase text-muted-foreground; font-size: var(--site-kicker-size); letter-spacing: var(--site-kicker-tracking); line-height: 1.5; }
   .page-heading { @apply mb-7; }
   .page-heading h1 { font-size: var(--site-title-size); font-weight: var(--site-title-weight); line-height: var(--site-title-line); letter-spacing: var(--site-title-tracking); text-wrap: balance; }
-  .page-heading > p:last-child:not(.eyebrow) { @apply mt-3 max-w-2xl leading-relaxed text-muted-foreground; font-size: var(--site-lede-size); }
+  .page-heading > p:last-child:not(.eyebrow) { @apply mt-3 max-w-2xl leading-relaxed; font-family: var(--site-reading-font); font-size: var(--site-lede-size); }
   .article-list { @apply divide-y divide-border border-y border-border; }
   .content-article { @apply py-7; }
-  .content-article h2 { @apply mt-2 text-xl font-medium leading-snug tracking-[-0.015em]; }
+  .content-article h2, .activity-article h3, .book-article h3 { @apply mt-2 font-medium leading-snug tracking-[-0.015em]; font-size: clamp(1.375rem, 1.2rem + .42vw, 1.75rem); }
   .content-article h2 a { @apply hover:text-primary; }
-  .content-article > p:not(.article-context) { @apply mt-4 max-w-[68ch] leading-[1.75] text-muted-foreground; }
+  .content-article > p:not(.article-context, .publication-date) { @apply mt-4 max-w-[64ch] leading-relaxed; font-family: var(--site-reading-font); }
   .article-context { @apply leading-relaxed text-muted-foreground; font-size: var(--site-small-size); }
   .collection-links { @apply mt-6 flex flex-wrap gap-5; font-size: var(--site-label-size); }
   .empty-state { @apply border-y border-border py-8; }
-  .empty-state h2 { @apply text-lg font-medium; }
-  .empty-state p { @apply mt-3 max-w-lg leading-relaxed text-muted-foreground; }
+  .empty-state h2 { @apply font-medium; font-size: var(--site-lede-size); }
+  .empty-state p { @apply mt-3 max-w-lg leading-relaxed; font-family: var(--site-reading-font); }
   .site-contact nav { @apply flex flex-wrap gap-x-5 gap-y-2; font-size: var(--site-small-size); }
   .cv-downloads { @apply flex flex-wrap gap-3; }
   .download-link { @apply inline-flex min-h-10 items-center gap-2 font-medium text-muted-foreground hover:text-foreground; font-size: var(--site-small-size); }
@@ -66,8 +66,7 @@
   .skip-link { @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-card focus:p-4; }
   .activity-week, .book-group { @apply mb-9; }
   .week-heading { @apply mb-4 font-medium text-muted-foreground; font-size: var(--site-label-size); }
-  .activity-article h3, .book-article h3 { @apply mt-2 text-xl font-medium leading-snug tracking-[-0.015em]; }
-  .content-article > p.publication-date { @apply mt-5; font-size: var(--site-small-size); }
+  .content-article > .publication-date { @apply mt-5 text-muted-foreground; font-size: var(--site-small-size); }
   .recap-references { @apply mt-5; font-size: var(--site-label-size); }
   .recap-references > p { @apply mb-2 text-muted-foreground; font-size: var(--site-small-size); }
   .recap-references ul { @apply space-y-2; }
