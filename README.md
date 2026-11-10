@@ -54,13 +54,14 @@ Never rebuild over a saved snapshot or copy an existing history tree into a new 
 
 [bassh setup](https://samjgreen.com/bassh) links to the standalone
 [download page](https://samjgreen.com/bassh/download) for testers. The Mac
-companion link opens the private GitHub release, where an invited account can
-download the notarized ZIP. The iPhone section opens a prefilled email to Sam
-for access to the private TestFlight beta.
+companion downloads after the server checks the shared password against the
+production `BASSH_MAC_DOWNLOAD_PASSWORD` secret. The iPhone section opens a
+prefilled email to Sam for access to the private TestFlight beta.
 
 Keep the versioned archives in `public/downloads/bassh/` unchanged and excluded
 from deployment. The old download URLs redirect to the setup page. For a new
-Mac preview, update the download page to point at the verified private release.
+Mac preview, upload the verified ZIP to private Vercel Blob storage and update
+the filename and size in the download function and version on the page.
 
 ## CV downloads
 

@@ -32,11 +32,16 @@
             <div class="app-identity"><img src="/bassh/icon-2cae0699f753.png" width="64" height="64" alt="" /><span>bassh</span></div>
             <p class="eyebrow">Private preview</p>
             <h1 id="page-title">Get bassh for Mac</h1>
-            <p class="intro">If I’ve given you access, sign in to GitHub with the account I invited.</p>
+            <p class="intro">Enter the download password I shared with you to get the Mac companion.</p>
             <p class="compatibility">Preview 3 · macOS 15 or later · Apple Silicon and Intel</p>
-            <a class="access-button" href="https://github.com/sampellebeano/bassh/releases/tag/mac-v0.2.0-preview.3">Download from GitHub <span aria-hidden="true">↗</span></a>
-            <p class="hero-note">Choose the notarized ZIP under <strong>Assets</strong>. Unzip it, then move <strong>bassh.app</strong> to Applications and open it.</p>
-            <p class="hero-note">If GitHub shows a 404, check that you’re signed in with the invited account and have accepted the invitation.</p>
+            <form class="mac-download-form" action="/api/bassh-mac-download" method="post">
+              <p class="download-status" id="mac-download-password-error" tabindex="-1">That password didn’t match. Check it and try again.</p>
+              <p class="download-status" id="mac-download-unavailable" tabindex="-1">The download is temporarily unavailable. Please try again shortly.</p>
+              <label for="mac-download-password">Download password</label>
+              <input type="password" id="mac-download-password" name="password" autocomplete="current-password" maxlength="128" required />
+              <button class="access-button" type="submit">Download for Mac <span aria-hidden="true">↓</span></button>
+            </form>
+            <p class="hero-note">Unzip the Apple-notarized download, then move <strong>bassh.app</strong> to Applications and open it.</p>
             <div class="release-links">
               <a href="/bassh#setup">Tailscale and Remote Login setup <span aria-hidden="true">↗</span></a>
             </div>

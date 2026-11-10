@@ -102,7 +102,7 @@ Publish the PDF CV only. Preserve the Word originals locally; `.vercelignore` ex
 
 ## App downloads
 
-The Bassh download page at `/bassh/download` links to the private GitHub release for approved Mac testers and to a prefilled email for iPhone TestFlight requests. Keep installer files off the hosted site. Preserve the versioned files in `public/downloads/bassh/`; `.vercelignore` excludes them from source deployments and the build prunes them from `dist`. Omit them from any prebuilt deployment as well. After publishing, verify that the former installer URLs still redirect to `/bassh` and that GitHub requires access to download the current ZIP.
+The Bassh download page at `/bassh/download` checks the Mac download password on the server and offers a prefilled email for iPhone TestFlight requests. Keep installers in private storage. Preserve the versioned files in `public/downloads/bassh/`; `.vercelignore` excludes them from source deployments and the build prunes them from `dist`. Omit them from any prebuilt deployment as well. After publishing, verify that the former installer URLs still redirect to `/bassh` and that the current ZIP requires the download password.
 
 ## Previous versions
 

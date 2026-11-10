@@ -52,6 +52,13 @@ h1 { margin-top: 16px; font-size: var(--site-hero-size); font-weight: var(--site
 .iphone-release p { margin-top: 10px; font-size: var(--site-body-size); line-height: 1.75; }
 :is(.release-interest-button, .access-button) { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 48px; margin-top: 17px; padding: 13px 17px; border: 1px solid var(--site-accent); border-radius: 6px; font-size: var(--site-label-size); font-weight: 500; text-decoration: none; }
 :is(.release-interest-button, .access-button):hover { background: var(--site-surface); text-decoration: none; }
+.mac-download-form { display: grid; gap: 8px; margin-top: 18px; }
+.mac-download-form label { font-size: var(--site-label-size); font-weight: 500; }
+.mac-download-form input { min-width: 0; min-height: 48px; padding: 10px 14px; border: 1px solid var(--site-line); border-radius: 6px; background: var(--site-surface); color: var(--site-ink); font: inherit; }
+.mac-download-form .access-button { margin-top: 4px; background: transparent; color: var(--site-accent); font-family: inherit; cursor: pointer; text-align: start; }
+.mac-download-form .access-button:hover { background: var(--site-surface); }
+.mac-download-form .download-status { padding: 10px 14px; border-left: 2px solid var(--site-note); color: var(--site-ink); background: var(--site-surface); }
+.download-status:not(:target) { display: none; }
 .app-panel .email-hint { margin-top: 12px; color: var(--site-muted); font-size: var(--site-small-size); }
 .preview-section { padding-bottom: 40px; }
 .setup-section { border-top: 1px solid var(--site-line); padding-top: 46px; scroll-margin-top: 24px; }

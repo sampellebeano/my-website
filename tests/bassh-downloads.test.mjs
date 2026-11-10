@@ -48,11 +48,11 @@ test('the iPhone beta stays private and the email button only expresses release 
   assert.doesNotMatch(email.searchParams.get('body'), /beta|TestFlight/i);
 });
 
-test('the download page links to the private Mac release and offers email access for iPhone', async () => {
+test('the download page submits the Mac password to the server and offers email access for iPhone', async () => {
   const html = await readFile(new URL('../public/bassh/download/index.html', import.meta.url), 'utf8');
-  const release = 'https://github.com/sampellebeano/bassh/releases/tag/mac-v0.2.0-preview.3';
-  assert.ok(html.includes(`href="${release}"`));
-  assert.match(html, /sign in to GitHub with the account I invited/);
+  assert.match(html, /<form\b[^>]*action="\/api\/bassh-mac-download"[^>]*method="post"/);
+  assert.match(html, /<input\b[^>]*type="password"[^>]*name="password"[^>]*required/);
+  assert.doesNotMatch(html, /github\.com\/sampellebeano\/bassh\/releases|\.blob\.vercel-storage\.com/);
   assert.doesNotMatch(html, /href="\/downloads\/|testflight\.apple\.com|href="[^"]+\.(?:ipa|zip|dmg|pkg)(?:[?#"])/i);
 
   const emailHref = html.match(/href="(mailto:[^"]+\?[^"]+)"/)?.[1];
@@ -73,4 +73,40 @@ test('Vercel serves both download page URLs and redirects legacy installer reque
     destination: '/bassh',
     permanent: false,
   });
+});
+
+test('the Mac download rejects missing, malformed, and incorrect passwords before delivery', async () => {
+  const { POST } = await import('../api/bassh-mac-download.js');
+  const key = 'BASSH_MAC_DOWNLOAD_PASSWORD';
+  const previous = process.env[key];
+  const url = 'https://samjgreen.com/api/bassh-mac-download';
+
+  try {
+    delete process.env[key];
+    const request = (body, endpoint = url) => new Request(endpoint, { method: 'POST', body });
+    const unavailable = await POST(request(new URLSearchParams({ password: 'fixture' })));
+    assert.equal(unavailable.status, 303);
+    assert.equal(unavailable.headers.get('location'), '/bassh/download#mac-download-unavailable');
+    assert.equal(unavailable.headers.get('cache-control'), 'private, no-store');
+
+    process.env[key] = 'fixture-password';
+    for (const body of [
+      new URLSearchParams(),
+      new URLSearchParams({ password: 'incorrect' }),
+      new URLSearchParams([['password', 'fixture-password'], ['password', 'incorrect']]),
+      new URLSearchParams({ password: 'x'.repeat(2_049) }),
+      'password=fixture-password',
+    ]) {
+      const denied = await POST(request(body));
+      assert.equal(denied.status, 303);
+      assert.equal(denied.headers.get('location'), '/bassh/download#mac-download-password-error');
+      assert.equal(denied.headers.get('content-disposition'), null);
+    }
+
+    const alternate = await POST(request(new URLSearchParams({ password: 'fixture-password' }), `${url}/`));
+    assert.equal(alternate.status, 404);
+  } finally {
+    if (previous === undefined) delete process.env[key];
+    else process.env[key] = previous;
+  }
 });
