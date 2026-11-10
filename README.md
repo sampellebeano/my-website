@@ -50,36 +50,17 @@ The CV/search site captured on 8 October 2026 is saved independently at `public/
 
 Never rebuild over a saved snapshot or copy an existing history tree into a new one. `scripts/capture-site-version.mjs` captures a separately built edition, prepares its local asset paths and records source/build manifests; see `docs/atlas-publishing.md` for the workflow. Historical snapshots are deliberate public artifacts, distinct from root build output.
 
-## bassh Mac download
+## bassh downloads and access
 
-The public download and setup page lives at [samjgreen.com/bassh](https://samjgreen.com/bassh).
-It is a standalone, script-free page in `public/bassh/`; the Vercel rewrite serves
-it at the clean URL without changing the existing hash routes. Projects links to it.
-The page includes a prefilled email link to express interest in the iPhone App
-Store release and an expandable five-step installation guide. Release interest
-goes to Sam’s email; there is no signup form or mailing-list service.
+[bassh setup](https://samjgreen.com/bassh) links to the standalone
+[download page](https://samjgreen.com/bassh/download) for testers. The Mac
+companion link opens the private GitHub release, where an invited account can
+download the notarized ZIP. The iPhone section opens a prefilled email to Sam
+for access to the private TestFlight beta.
 
-The current versioned assets live in `public/downloads/bassh/0.2.0-3-notarized/`.
-The ZIP is the unchanged Developer ID signed, Apple-notarized universal Mac
-preview from the bassh release `mac-v0.2.0-preview.2`, accompanied by installation
-notes, metadata and SHA-256 checksums. Its signature, stapled notarization ticket
-and Gatekeeper acceptance were verified before publication. Extract the ZIP,
-move bassh.app to Applications and open it with macOS security enabled.
-The companion supports macOS 15 or later, Tailscale and ordinary Remote Login.
-The page explains the separate requirement for the private iPhone TestFlight
-beta when following the connection steps. The beta is not open for public access
-requests, and no iPhone build or TestFlight invitation is published.
-
-The earlier ad hoc preview remains unchanged in `0.2.0-3-preview/` for existing
-links. It is no longer offered as the current download; there is no notarized
-DMG for this release.
-
-For each new release, add a fresh versioned directory, verify the assets against
-the release checksums, update the page's version, size, date and download links,
-and update the independently verified asset hashes in `tests/bassh-downloads.test.mjs`.
-Never replace bytes in an existing release directory: these URLs are cached as
-immutable. Developer ID signing/notarization and the iPhone App Store release
-are separate release steps; only change the page's status when verified.
+Keep the versioned archives in `public/downloads/bassh/` unchanged and excluded
+from deployment. The old download URLs redirect to the setup page. For a new
+Mac preview, update the download page to point at the verified private release.
 
 ## CV downloads
 

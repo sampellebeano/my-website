@@ -102,7 +102,7 @@ Publish the PDF CV only. Preserve the Word originals locally; `.vercelignore` ex
 
 ## App downloads
 
-App downloads are currently disabled. Keep the versioned files in `public/downloads/bassh/` unchanged as local archives. `.vercelignore` excludes them from source deployments; when deploying a prebuilt static output, omit `downloads/bassh/` there too. `vercel.json` redirects all former Bassh download URLs to `/bassh`. Verify those URLs return the redirect after publishing. App screenshots in iPhone frames are shown on the overview, Projects and existing app pages. Screens use demonstration data; keep download buttons out of the current pages.
+The Bassh download page at `/bassh/download` links to the private GitHub release for approved Mac testers and to a prefilled email for iPhone TestFlight requests. Keep installer files off the hosted site. Preserve the versioned files in `public/downloads/bassh/`; `.vercelignore` excludes them from source deployments and the build prunes them from `dist`. Omit them from any prebuilt deployment as well. After publishing, verify that the former installer URLs still redirect to `/bassh` and that GitHub requires access to download the current ZIP.
 
 ## Previous versions
 

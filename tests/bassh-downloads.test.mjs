@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 
-test('the Bassh page has no app download controls or links', async () => {
+test('the Bassh project links to the download page without hosting an installer', async () => {
   const html = await readFile(new URL('../public/bassh/index.html', import.meta.url), 'utf8');
   assert.doesNotMatch(html, /href="\/downloads\/|Download for Mac|href="[^"]+\.(?:ipa|zip|dmg|pkg)(?:[?#"])/i);
   const downloads = [...html.matchAll(/<a\b[^>]*\bdownload(?=\s|=|>)[^>]*>/gi)];
@@ -11,7 +11,7 @@ test('the Bassh page has no app download controls or links', async () => {
   assert.match(downloads[0][0], /href="\/cv\/Sam-Green-Solution-Architecture-CV\.pdf"/);
   assert.doesNotMatch(html, /download-dock|floating-download|src="\/bassh\/download\.js"/);
   assert.doesNotMatch(html, /Download the ZIP using the button above|Download a newer version from this page/i);
-  assert.match(html, /App downloads aren’t currently available from this site/);
+  assert.match(html, /href="\/bassh\/download"/);
 });
 
 test('the archived notarized release retains its verified bytes', async () => {
@@ -46,4 +46,31 @@ test('the iPhone beta stays private and the email button only expresses release 
   assert.equal(email.searchParams.get('subject'), 'bassh App Store release');
   assert.match(email.searchParams.get('body'), /let me know when bassh is available on the App Store/);
   assert.doesNotMatch(email.searchParams.get('body'), /beta|TestFlight/i);
+});
+
+test('the download page links to the private Mac release and offers email access for iPhone', async () => {
+  const html = await readFile(new URL('../public/bassh/download/index.html', import.meta.url), 'utf8');
+  const release = 'https://github.com/sampellebeano/bassh/releases/tag/mac-v0.2.0-preview.3';
+  assert.ok(html.includes(`href="${release}"`));
+  assert.match(html, /sign in to GitHub with the account I invited/);
+  assert.doesNotMatch(html, /href="\/downloads\/|testflight\.apple\.com|href="[^"]+\.(?:ipa|zip|dmg|pkg)(?:[?#"])/i);
+
+  const emailHref = html.match(/href="(mailto:[^"]+\?[^"]+)"/)?.[1];
+  assert.ok(emailHref, 'Visitors must be able to email for iPhone beta access');
+  const email = new URL(emailHref.replaceAll('&amp;', '&'));
+  assert.equal(email.pathname, 'sam.jgreen@icloud.com');
+  assert.equal(email.searchParams.get('subject'), 'bassh iOS TestFlight access');
+  assert.match(email.searchParams.get('body'), /like to try the bassh iPhone beta/);
+});
+
+test('Vercel serves both download page URLs and redirects legacy installer requests', async () => {
+  const config = JSON.parse(await readFile(new URL('../vercel.json', import.meta.url), 'utf8'));
+  for (const source of ['/bassh/download', '/bassh/download/']) {
+    assert.ok(config.rewrites.some(route => route.source === source && route.destination === '/bassh/download/index.html'));
+  }
+  assert.deepEqual(config.redirects.find(route => route.source === '/downloads/bassh/:path*'), {
+    source: '/downloads/bassh/:path*',
+    destination: '/bassh',
+    permanent: false,
+  });
 });

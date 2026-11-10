@@ -50,9 +50,9 @@ h1 { margin-top: 16px; font-size: var(--site-hero-size); font-weight: var(--site
 .iphone-release { margin-top: 25px; border-top: 1px solid var(--site-line); padding-top: 24px; }
 .iphone-release h3 { font-size: clamp(1.25rem, 1.1rem + .35vw, 1.5rem); font-weight: 500; letter-spacing: -0.015em; }
 .iphone-release p { margin-top: 10px; font-size: var(--site-body-size); line-height: 1.75; }
-.release-interest-button { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 48px; margin-top: 17px; padding: 13px 17px; border: 1px solid var(--site-accent); border-radius: 6px; font-size: var(--site-label-size); font-weight: 500; text-decoration: none; }
-.release-interest-button:hover { background: var(--site-surface); text-decoration: none; }
-.iphone-release .email-hint { margin-top: 12px; color: var(--site-muted); font-size: var(--site-small-size); }
+:is(.release-interest-button, .access-button) { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 48px; margin-top: 17px; padding: 13px 17px; border: 1px solid var(--site-accent); border-radius: 6px; font-size: var(--site-label-size); font-weight: 500; text-decoration: none; }
+:is(.release-interest-button, .access-button):hover { background: var(--site-surface); text-decoration: none; }
+.app-panel .email-hint { margin-top: 12px; color: var(--site-muted); font-size: var(--site-small-size); }
 .preview-section { padding-bottom: 40px; }
 .setup-section { border-top: 1px solid var(--site-line); padding-top: 46px; scroll-margin-top: 24px; }
 .section-heading { max-width: 600px; }

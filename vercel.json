@@ -13,6 +13,8 @@
     { "source": "/kapture", "destination": "/kapture/index.html" },
     { "source": "/kapture/", "destination": "/kapture/index.html" },
     { "source": "/bassh", "destination": "/bassh/index.html" },
-    { "source": "/bassh/", "destination": "/bassh/index.html" }
+    { "source": "/bassh/", "destination": "/bassh/index.html" },
+    { "source": "/bassh/download", "destination": "/bassh/download/index.html" },
+    { "source": "/bassh/download/", "destination": "/bassh/download/index.html" }
   ]
 }
