@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "vite",
   "installCommand": "npm ci --include=dev",
-  "buildCommand": "npx tsc --noEmit -p tsconfig.app.json && npm run build",
+  "buildCommand": "npx tsc --noEmit -p tsconfig.app.json && npm run build && node scripts/prune-vercel-output.mjs",
   "outputDirectory": "dist",
   "redirects": [
     { "source": "/downloads/bassh/:path*", "destination": "/bassh", "permanent": false },
