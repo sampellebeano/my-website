@@ -15,7 +15,7 @@
 }
 html { scroll-behavior: smooth; }
 * { box-sizing: border-box; }
-body { margin: 0; height: 100dvh; display: grid; grid-template-rows: minmax(0, 1fr) auto; overflow: hidden; }
+body { margin: 0; height: 100dvh; display: grid; grid-template-rows: minmax(0, 1fr); overflow: hidden; }
 .page-content { min-height: 0; overflow-y: auto; scroll-behavior: smooth; scrollbar-gutter: stable; }
 a { color: var(--accent); text-underline-offset: 4px; }
 a:hover { text-decoration: underline; }
@@ -41,22 +41,10 @@ main:focus { outline: none; }
 h1 { margin-top: 17px; font-size: clamp(40px, 5.3vw, 64px); font-weight: 500; line-height: 1.08; letter-spacing: -0.045em; }
 .intro { max-width: 39ch; margin-top: 26px; font-size: 17px; line-height: 1.75; color: var(--muted); }
 .hero-note { max-width: 44ch; margin-top: 22px; font-size: 14px; line-height: 1.75; color: var(--muted); }
-.download-panel { align-self: start; margin-top: 7px; border-left: 1px solid var(--border); padding-left: 32px; }
-.download-panel h2 { margin-top: 12px; font-size: 25px; font-weight: 500; letter-spacing: -0.02em; }
-.release-info { margin-top: 9px; font-size: 12px; line-height: 1.75; color: var(--muted); }
+.app-panel { align-self: start; margin-top: 7px; border-left: 1px solid var(--border); padding-left: 32px; }
+.app-panel h2 { margin-top: 12px; font-size: 25px; font-weight: 500; letter-spacing: -0.02em; }
 .compatibility { margin-top: 24px; font-size: 14px; line-height: 1.8; }
-.download-button { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 52px; padding: 15px 20px; border-radius: 6px; background: var(--accent); color: var(--background); font-size: 15px; font-weight: 600; text-decoration: none; }
-.download-panel > .download-button { margin-top: 23px; }
-.download-button:hover { background: #b4ceff; text-decoration: none; }
-.download-button span { font-size: 20px; }
-.download-dock { display: flex; justify-content: center; padding: 14px 20px calc(14px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--border); background: var(--background); }
-.floating-download { width: max-content; max-width: 100%; gap: 32px; box-shadow: 0 8px 30px #0006; animation: download-appear 320ms ease-out; }
-.download-dock[hidden], .floating-download[hidden] { display: none; }
-@keyframes download-appear {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.download-format { margin-top: 13px; font-size: 12px; line-height: 1.7; color: var(--muted); }
+.availability { margin-top: 23px; font-size: 14px; line-height: 1.75; color: var(--muted); }
 .release-links { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 15px; }
 .release-links a { padding-block: 8px; font-size: 12px; text-decoration: none; }
 .iphone-release { margin-top: 25px; border-top: 1px solid var(--border); padding-top: 24px; }
@@ -130,7 +118,7 @@ code { overflow-wrap: anywhere; color: var(--foreground); font-family: ui-monosp
   h1 { font-size: clamp(40px, 8vw, 54px); }
   .intro { max-width: 47ch; font-size: 16px; margin-top: 22px; }
   .hero-note { max-width: 50ch; margin-top: 17px; }
-  .download-panel { margin: 0; padding: 27px 0 0; border-left: 0; border-top: 1px solid var(--border); }
+  .app-panel { margin: 0; padding: 27px 0 0; border-left: 0; border-top: 1px solid var(--border); }
   .setup-section { padding-top: 32px; }
   .section-heading h2 { font-size: 27px; }
   .setup-requirements { grid-template-columns: 1fr; gap: 16px; padding-block: 20px; }

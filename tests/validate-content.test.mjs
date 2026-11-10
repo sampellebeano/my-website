@@ -22,6 +22,7 @@ test('the content CLI accepts a valid public record', async () => {
   const result = await validate([daily()]);
   assert.equal(result.status, 0, result.stderr);
   assert.match(result.stdout, /1 activity/);
+  assert.doesNotMatch(result.stderr, /build was canceled|ENOTEMPTY/i, 'Content validation must finish without background optimizer errors');
 });
 test('the content CLI rejects private fields with a redacted actionable error', async () => {
   const result = await validate([daily({ privateNotes: 'SECRET-TEST-VALUE' })]);

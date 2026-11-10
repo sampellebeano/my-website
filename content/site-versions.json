@@ -1,9 +1,39 @@
 [
   {
     "id": "cv-search-2026-10-08",
-    "label": "CV and search \u00b7 October 2026",
+    "label": "CV and search · October 2026",
     "capturedOn": "2026-10-08",
     "sourceRevision": "6390bafdf6350745703e52a3c8f651c9eddd610a",
     "path": "history/2026-10-08/index.html"
+  },
+  {
+    "id": "app-demos-2026-11-02",
+    "label": "Apps and CV · November 2026",
+    "capturedOn": "2026-11-02",
+    "path": "history/2026-11-02/index.html",
+    "sourceKind": "working-tree",
+    "baseRevision": "0a8e9b4660abc6fba181fad65adf1596ed02cf20",
+    "sourceManifestSha256": "eeb1a8563a86abb182d442afcd260d195b576ed33e5624871ef9591f928e514d",
+    "buildManifestSha256": "330328a6e97e6114c4ab9a1b55256afe2c4a4c50ca0728abeea730417a92c1b4",
+    "summary": "A graphite overview of my career and personal apps, with an iPhone home screen for the demos.",
+    "notes": [
+      "Saved from the working site before this redesign. The overview gave career history the first position, followed by the app projects.",
+      "Kapture and bassh used recordings of the actual apps. The Projects page introduced one iPhone home screen to explore them; RYW remained a text entry."
+    ]
+  },
+  {
+    "id": "graphite-projects-2026-11-03",
+    "label": "Graphite and app launcher",
+    "capturedOn": "2026-11-03",
+    "path": "history/2026-11-03-graphite/index.html",
+    "sourceKind": "working-tree",
+    "baseRevision": "0a8e9b4660abc6fba181fad65adf1596ed02cf20",
+    "sourceManifestSha256": "517d993a0f86f5ce7a43a26a98d2491d23ffedf3b720990c885df6eb9b04effa",
+    "buildManifestSha256": "c8ace10252b513bc07fffd3cefdea4c2540f74db0fd6f844daa5e6902398dd91",
+    "summary": "A graphite personal site with an iPhone app launcher on the homepage, followed by career history and saved editions.",
+    "notes": [
+      "Captured from the local working site on 3 November before the next visual redesign; this is a saved build, not a record of production publication.",
+      "The homepage combined an introduction, an interactive iPhone for Kapture and bassh recordings, professional background and site history. Projects retained a separate text overview, including RYW."
+    ]
   }
 ]

@@ -1,0 +1,182 @@
+.site-frame {
+  display: flex;
+  flex-direction: column;
+  width: min(1240px, calc(100% - 64px));
+  min-height: calc(100svh - 64px);
+  margin: 32px auto;
+  padding: 0 clamp(28px, 4.4vw, 64px);
+  border: 1px solid #e7e5e2;
+  border-radius: 24px;
+  background: #fffefd;
+  box-shadow: 0 8px 36px #25231f06, 0 1px 3px #25231f03;
+}
+.site-header { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 86px; padding: 18px 0; }
+.identity-name { display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; width: 44px; height: 44px; }
+.identity-name img { display: block; width: 40px; height: 40px; object-fit: contain; }
+.accent-dot { color: #2455e8; }
+.site-navigation { display: flex; flex-wrap: wrap; gap: 6px 28px; }
+.site-nav-link { display: inline-flex; align-items: center; min-height: 44px; color: #65666b; font-size: 13px; transition: color 150ms ease; }
+.site-nav-link:hover, .site-nav-link.is-active { color: #191b1e; }
+.site-nav-link.is-active { text-decoration: underline; text-underline-offset: 7px; text-decoration-color: #2455e8; }
+.nav-marker { display: none; }
+.site-main { display: flex; flex: 1; min-width: 0; padding: 12px 0 22px; }
+.site-main:focus { outline: none; }
+.site-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px 24px; min-height: 56px; padding: 8px 0; margin-top: 16px; border-top: 1px solid #e7e5e2; }
+.footer-tools { display: flex; align-items: center; flex-wrap: wrap; gap: 18px; font-size: 11px; }
+.site-footer .nav-link, .site-footer .previous-versions { display: inline-flex; align-items: center; gap: 4px; min-height: 40px; font-size: 11px; }
+.site-footer .download-link { font-size: 11px; }
+.home-screen, .split-screen { display: grid; flex: 1; grid-template-columns: minmax(0, 1fr) minmax(200px, .58fr); align-content: start; align-items: start; column-gap: clamp(36px, 6vw, 88px); padding: 10px 0; }
+.home-screen { grid-template-areas: "copy phone" "projects phone"; }
+.home-copy { grid-area: copy; min-width: 0; }
+.screen-kicker { margin-bottom: 22px; color: #191b1e; font-size: 10px; font-weight: 600; line-height: 1.5; letter-spacing: .23em; text-transform: uppercase; }
+.home-copy h1, .screen-copy h1, .project-missing h1 { max-width: 17ch; color: #191b1e; font-size: clamp(42px, 4.6vw, 66px); font-weight: 450; line-height: 1.05; letter-spacing: -.055em; text-wrap: balance; }
+.screen-lede { max-width: 49ch; margin-top: 24px; color: #65666b; font-size: 15px; line-height: 1.7; text-wrap: pretty; }
+.location-line { display: flex; align-items: center; gap: 7px; margin-top: 20px; color: #65666b; font-size: 12px; }
+.screen-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 24px; margin-top: 22px; }
+.primary-link { display: inline-flex; align-items: center; justify-content: center; gap: 18px; min-height: 44px; padding: 11px 21px; border-radius: 99px; color: #fffefd; background: #191b1e; font-size: 12px; line-height: 1.5; transition: background 150ms ease, transform 150ms ease; }
+.primary-link:hover { background: #34373d; transform: translateY(-1px); }
+.quiet-link { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; color: #191b1e; font-size: 12px; text-underline-offset: 4px; }
+.quiet-link:hover { text-decoration: underline; }
+.screen-phone { grid-area: phone; display: flex; align-items: center; justify-content: center; min-width: 0; }
+.screen-phone .phone-showcase-device { width: min(100%, calc((100svh - 328px) * 402 / 874)); max-width: 286px; }
+.home-projects { grid-area: projects; margin-top: 32px; padding-top: 20px; border-top: 1px solid #e7e5e2; }
+.home-projects > .screen-kicker { margin-bottom: 12px; color: #65666b; font-size: 9px; letter-spacing: .2em; }
+.project-links { display: grid; margin-top: 24px; }
+.project-link { display: flex; align-items: center; gap: 15px; min-width: 0; min-height: 84px; padding: 16px 0; border-top: 1px solid #e7e5e2; }
+.project-link:last-child { border-bottom: 1px solid #e7e5e2; }
+.project-link-icon { flex-shrink: 0; width: 34px; height: 34px; object-fit: contain; border-radius: 8px; }
+.project-link-monogram { display: grid; flex-shrink: 0; place-items: center; width: 34px; height: 34px; color: #191b1e; font-size: 11px; font-weight: 650; letter-spacing: -.08em; }
+.project-link-copy { display: flex; flex: 1; flex-direction: column; min-width: 0; gap: 5px; }
+.project-link-title { color: #191b1e; font-size: 16px; font-weight: 550; line-height: 1.2; letter-spacing: -.025em; }
+.project-link-summary { max-width: 48ch; color: #65666b; font-size: 12px; line-height: 1.55; }
+.project-link-arrow { flex-shrink: 0; color: #191b1e; transition: transform 150ms ease; }
+.project-link:hover .project-link-arrow { transform: translate(2px, -2px); }
+.project-link:hover .project-link-title, .project-link.is-selected .project-link-title { color: #2455e8; }
+.project-links--compact { grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; }
+.project-links--compact .project-link { gap: 9px; min-height: 64px; padding: 8px 14px; border: 0; border-right: 1px solid #e7e5e2; }
+.project-links--compact .project-link:first-child { padding-left: 0; }
+.project-links--compact .project-link:last-child { padding-right: 0; border: 0; }
+.project-links--compact .project-link-title { font-size: 14px; }
+.project-links--compact .project-link-summary { font-size: 10px; }
+.project-links--compact .project-link-icon, .project-links--compact .project-link-monogram { width: 28px; height: 28px; }
+.project-links--compact .project-link-arrow { width: 13px; }
+.split-screen .screen-phone { grid-area: auto; }
+.screen-copy { min-width: 0; }
+.screen-copy > .screen-kicker { margin-bottom: 16px; }
+.screen-copy > .screen-lede { margin-top: 20px; }
+.overview-back { margin-bottom: 16px; color: #65666b; }
+.app-overview { grid-template-areas: "intro phone" "detail phone"; grid-template-rows: auto auto; row-gap: 0; }
+.app-introduction { grid-area: intro; }
+.app-detail-copy { grid-area: detail; min-width: 0; }
+.app-overview .screen-phone { grid-area: phone; }
+.app-overview h1 { font-size: clamp(48px, 5vw, 72px); }
+.app-overview .screen-kicker { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 14px; margin-bottom: 14px; font-size: 9px; letter-spacing: .13em; }
+.project-status { color: #65666b; font-size: 10px; font-weight: 400; letter-spacing: 0; text-transform: none; }
+.app-summary { max-width: 42ch; margin-top: 18px; font-size: 19px; line-height: 1.45; letter-spacing: -.025em; text-wrap: pretty; }
+.app-description { max-width: 58ch; margin-top: 22px; }
+.app-description p { margin-top: 14px; color: #65666b; font-size: 14px; line-height: 1.7; }
+.app-overview-actions { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 20px; margin-top: 18px; }
+.description-pages { display: flex; align-items: center; gap: 10px; font-size: 11px; font-variant-numeric: tabular-nums; }
+.page-arrow { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid #e7e5e2; border-radius: 50%; }
+.page-arrow:hover { border-color: #65666b; }
+.page-arrow.is-disabled { border-color: transparent; color: #bcbdc0; }
+.app-switcher { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; margin-top: 22px; padding-top: 12px; border-top: 1px solid #e7e5e2; }
+.app-switcher a { display: inline-flex; align-items: center; min-height: 40px; color: #65666b; font-size: 12px; }
+.app-switcher a[aria-current], .app-switcher a:hover { color: #2455e8; }
+.project-missing { align-self: center; padding: 40px 0; }
+.project-missing p:not(.screen-kicker) { margin: 20px 0; color: #65666b; }
+.site-frame--document .site-main { display: block; padding-top: 28px; }
+.site-frame--document .site-footer { margin-top: 36px; }
+@media (min-width: 761px) and (max-height: 840px) {
+  .site-frame { width: min(1240px, calc(100% - 40px)); min-height: calc(100svh - 40px); margin: 20px auto; }
+  .site-header { min-height: 70px; padding: 12px 0; }
+  .site-main { padding-top: 4px; padding-bottom: 6px; }
+  .home-copy h1, .screen-copy h1 { font-size: clamp(38px, 4vw, 56px); }
+  .screen-kicker { margin-bottom: 16px; }
+  .screen-lede { margin-top: 18px; font-size: 14px; }
+  .home-projects { margin-top: 20px; padding-top: 14px; }
+  .home-copy .location-line { margin-top: 14px; }
+  .home-copy .screen-actions { margin-top: 16px; }
+  .home-screen, .split-screen { padding-block: 4px; }
+  .site-footer { margin-top: 10px; }
+  .app-description { margin-top: 16px; }
+  .app-description p { font-size: 13px; line-height: 1.65; }
+  .app-switcher { margin-top: 12px; }
+}
+@media (max-width: 1000px) {
+  .project-links--compact .project-link { flex-wrap: wrap; gap: 8px; }
+  .project-links--compact .project-link-copy { flex-basis: calc(100% - 42px); }
+  .project-links--compact .project-link-arrow { display: none; }
+  .home-screen, .split-screen { column-gap: 36px; grid-template-columns: minmax(0, 1fr) minmax(170px, .55fr); }
+  .home-copy h1, .screen-copy h1 { font-size: clamp(36px, 4.8vw, 48px); }
+}
+@media (max-width: 760px) {
+  .site-frame { width: calc(100% - 24px); min-height: calc(100svh - 24px); margin: 12px auto; padding: 0 24px; border-radius: 18px; }
+  .site-header { min-height: 76px; padding: 14px 0; gap: 12px; }
+  .identity-name img { width: 36px; height: 36px; }
+  .site-navigation { gap: 4px 16px; }
+  .site-nav-link { font-size: 12px; }
+  .site-main { padding: 6px 0 16px; }
+  .home-screen, .split-screen { grid-template-columns: minmax(0, 1fr) minmax(126px, .65fr); }
+  .home-screen { grid-template-areas: "copy phone" "projects projects"; gap: 26px 24px; }
+  .home-copy h1 { font-size: clamp(30px, 5.2vw, 42px); }
+  .home-copy .screen-kicker { margin-bottom: 16px; }
+  .home-copy .screen-lede { font-size: 13px; line-height: 1.6; margin-top: 18px; }
+  .home-copy .location-line { margin-top: 16px; font-size: 11px; }
+  .screen-actions { gap: 4px 14px; margin-top: 18px; }
+  .primary-link { gap: 10px; padding: 11px 16px; font-size: 11px; }
+  .quiet-link { font-size: 11px; }
+  .screen-phone .phone-showcase-device { width: 100%; max-width: 228px; }
+  .home-projects { margin-top: 0; padding-top: 18px; }
+  .project-links--compact .project-link { min-height: 60px; padding-inline: 10px; }
+  .project-links--compact .project-link-title { font-size: 13px; }
+  .project-links--compact .project-link-summary { font-size: 10px; }
+  .site-footer { gap: 0 18px; margin-top: 6px; padding-block: 8px; }
+  .footer-tools { gap: 14px; }
+  .site-footer .nav-link, .site-footer .previous-versions, .site-footer .download-link { min-height: 36px; font-size: 10px; }
+  .site-contact nav { column-gap: 16px; }
+  .split-screen { gap: 24px; }
+  .screen-copy h1 { font-size: 36px; }
+  .screen-copy > .screen-lede { font-size: 13px; line-height: 1.6; }
+  .project-link { gap: 10px; min-height: 76px; padding-block: 14px; }
+  .project-link-icon, .project-link-monogram { width: 28px; height: 28px; }
+  .project-link-title { font-size: 14px; }
+  .project-link-summary { font-size: 11px; }
+  .app-overview { grid-template-areas: "intro phone" "detail detail"; row-gap: 12px; }
+  .app-overview .app-description { margin-top: 8px; }
+  .app-overview .demo-current-app { display: none; }
+  .app-overview .demo-phone-button { gap: 3px; padding-inline: 4px; font-size: 10px; }
+  .app-summary { font-size: 17px; }
+  .app-description p { font-size: 13px; line-height: 1.65; }
+}
+@media (max-width: 480px) {
+  .site-frame { padding-inline: 18px; }
+  .site-header { flex-wrap: wrap; gap: 0 12px; min-height: 68px; }
+  .site-navigation { gap: 2px 13px; }
+  .site-nav-link { font-size: 11px; }
+  .home-screen, .split-screen { grid-template-columns: minmax(0, 1fr) 126px; }
+  .home-screen { gap: 22px 16px; }
+  .home-copy h1 { font-size: 31px; }
+  .home-copy .screen-lede { font-size: 12px; }
+  .home-copy .screen-kicker { font-size: 9px; }
+  .home-copy .location-line { font-size: 10px; }
+  .home-copy .primary-link { padding-inline: 13px; gap: 8px; }
+  .home-copy .primary-link svg { width: 13px; }
+  .home-copy .quiet-link { display: none; }
+  .project-links--compact .project-link { align-content: start; }
+  .project-links--compact .project-link-copy { flex-basis: 100%; }
+  .project-links--compact .project-link-summary { font-size: 9px; }
+  .split-screen { gap: 16px; }
+  .screen-copy h1 { font-size: 31px; }
+  .screen-copy .project-link-summary { display: none; }
+  .screen-copy .project-link { min-height: 66px; }
+  .app-summary { font-size: 15px; line-height: 1.5; }
+
+}
+@media (max-width: 350px) {
+  .home-screen, .split-screen { grid-template-columns: minmax(0, 1fr); }
+  .screen-phone, .split-screen .screen-phone, .app-overview .screen-phone { grid-column: 1; grid-row: auto; }
+  .home-screen { grid-template-areas: "copy" "phone" "projects"; }
+  .screen-phone .phone-showcase-device { max-width: 180px; }
+  .app-overview { grid-template-areas: "intro" "phone" "detail"; }
+}

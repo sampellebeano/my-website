@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { resolve, join } from 'node:path';
 import { createServer } from 'vite';
 import { parsePublicContent } from '../src/lib/public-content.ts';
+import { ssrViteOptions } from './ssr-vite-options.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 
@@ -28,7 +29,7 @@ try {
   let projectIds;
   let careerIds;
   try {
-    const server = await createServer({ root, cacheDir, mode: 'production', logLevel: 'silent', server: { middlewareMode: true, watch: null }, appType: 'custom' });
+    const server = await createServer({ ...ssrViteOptions(), root, cacheDir, mode: 'production', logLevel: 'silent', server: { middlewareMode: true, watch: null }, appType: 'custom' });
     try {
       const [{ entries }, { projects }] = await Promise.all([server.ssrLoadModule('/src/data/cv.ts'), server.ssrLoadModule('/src/data/projects.ts')]);
       projectIds = projects.map(project => project.id);

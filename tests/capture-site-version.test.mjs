@@ -1,0 +1,51 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { mkdtemp, mkdir, writeFile, readFile, access, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { runInNewContext } from 'node:vm';
+import { parsePublicContent } from '../src/lib/public-content.ts';
+import { captureSiteVersion } from '../scripts/capture-site-version.mjs';
+
+test('a saved edition keeps its own assets without copying archives or withdrawn downloads', async () => {
+  const task = await mkdtemp(join(tmpdir(), 'site-capture-test-'));
+  try {
+    const build = join(task, 'build');
+    const source = join(task, 'source');
+    for (const dir of ['assets', 'images/apps', 'bassh', 'history/2026-10-08', 'downloads/bassh', 'cv']) await mkdir(join(build, dir), { recursive: true });
+    await mkdir(source);
+    await writeFile(join(source, 'index.html'), '<main>Sam</main>');
+    await writeFile(join(build, 'index.html'), '<script type="module" src="./assets/site.js"></script><link rel="stylesheet" href="/assets/site.css"><img src="/images/apps/app.png"><a href="/bassh">App</a>');
+    const versions = [{ id: 'old', label: 'Old edition', capturedOn: '2026-10-08', sourceRevision: 'a'.repeat(40), path: 'history/2026-10-08/index.html' }];
+    await writeFile(join(build, 'assets/site.js'), 'const app={icon:"/images/apps/app.png",href:"/bassh"}; const route="/projects"; const versions=' + JSON.stringify(versions) + '; const link={href:`./${versions[0].path}`};');
+    await writeFile(join(build, 'assets/site.css'), '.preview{background:url("/images/apps/app.png")}');
+    await writeFile(join(build, 'bassh/index.html'), '<a href="/#/projects">Projects</a><img data-poster="/images/apps/app.png" src="/images/apps/app.png">');
+    await writeFile(join(build, 'images/apps/app.png'), 'image fixture');
+    await writeFile(join(build, 'history/2026-10-08/index.html'), 'do not nest');
+    await writeFile(join(build, 'downloads/bassh/app.zip'), 'withdrawn');
+    await writeFile(join(build, 'cv/private.docx'), 'private original');
+    const output = join(task, 'history/2026-11-02');
+    const record = await captureSiteVersion({ buildDir: build, sourceDir: source, outputDir: output, capturedOn: '2026-11-02', baseRevision: 'a'.repeat(40), id: 'before-overhaul', label: 'Before the overhaul' });
+    assert.equal(record.sourceKind, 'working-tree');
+    assert.equal(record.baseRevision, 'a'.repeat(40));
+    assert.equal(record.sourceRevision, undefined);
+    assert.match(record.sourceManifestSha256, /^[a-f0-9]{64}$/);
+    assert.match(record.buildManifestSha256, /^[a-f0-9]{64}$/);
+    for (const absent of ['history', 'downloads', 'cv/private.docx']) await assert.rejects(access(join(output, absent)));
+    const html = await readFile(join(output, 'index.html'), 'utf8');
+    assert.match(html, /src="\.\/images\/apps\/app.png"/);
+    assert.match(html, /href="\.\/bassh\/index.html"/);
+    const app = await readFile(join(output, 'bassh/index.html'), 'utf8');
+    assert.match(app, /href="\.\.\/index.html#\/projects"/);
+    assert.match(app, /data-poster="\.\.\/images\/apps\/app.png"/);
+    const script = await readFile(join(output, 'assets/site.js'), 'utf8');
+    assert.match(script, /new URL\("\.\.\/images\/apps\/app.png",import.meta.url\).href/);
+    assert.match(script, /route="\/projects"/);
+    const capturedVersions = JSON.parse(script.match(/const versions=(\[.*?\]);/)[1]);
+    assert.equal(parsePublicContent({ activity: [], books: [], versions: capturedVersions }, []).versions[0].path, versions[0].path, 'Capture must preserve metadata that the saved bundle validates during initialization');
+    const link = runInNewContext(script.replaceAll('import.meta.url', '"https://website.test/sub/history/2026-11-02/assets/site.js"') + '; link.href;', { URL, document: { baseURI: 'https://website.test/sub/history/2026-11-02/index.html' } });
+    assert.equal(link, 'https://website.test/sub/history/2026-10-08/index.html');
+    assert.match(await readFile(join(output, 'assets/site.css'), 'utf8'), /url\("\.\.\/images\/apps\/app.png"\)/);
+    await assert.rejects(captureSiteVersion({ buildDir: build, sourceDir: source, outputDir: output, capturedOn: '2026-11-02', baseRevision: 'a'.repeat(40), id: 'same', label: 'Same' }), /already exists/);
+  } finally { await rm(task, { recursive: true, force: true }); }
+});

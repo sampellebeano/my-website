@@ -15,7 +15,7 @@ function createPage({ hash = '', state = null } = {}) {
   let scrollHandler = () => {};
   const location = { hash };
   const page = {
-    scrollTop: 0,
+    scrollTop: 0, clientHeight: 800, scrollHeight: 3000,
     addEventListener: (type, callback) => { if (type === 'scroll') scrollHandler = callback; },
     scrollTo: options => { page.lastScroll = options; scroll(options.top); },
   };
@@ -30,6 +30,8 @@ function createPage({ hash = '', state = null } = {}) {
     pushState: (state, title, hash) => { entries.splice(index + 1); entries.push({ hash, state }); index++; location.hash = hash; },
   };
   const document = {
+    body: {},
+    activeElement: null,
     getElementById: id => id === 'page-content' ? page : targets[id],
     addEventListener: (type, callback) => { if (type === 'click') clickHandler = callback; },
   };
@@ -38,6 +40,12 @@ function createPage({ hash = '', state = null } = {}) {
   runInNewContext(source, { document, window, history, location, crypto: { randomUUID: () => `entry-${++nextId}` } });
   return {
     page, history, location, scroll,
+    press: (key, modifiers = {}, focus = document.body) => {
+      document.activeElement = focus;
+      let prevented = false;
+      listeners.get('keydown')?.({ key, ...modifiers, preventDefault: () => { prevented = true; } });
+      return { prevented, top: page.scrollTop };
+    },
     emit: type => listeners.get(type)?.(),
     go: delta => { index += delta; location.hash = entries[index].hash; listeners.get('popstate')?.(); },
     click: (hash, options = {}) => {
@@ -103,4 +111,30 @@ test('modified clicks, downloads, new tabs, and unknown targets keep native beha
     assert.equal(view.click(hash, options), false);
     assert.equal(view.page.scrollTop, 0);
   }
+});
+
+test('paging from initial page focus scrolls the reading area without a download button', () => {
+  for (const [key, modifiers, top] of [
+    ['PageDown', {}, 1700], ['PageUp', {}, 300],
+    ['ArrowDown', {}, 1040], ['ArrowUp', {}, 960],
+    ['Home', {}, 0], ['End', {}, 3000],
+    [' ', {}, 1700], [' ', { shiftKey: true }, 300],
+    ['ArrowUp', { metaKey: true }, 0], ['ArrowDown', { metaKey: true }, 3000],
+  ]) {
+    const view = createPage();
+    view.scroll(1000);
+    assert.deepEqual(view.press(key, modifiers), { prevented: true, top }, key);
+  }
+});
+
+test('keyboard navigation leaves native controls and handled events alone', () => {
+  const view = createPage();
+  view.scroll(1000);
+  for (const key of ['Enter', 'Tab']) {
+    assert.deepEqual(view.press(key), { prevented: false, top: 1000 });
+  }
+  for (const key of [' ', 'PageDown']) {
+    assert.deepEqual(view.press(key, {}, {}), { prevented: false, top: 1000 });
+  }
+  assert.deepEqual(view.press('PageDown', { defaultPrevented: true }), { prevented: false, top: 1000 });
 });

@@ -1,16 +1,5 @@
-import { publicContent } from "@/data/public-content";
-import { formatPublicDate } from "@/lib/public-content";
+import { Link } from "react-router-dom";
 
-export const PreviousVersions = () => publicContent.versions.length ? (
-  <details className="previous-versions">
-    <summary>Previous versions</summary>
-    <ul>
-      {publicContent.versions.map(version => (
-        <li key={version.id}>
-          <a href={`${import.meta.env.BASE_URL}${version.path}`} className="text-link">{version.label}</a>
-          <span className="version-date">Captured {formatPublicDate(version.capturedOn)}</span>
-        </li>
-      ))}
-    </ul>
-  </details>
-) : null;
+export const PreviousVersions = () => (
+  <Link className="previous-versions text-link" to="/history">Site history <span aria-hidden="true">↗</span></Link>
+);

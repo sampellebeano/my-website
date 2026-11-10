@@ -1,0 +1,75 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
+
+function render(route) {
+  const result = spawnSync(process.execPath, ['tests/render-site.mjs', route], { encoding: 'utf8', env: { ...process.env, NODE_ENV: 'development' } });
+  assert.equal(result.status, 0, result.stderr);
+  return result.stdout;
+}
+
+const roles = [
+  ['servicenow-uae', 'I work with aviation and wealth management customers'],
+  ['servicenow-ireland', 'I worked with enterprise healthcare, retail and education customers in Ireland.'],
+  ['servicenow-itom', 'I was the first EMEA Digital Specialist Solution Consultant'],
+  ['salesforce', 'I led UK &amp; Ireland SMB solution engineering'],
+];
+const highlights = [
+  ['enterprise-front-door', 'servicenow-uae', 'Five independent business units, one proposed enterprise front door.'],
+  ['aviation', 'servicenow-uae', 'I’m developing autonomous workforce use cases'],
+  ['executive-briefings', 'servicenow-uae', 'I lead enterprise Executive Briefing Centre sessions'],
+  ['quip', 'salesforce', 'I led the Quip Black Belt programme and built an integrated platform'],
+];
+
+function assertRoleIndex(html, selectedRole) {
+  for (const [id] of roles) assert.ok(html.includes(`href="/experience?entry=${id}"`), `Keep ${id} reachable`);
+  assert.ok(new RegExp(`<a(?=[^>]*href="/experience\\?entry=${selectedRole}")(?=[^>]*aria-current="true")[^>]*>`).test(html), `Mark ${selectedRole} as the selected role`);
+}
+
+test('Experience defaults to the current role and keeps the CV and credentials directly reachable', () => {
+  const html = render('/experience');
+  assert.equal((html.match(/<article\b/g) ?? []).length, 1);
+  assert.ok(html.includes('<article id="servicenow-uae"'));
+  assertRoleIndex(html, 'servicenow-uae');
+  assert.match(html, /href="\/cv\/Sam-Green-Solution-Architecture-CV\.pdf"[^>]*download/);
+  assert.match(html, /href="\/search\?section=qualifications"/);
+  assert.match(html, /href="\/search"/);
+  for (const [id, parent] of highlights) {
+    if (parent === 'servicenow-uae') assert.ok(html.includes(`href="/experience?entry=${id}"`));
+  }
+  for (const [, sentence] of roles.slice(1)) assert.ok(!html.includes(sentence), 'Other role descriptions stay behind their links');
+  for (const [, , sentence] of highlights) assert.ok(!html.includes(sentence), 'Highlight paragraphs are selected individually');
+});
+
+for (const [id, sentence] of roles) {
+  test(`the ${id} URL shows that role without stacking every role description`, () => {
+    const html = render(`/experience?entry=${id}`);
+    assert.equal((html.match(/<article\b/g) ?? []).length, 1);
+    assert.ok(html.includes(`<article id="${id}"`));
+    assertRoleIndex(html, id);
+    for (const [roleId, roleSentence] of roles) assert.equal(html.includes(roleSentence), roleId === id, roleSentence);
+    for (const [highlightId, parent] of highlights) {
+      if (parent === id) assert.ok(html.includes(`href="/experience?entry=${highlightId}"`));
+    }
+    assert.ok(html.includes(sentence));
+  });
+}
+
+for (const [id, parent, sentence] of highlights) {
+  test(`the ${id} highlight URL selects its parent role and only its own description`, () => {
+    const html = render(`/experience?entry=${id}`);
+    assert.equal((html.match(/<article\b/g) ?? []).length, 1);
+    assert.ok(html.includes(`<article id="${id}"`));
+    assertRoleIndex(html, parent);
+    assert.ok(new RegExp(`<a(?=[^>]*href="/experience\\?entry=${id}")(?=[^>]*aria-current="page")[^>]*>`).test(html), `Mark ${id} as the selected highlight`);
+    for (const [highlightId, , highlightSentence] of highlights) assert.equal(html.includes(highlightSentence), highlightId === id, highlightSentence);
+    for (const [, roleSentence] of roles) assert.ok(!html.includes(roleSentence), 'A highlight replaces the role description');
+    assert.ok(html.includes(sentence));
+  });
+}
+
+test('an unknown Experience entry falls back to the current role', () => {
+  const html = render('/experience?entry=missing-entry');
+  assert.ok(html.includes('<article id="servicenow-uae"'));
+  assertRoleIndex(html, 'servicenow-uae');
+});

@@ -40,13 +40,28 @@ const bookSchema = z.object({
   url: nonblank.optional(),
   note: nonblank.optional(),
 }).strict();
-const versionSchema = z.object({
+const revision = z.string().regex(/^[a-f0-9]{7,40}$/);
+const manifestSha256 = z.string().regex(/^[a-f0-9]{64}$/);
+const snapshotFolder = "history/\\d{4}-\\d{2}-\\d{2}(?:-[a-z0-9]+(?:-[a-z0-9]+)*)?";
+const versionFields = {
   id: identifier,
   label: nonblank,
   capturedOn: calendarDate,
-  sourceRevision: z.string().regex(/^[a-f0-9]{7,40}$/),
-  path: z.string().regex(/^history\/\d{4}-\d{2}-\d{2}\/index\.html$/),
-}).strict();
+  path: z.string().regex(new RegExp(`^${snapshotFolder}/index\\.html$`)),
+  summary: nonblank.optional(),
+  notes: z.array(nonblank).optional(),
+  preview: z.string().regex(new RegExp(`^${snapshotFolder}/[a-z0-9]+(?:-[a-z0-9]+)*\\.(?:png|jpe?g|webp|avif)$`)).optional(),
+};
+const versionSchema = z.union([
+  z.object({ ...versionFields, sourceRevision: revision }).strict(),
+  z.object({
+    ...versionFields,
+    sourceKind: z.literal("working-tree"),
+    baseRevision: revision,
+    sourceManifestSha256: manifestSha256,
+    buildManifestSha256: manifestSha256,
+  }).strict(),
+]);
 const contentSchema = z.object({
   activity: z.array(z.discriminatedUnion("kind", [dailySchema, weeklySchema])),
   books: z.array(bookSchema),
@@ -82,7 +97,7 @@ function validateLink(href: string, path: string, content: PublicContent, projec
   if (!href.startsWith("#/")) invalid(path, "use HTTPS or a recognised #/ route");
   const route = new URL(href.slice(1), "https://public-content.invalid");
   const literalPath = href.slice(1).split(/[?#]/)[0];
-  const allowed = ["/", "/experience", "/projects", "/updates", "/books", "/search"];
+  const allowed = ["/", "/experience", "/projects", "/updates", "/books", "/history", "/search"];
   if (route.origin !== "https://public-content.invalid" || route.pathname !== literalPath || !allowed.includes(route.pathname) || route.hash) {
     invalid(path, "unknown website route");
   }
@@ -91,6 +106,7 @@ function validateLink(href: string, path: string, content: PublicContent, projec
     const ids = route.pathname === "/updates" ? content.activity.map(entry => entry.id)
       : route.pathname === "/books" ? content.books.map(entry => entry.id)
       : route.pathname === "/projects" ? projectIds
+      : route.pathname === "/history" ? content.versions.map(entry => entry.id)
       : route.pathname === "/experience" ? careerIds : [];
     if (selected.length !== 1 || !ids.includes(selected[0])) invalid(path, "entry must reference a published record in this view");
   }
@@ -133,14 +149,27 @@ export function parsePublicContent(input: unknown, projectIds: readonly string[]
   content.books.forEach((entry, index) => {
     if (entry.url) validateLink(entry.url, `books.${index}.url`, content, projectIds, careerIds);
   });
+  const snapshotPaths = new Set<string>();
   content.versions.forEach((version, index) => {
-    if (version.path !== `history/${version.capturedOn}/index.html`) invalid(`versions.${index}.path`, "path must match the snapshot capture date");
+    if (snapshotPaths.has(version.path)) invalid(`versions.${index}.path`, "each edition must have a unique snapshot path");
+    snapshotPaths.add(version.path);
+    const folder = version.path.slice(0, -"/index.html".length);
+    if (folder !== `history/${version.capturedOn}` && !folder.startsWith(`history/${version.capturedOn}-`)) {
+      invalid(`versions.${index}.path`, "path must match the snapshot capture date");
+    }
+    if (version.preview && version.preview.slice(0, version.preview.lastIndexOf("/")) !== folder) {
+      invalid(`versions.${index}.preview`, "preview must belong to this snapshot folder");
+    }
   });
   return content;
 }
 
 export function sortActivity(entries: readonly ActivityEntry[]): ActivityEntry[] {
   return [...entries].sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt) || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+}
+
+export function sortSiteVersions(versions: readonly SiteVersion[]): SiteVersion[] {
+  return [...versions].sort((a, b) => b.capturedOn.localeCompare(a.capturedOn) || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
 }
 
 function dubaiCalendarDate(value: string): string {
