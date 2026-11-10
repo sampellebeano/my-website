@@ -10,7 +10,7 @@ function render(route) {
 
 test('home exposes the complete app collection, contact, CV and history in a compact introduction', () => {
   const html = render('/');
-  assert.match(html, /I work in tech\.<br\/>I also make apps/);
+  assert.match(html, /<h1 id="home-title">Solution consulting at ServiceNow\.<br\/>Developing applications in my spare time/);
   for (const slug of ['bassh', 'highlighter', 'kapture']) assert.match(html, new RegExp(`href="/projects/${slug}"`));
   assert.equal((html.match(/aria-label="Sam’s project iPhone"/g) ?? []).length, 1);
   assert.match(html, /href="mailto:sam.jgreen@icloud.com"/);
