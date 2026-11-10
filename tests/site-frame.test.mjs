@@ -3,11 +3,11 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import postcss from 'postcss';
 
-const frames = [
+const contentFrames = [
   ['../src/components/single-screen.css', '.site-frame'],
-  ['../public/bassh/style.css', '.page-content'],
   ['../public/kapture/style.css', '.project-frame'],
 ];
+const frames = [...contentFrames, ['../public/bassh/style.css', '.page-content']];
 
 test('current pages share a frame edge that blends into the surrounding canvas', async () => {
   const theme = postcss.parse(await readFile(new URL('../public/styles/site-theme.css', import.meta.url), 'utf8'));
@@ -27,4 +27,15 @@ test('current pages share a frame edge that blends into the surrounding canvas',
 
   const edge = rgb(color('--site-frame-edge'));
   assert.ok(edge.every((channel, index) => channel >= canvas[index] && channel <= paper[index]), 'The edge falls between the canvas and the page surface');
+});
+
+test('short pages can end at their content height', async () => {
+  for (const [path, selector] of contentFrames) {
+    const stylesheet = postcss.parse(await readFile(new URL(path, import.meta.url), 'utf8'));
+    stylesheet.walkRules(selector, frame => {
+      frame.walkDecls(/^(?:min-)?(?:height|block-size)$/, declaration => {
+        assert.doesNotMatch(declaration.value, /\d[dls]?v[bh]\b/i, `${selector} must not reserve extra height on tall screens`);
+      });
+    });
+  }
 });

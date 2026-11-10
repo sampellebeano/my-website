@@ -33,7 +33,7 @@
 .collection-notes ul { display: grid; gap: 10px; padding-left: 16px; list-style: disc; }
 .collection-notes li { color: hsl(var(--muted-foreground)); font-size: 14px; line-height: 1.6; }
 .collection-snapshot-link { display: inline-flex; align-items: center; gap: 7px; min-height: 32px; margin-top: 15px; font-size: 13px; }
-.collection-view .collection-footer { margin-top: auto; padding-top: 6px; }
+.collection-view .collection-footer { margin-top: 0; padding-top: 6px; }
 .collection-view .collection-links { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 13px; }
 .collection-current { display: flex; justify-content: space-between; align-items: baseline; gap: 15px 28px; }
 .collection-current > p { max-width: 66ch; color: hsl(var(--muted-foreground)); font-size: 12px; line-height: 1.6; }
@@ -65,7 +65,6 @@
   .collection-view { gap: 25px; }
   .collection-layout { grid-template-columns: minmax(0, 1fr); gap: 28px; }
   .collection-index a { min-height: 0; padding-block: 12px; }
-  .collection-view .collection-footer { margin-top: 0; }
   .collection-current { align-items: flex-start; flex-direction: column; }
   .credential-lists { columns: 1; }
 }

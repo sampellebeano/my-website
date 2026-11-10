@@ -64,7 +64,7 @@
 .demo-status-icons svg { width: 5cqw; height: 5cqw; }
 .demo-status-icons svg:last-child { width: 7cqw; height: 6cqw; }
 .demo-launcher { min-height: 0; padding: 8% 7%; }
-.demo-app-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); align-content: start; align-items: start; gap: 7cqw 3.5cqw; }
+.demo-app-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(20%, 1fr)); align-content: start; align-items: start; gap: 7cqw 3.5cqw; }
 
 .demo-app-icon {
   display: flex;
@@ -137,6 +137,27 @@
 @container (max-width: 220px) {
   .demo-app-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6cqw; }
   .demo-app-name { font-size: 4.4cqw; }
+}
+
+@media (max-width: 760px) {
+  .device-stage:not(.app-overview) .demo-iphone { padding: 0; border-color: #b9c7ce; border-radius: 18px; background: #e7ecec; box-shadow: none; }
+  .device-stage:not(.app-overview) .demo-iphone::before,
+  .device-stage:not(.app-overview) .demo-iphone::after,
+  .device-stage:not(.app-overview) .demo-status-bar { display: none; }
+  .device-stage:not(.app-overview) .demo-iphone-screen { aspect-ratio: auto; border-radius: inherit; }
+  .device-stage:not(.app-overview) .demo-home { position: relative; grid-template-rows: auto auto; gap: 16px; padding: 16px clamp(12px, 4vw, 28px); }
+  .device-stage:not(.app-overview) .demo-launcher { padding: 0; }
+  .device-stage:not(.app-overview) .demo-app-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 56px), 1fr)); gap: 12px 8px; }
+  .device-stage:not(.app-overview) .demo-app-icon { justify-self: center; width: min(100%, clamp(48px, 16vw, 76px)); gap: 6px; }
+  .device-stage:not(.app-overview) .demo-app-icon img,
+  .device-stage:not(.app-overview) .demo-app-monogram { width: clamp(40px, 10vw, 56px); }
+  .device-stage:not(.app-overview) .demo-app-monogram { font-size: 13px; }
+  .device-stage:not(.app-overview) .demo-app-name,
+  .device-stage:not(.app-overview) .demo-launcher-empty { font-size: 12px; }
+  .device-stage:not(.app-overview) .demo-home-caption { grid-row: 1; gap: 2px; padding: 0; }
+  .device-stage:not(.app-overview) .demo-home-caption span:first-child { font-size: 20px; }
+  .device-stage:not(.app-overview) .demo-home-caption span:last-child { font-size: 12px; }
+  .device-stage:not(.app-overview) .demo-phone-controls { min-height: 0; margin-top: 8px; }
 }
 
 @keyframes demo-app-open { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }

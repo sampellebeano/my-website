@@ -34,10 +34,11 @@ class ShowcaseHandset extends Component<ShowcaseHandsetProps, object, DOMRect | 
     // The snapshot includes any in-flight movement, so reversals start where the phone is.
     this.cancelMovement();
     const to = handset.getBoundingClientRect();
-    if (!from.width || !to.width || (from.x === to.x && from.y === to.y && from.width === to.width)) return;
+    if (!from.width || !from.height || !to.width || !to.height) return;
+    if (from.x === to.x && from.y === to.y && from.width === to.width && from.height === to.height) return;
 
     this.movement = handset.animate([
-      { transform: `translate(${from.x - to.x}px, ${from.y - to.y}px) scale(${from.width / to.width})`, transformOrigin: "top left" },
+      { transform: `translate(${from.x - to.x}px, ${from.y - to.y}px) scale(${from.width / to.width}, ${from.height / to.height})`, transformOrigin: "top left" },
       { transform: "none", transformOrigin: "top left" },
     ], { duration: 420, easing: "cubic-bezier(0.22, 1, 0.36, 1)" });
   }
