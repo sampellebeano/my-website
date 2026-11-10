@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
+import { readFile } from 'node:fs/promises';
+import postcss from 'postcss';
 
 function render(route) {
   const result = spawnSync(process.execPath, ['tests/render-site.mjs', route], { encoding: 'utf8', env: { ...process.env, NODE_ENV: 'development' } });
@@ -19,6 +21,20 @@ test('home exposes the complete app collection, contact, CV and history in a com
   assert.doesNotMatch(html, /role="search"|href="\/search(?:[?\/"])/);
   assert.match(html, /href="\/history"/);
   assert.doesNotMatch(html, /home-career|home-history|demo-selected-description/);
+});
+
+test('the mobile launcher hides its status bar and the homepage hides its duplicate project list', async () => {
+  const hiddenOnMobile = [
+    ['iphone-showcase.css', '.device-stage:not(.app-overview) .demo-status-bar'],
+    ['single-screen.css', '.home-screen .device-stage-details'],
+  ];
+
+  for (const [file, selector] of hiddenOnMobile) {
+    const css = postcss.parse(await readFile(new URL(`../src/components/${file}`, import.meta.url), 'utf8'));
+    const mobile = css.nodes.find(node => node.name === 'media' && node.params === '(max-width: 760px)');
+    const rule = mobile?.nodes.find(node => node.selectors?.includes(selector));
+    assert.equal(rule?.nodes.find(node => node.prop === 'display')?.value, 'none', selector);
+  }
 });
 
 test('project collection pairs all summaries with a single launcher', () => {

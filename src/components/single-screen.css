@@ -107,14 +107,13 @@
   .site-main { padding: 6px 0 16px; }
   .device-stage { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; gap: 22px; }
   .device-stage-intro, .screen-phone, .device-stage-details { grid-column: 1; grid-row: auto; }
+  .home-screen .device-stage-details { display: none; }
   .home-copy .screen-kicker { margin-bottom: 16px; }
   .home-copy .screen-lede { line-height: 1.6; margin-top: 18px; }
   .home-copy .location-line { margin-top: 16px; }
   .screen-actions { gap: 4px 14px; margin-top: 18px; }
   .primary-link { gap: 10px; padding: 11px 16px; }
   .screen-phone .phone-showcase-device { width: 100%; }
-  .home-projects { margin-top: 0; padding-top: 18px; }
-  .project-links--compact .project-link { min-height: 60px; padding-inline: 10px; }
   .site-footer { gap: 0 18px; margin-top: 6px; padding-block: 8px; }
   .footer-tools { gap: 14px; }
   .site-footer .nav-link, .site-footer .previous-versions, .site-footer .download-link { min-height: 36px; }
@@ -134,8 +133,4 @@
 @media (max-width: 480px) {
   .site-frame { --site-hero-size: clamp(35px, 9.6vw, 46px); }
   .site-navigation { gap: 2px 13px; }
-  .project-links--compact { grid-template-columns: minmax(0, 1fr); }
-  .project-links--compact .project-link { flex-wrap: nowrap; gap: 12px; padding: 10px 0; border-right: 0; border-bottom: 1px solid var(--site-line); }
-  .project-links--compact .project-link-copy { flex-basis: auto; }
-  .project-links--compact .project-link-arrow { display: block; }
 }

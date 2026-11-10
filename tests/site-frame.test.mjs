@@ -49,6 +49,29 @@ test('desktop frames share a viewport height and scroll when their content is lo
   assert.equal(value('overflow-y'), 'auto');
 });
 
+test('mobile frames let the paper canvas extend to the viewport edge', async () => {
+  const theme = postcss.parse(await readFile(new URL('../public/styles/site-theme.css', import.meta.url), 'utf8'));
+  const mobile = theme.nodes.find(node => node.name === 'media' && node.params === '(max-width: 760px)');
+  const tokens = mobile?.nodes.find(node => node.selector === ':root');
+  const canvas = mobile?.nodes.find(node => node.selector === 'html');
+  const frame = mobile?.nodes.find(node => frameSelectors.every(selector => node.selectors?.includes(selector)));
+
+  assert.equal(tokens?.nodes.find(node => node.prop === '--site-frame-gap')?.value, '0px');
+  assert.match(canvas?.nodes.find(node => node.prop === 'background')?.value ?? '', /var\(--site-paper-finish\) var\(--site-paper\)$/);
+  assert.equal(frame?.nodes.find(node => node.prop === 'background')?.value, 'transparent');
+});
+
+test('the mobile portrait aligns with the page gutter and sits beside the navigation', async () => {
+  const theme = postcss.parse(await readFile(new URL('../public/styles/site-theme.css', import.meta.url), 'utf8'));
+  const mobile = theme.nodes.find(node => node.name === 'media' && node.params === '(max-width: 760px)');
+  const tokens = mobile?.nodes.find(node => node.selector === ':root');
+  const portrait = mobile?.nodes.find(node => node.selector === '.site-header > .identity-name');
+
+  assert.ok(Number.parseFloat(tokens?.nodes.find(node => node.prop === '--site-brand-size')?.value) >= 44);
+  assert.equal(portrait?.nodes.find(node => node.prop === 'margin-inline-start')?.value, '0');
+  assert.equal(portrait?.nodes.find(node => node.prop === 'align-self')?.value, 'center');
+});
+
 test('the shared header portrait doubles at the wide layout breakpoint', async () => {
   const theme = postcss.parse(await readFile(new URL('../public/styles/site-theme.css', import.meta.url), 'utf8'));
   const wideLayout = theme.nodes.find(node => node.name === 'media' && node.params === '(min-width: 1100px)');

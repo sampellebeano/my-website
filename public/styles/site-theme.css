@@ -115,17 +115,18 @@ html { background: var(--site-canvas) var(--site-canvas-shading) fixed; scrollba
   :root { --site-hero-size: clamp(36px, 4.8vw, 48px); }
 }
 @media (max-width: 760px) {
-  :root { --site-frame-gap: 12px; --site-frame-padding: 24px; --site-frame-radius: 18px; --site-header-height: 76px; --site-brand-size: 36px; --site-hero-size: clamp(30px, 5.2vw, 42px); }
-  .site-header { gap: 12px; }
+  :root { --site-frame-gap: 0px; --site-frame-padding: 24px; --site-header-height: 76px; --site-brand-size: 46px; --site-hero-size: clamp(30px, 5.2vw, 42px); }
+  /* Start with the same solid paper colour Safari uses above the viewport. */
+  html { background: linear-gradient(var(--site-paper), transparent 96px), var(--site-paper-finish) var(--site-paper); }
+  .site-frame, .page-content, .project-frame { border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+  .site-header { gap: 12px; padding-block: 12px; }
+  .site-header > .identity-name { align-self: center; margin-inline-start: 0; }
 }
 @media (max-width: 480px) {
   :root {
-    --site-frame-gap: 0px;
     --site-frame-padding: clamp(16px, 5vw, 24px);
-    --site-frame-radius: 0px;
-    --site-header-height: 68px;
+    --site-header-height: 70px;
     --site-hero-size: 31px;
   }
-  .site-frame, .page-content, .project-frame { border-width: 0; }
   .site-header { flex-wrap: wrap; gap: 0 12px; }
 }
