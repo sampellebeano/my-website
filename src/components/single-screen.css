@@ -25,8 +25,9 @@
 .footer-tools { display: flex; align-items: center; flex-wrap: wrap; gap: 18px; font-size: 11px; }
 .site-footer .nav-link, .site-footer .previous-versions { display: inline-flex; align-items: center; gap: 4px; min-height: 40px; font-size: 11px; }
 .site-footer .download-link { font-size: 11px; }
-.home-screen { display: grid; flex: 1; grid-template-columns: minmax(0, 1fr) minmax(200px, .58fr); grid-template-rows: 1fr auto; grid-template-areas: "copy phone" "projects phone"; align-content: center; align-items: center; column-gap: clamp(36px, 6vw, 88px); padding: 10px 0; }
-.home-copy { grid-area: copy; min-width: 0; padding-top: 8px; }
+.home-screen, .split-screen { display: grid; flex: 1; grid-template-columns: minmax(0, 1fr) minmax(200px, .58fr); align-content: start; align-items: start; column-gap: clamp(36px, 6vw, 88px); padding: 10px 0; }
+.home-screen { grid-template-areas: "copy phone" "projects phone"; }
+.home-copy { grid-area: copy; min-width: 0; }
 .screen-kicker { margin-bottom: 22px; color: #191b1e; font-size: 10px; font-weight: 600; line-height: 1.5; letter-spacing: .23em; text-transform: uppercase; }
 .home-copy h1, .screen-copy h1, .project-missing h1 { max-width: 17ch; color: #191b1e; font-size: clamp(42px, 4.6vw, 66px); font-weight: 450; line-height: 1.05; letter-spacing: -.055em; text-wrap: balance; }
 .screen-lede { max-width: 49ch; margin-top: 24px; color: #65666b; font-size: 15px; line-height: 1.7; text-wrap: pretty; }
@@ -59,13 +60,12 @@
 .project-links--compact .project-link-summary { font-size: 10px; }
 .project-links--compact .project-link-icon, .project-links--compact .project-link-monogram { width: 28px; height: 28px; }
 .project-links--compact .project-link-arrow { width: 13px; }
-.split-screen { display: grid; flex: 1; grid-template-columns: minmax(0, 1fr) minmax(200px, .58fr); align-items: center; gap: clamp(36px, 6vw, 88px); padding: 10px 0; }
 .split-screen .screen-phone { grid-area: auto; }
 .screen-copy { min-width: 0; }
 .screen-copy > .screen-kicker { margin-bottom: 16px; }
 .screen-copy > .screen-lede { margin-top: 20px; }
 .overview-back { margin-bottom: 16px; color: #65666b; }
-.app-overview { grid-template-areas: "intro phone" "detail phone"; grid-template-rows: auto auto; align-content: center; row-gap: 0; }
+.app-overview { grid-template-areas: "intro phone" "detail phone"; grid-template-rows: auto auto; row-gap: 0; }
 .app-introduction { grid-area: intro; }
 .app-detail-copy { grid-area: detail; min-width: 0; }
 .app-overview .screen-phone { grid-area: phone; }
@@ -97,7 +97,7 @@
   .home-projects { margin-top: 20px; padding-top: 14px; }
   .home-copy .location-line { margin-top: 14px; }
   .home-copy .screen-actions { margin-top: 16px; }
-  .home-screen { padding-block: 4px; }
+  .home-screen, .split-screen { padding-block: 4px; }
   .site-footer { margin-top: 10px; }
   .app-description { margin-top: 16px; }
   .app-description p { font-size: 13px; line-height: 1.65; }
@@ -117,7 +117,8 @@
   .site-navigation { gap: 4px 16px; }
   .site-nav-link { font-size: 12px; }
   .site-main { padding: 6px 0 16px; }
-  .home-screen { grid-template-columns: minmax(0, 1fr) minmax(126px, .65fr); grid-template-areas: "copy phone" "projects projects"; gap: 26px 24px; }
+  .home-screen, .split-screen { grid-template-columns: minmax(0, 1fr) minmax(126px, .65fr); }
+  .home-screen { grid-template-areas: "copy phone" "projects projects"; gap: 26px 24px; }
   .home-copy h1 { font-size: clamp(30px, 5.2vw, 42px); }
   .home-copy .screen-kicker { margin-bottom: 16px; }
   .home-copy .screen-lede { font-size: 13px; line-height: 1.6; margin-top: 18px; }
@@ -134,8 +135,7 @@
   .footer-tools { gap: 14px; }
   .site-footer .nav-link, .site-footer .previous-versions, .site-footer .download-link { min-height: 36px; font-size: 10px; }
   .site-contact nav { column-gap: 16px; }
-  .split-screen { grid-template-columns: minmax(0, 1fr) minmax(126px, .6fr); gap: 24px; align-items: start; }
-  .split-screen .screen-phone { padding-top: 32px; }
+  .split-screen { gap: 24px; }
   .screen-copy h1 { font-size: 36px; }
   .screen-copy > .screen-lede { font-size: 13px; line-height: 1.6; }
   .project-link { gap: 10px; min-height: 76px; padding-block: 14px; }
@@ -143,7 +143,6 @@
   .project-link-title { font-size: 14px; }
   .project-link-summary { font-size: 11px; }
   .app-overview { grid-template-areas: "intro phone" "detail detail"; row-gap: 12px; }
-  .app-overview .screen-phone { padding-top: 28px; }
   .app-overview .app-description { margin-top: 8px; }
   .app-overview .demo-current-app { display: none; }
   .app-overview .demo-phone-button { gap: 3px; padding-inline: 4px; font-size: 10px; }
@@ -155,7 +154,8 @@
   .site-header { flex-wrap: wrap; gap: 0 12px; min-height: 68px; }
   .site-navigation { gap: 2px 13px; }
   .site-nav-link { font-size: 11px; }
-  .home-screen { grid-template-columns: minmax(0, 1fr) 126px; gap: 22px 16px; }
+  .home-screen, .split-screen { grid-template-columns: minmax(0, 1fr) 126px; }
+  .home-screen { gap: 22px 16px; }
   .home-copy h1 { font-size: 31px; }
   .home-copy .screen-lede { font-size: 12px; }
   .home-copy .screen-kicker { font-size: 9px; }
@@ -166,17 +166,16 @@
   .project-links--compact .project-link { align-content: start; }
   .project-links--compact .project-link-copy { flex-basis: 100%; }
   .project-links--compact .project-link-summary { font-size: 9px; }
-  .split-screen { grid-template-columns: minmax(0, 1fr) 126px; gap: 16px; }
+  .split-screen { gap: 16px; }
   .screen-copy h1 { font-size: 31px; }
   .screen-copy .project-link-summary { display: none; }
   .screen-copy .project-link { min-height: 66px; }
-  .app-overview .screen-phone { padding-top: 30px; }
   .app-summary { font-size: 15px; line-height: 1.5; }
 
 }
 @media (max-width: 350px) {
   .home-screen, .split-screen { grid-template-columns: minmax(0, 1fr); }
-  .screen-phone, .split-screen .screen-phone, .app-overview .screen-phone { grid-column: 1; grid-row: auto; padding-top: 0; }
+  .screen-phone, .split-screen .screen-phone, .app-overview .screen-phone { grid-column: 1; grid-row: auto; }
   .home-screen { grid-template-areas: "copy" "phone" "projects"; }
   .screen-phone .phone-showcase-device { max-width: 180px; }
   .app-overview { grid-template-areas: "intro" "phone" "detail"; }
