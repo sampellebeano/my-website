@@ -5,7 +5,7 @@
   min-height: calc(100svh - var(--site-frame-gap) - var(--site-frame-gap));
   margin: var(--site-frame-gap) auto;
   padding: 0 var(--site-frame-padding);
-  border: 1px solid var(--site-line);
+  border: 1px solid var(--site-frame-edge);
   border-radius: var(--site-frame-radius);
   background: var(--site-paper);
   box-shadow: var(--site-frame-shadow);
@@ -64,20 +64,17 @@
 .screen-copy { min-width: 0; }
 .screen-copy > .screen-kicker { margin-bottom: 16px; }
 .screen-copy > .screen-lede { margin-top: 20px; }
-.overview-back { margin-bottom: 16px; color: var(--site-muted); }
-.app-detail-copy { min-width: 0; }
+.device-stage.app-overview { grid-template-columns: minmax(0, 1fr) clamp(170px, 24vw, 286px); column-gap: clamp(24px, 4vw, 56px); }
+.overview-back { margin-bottom: 8px; color: var(--site-muted); }
+.app-detail-copy { max-width: 70ch; font-size: 15px; }
 .app-overview .screen-kicker { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 14px; margin-bottom: 14px; font-size: 9px; letter-spacing: .13em; }
 .project-status { color: var(--site-muted); font-size: 10px; font-weight: 400; letter-spacing: 0; text-transform: none; }
-.app-summary { max-width: 42ch; margin-top: 18px; font-size: 19px; line-height: 1.45; letter-spacing: -.025em; text-wrap: pretty; }
-.app-description { max-width: 58ch; margin-top: 22px; }
-.app-description p { margin-top: 14px; color: var(--site-muted); font-size: 14px; line-height: 1.7; }
-.app-overview-actions { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 20px; margin-top: 18px; }
-.description-pages { display: flex; align-items: center; gap: 10px; font-size: 11px; font-variant-numeric: tabular-nums; }
-.page-arrow { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid var(--site-line); border-radius: 50%; }
-.page-arrow:hover { border-color: var(--site-muted); }
-.page-arrow.is-disabled { border-color: transparent; color: var(--site-disabled); }
-.app-switcher { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--site-line); }
-.app-switcher a { display: inline-flex; align-items: center; min-height: 40px; color: var(--site-muted); font-size: 12px; }
+.app-summary { max-width: 42ch; margin-top: 12px; font-size: 19px; line-height: 1.45; letter-spacing: -.025em; text-wrap: pretty; }
+.app-description { margin-top: 18px; color: var(--site-muted); line-height: 1.65; }
+.app-description p + p { margin-top: 12px; }
+.app-overview-links { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; column-gap: 24px; margin-top: 16px; border-top: 1px solid var(--site-line); }
+.app-switcher { display: flex; flex-wrap: wrap; align-items: center; column-gap: 18px; }
+.app-switcher a { display: inline-flex; align-items: center; min-height: 44px; color: var(--site-muted); font-size: 12px; }
 .app-switcher a[aria-current], .app-switcher a:hover { color: var(--site-accent); }
 .error-page { display: flex; flex: 1; flex-direction: column; align-items: flex-start; justify-content: center; padding: 28px 0; }
 .site-frame--document .site-main { display: block; }
@@ -93,9 +90,6 @@
   .home-copy .screen-actions { margin-top: 16px; }
   .device-stage { padding-block: 4px; }
   .site-footer { margin-top: 10px; }
-  .app-description { margin-top: 16px; }
-  .app-description p { font-size: 13px; line-height: 1.65; }
-  .app-switcher { margin-top: 12px; }
 }
 @media (max-width: 1000px) {
   .project-links--compact .project-link { flex-wrap: wrap; gap: 8px; }
@@ -133,11 +127,10 @@
   .project-link-icon, .project-link-monogram { width: 28px; height: 28px; }
   .project-link-title { font-size: 14px; }
   .project-link-summary { font-size: 11px; }
-  .app-overview .app-description { margin-top: 8px; }
-  .app-overview .demo-current-app { display: none; }
-  .app-overview .demo-phone-button { gap: 3px; padding-inline: 4px; font-size: 10px; }
+  .device-stage.app-overview { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .app-overview .device-stage-copy { display: block; }
+  .app-overview .screen-phone { grid-column: 1; grid-row: 2; }
   .app-summary { font-size: 17px; }
-  .app-description p { font-size: 13px; line-height: 1.65; }
 }
 @media (max-width: 480px) {
   .site-header { flex-wrap: wrap; gap: 0 12px; }

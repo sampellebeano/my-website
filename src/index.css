@@ -58,11 +58,6 @@
   .empty-state { @apply border-y border-border py-8; }
   .empty-state h2 { @apply text-lg font-medium; }
   .empty-state p { @apply mt-3 max-w-lg text-sm leading-relaxed text-muted-foreground; }
-  .site-search { @apply relative flex min-w-0 max-w-xl items-center rounded-lg border border-border bg-card; }
-  .site-search .search-icon { @apply ml-3 shrink-0 text-muted-foreground; }
-  .site-search input { @apply min-w-0 flex-1 bg-transparent py-3 pl-2 text-sm outline-none placeholder:text-muted-foreground; }
-  .site-search:focus-within { @apply border-primary; }
-  .site-search button { @apply flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-r-lg text-primary hover:bg-background; }
   .site-contact nav { @apply flex flex-wrap gap-x-5 gap-y-2 text-xs; }
   .cv-downloads { @apply flex flex-wrap gap-3; }
   .download-link { @apply inline-flex min-h-10 items-center gap-2 text-xs font-medium text-muted-foreground hover:text-foreground; }

@@ -1,6 +1,6 @@
 # App recordings
 
-The overview and existing Kapture/bassh pages use shared CSS iPhone frames. Projects has one interactive iPhone home screen: selecting Kapture or bassh opens its recording within the same phone. Kapture and bassh have short recordings of native simulator interaction, replacing the earlier promotional stills. Run Your World remains a searchable text entry; its screenshot and public image file have been withdrawn at Sam’s request.
+The homepage and Projects page show an interactive iPhone. Selecting Kapture or bassh opens a short recording of the native app in Simulator. Selecting highlighter opens a written overview. Sam withdrew its screenshot and public image file.
 
 ## Current Kapture walkthrough — 2 November 2026
 

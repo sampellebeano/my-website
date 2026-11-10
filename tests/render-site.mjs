@@ -11,7 +11,7 @@ import { ssrViteOptions } from '../scripts/ssr-vite-options.mjs';
 
 const route = process.argv[2];
 const pathname = new URL(route, 'https://website.test').pathname.replace(/\/+$/, '') || '/';
-const pages = { '/': 'Index', '/projects': 'Projects', '/experience': 'Experience', '/search': 'SearchResults', '/updates': 'Updates', '/books': 'Books', '/history': 'SiteHistory', '/404': 'NotFound' };
+const pages = { '/': 'Index', '/projects': 'Projects', '/experience': 'Experience', '/cv': 'CV', '/updates': 'Updates', '/books': 'Books', '/history': 'SiteHistory', '/404': 'NotFound' };
 const page = pages[pathname] ?? (/^\/projects\/[^/]+$/.test(pathname) ? 'ProjectOverview' : undefined);
 if (!page) throw new Error('Unsupported render fixture');
 const cacheDir = await mkdtemp(join(tmpdir(), 'website-render-test-'));

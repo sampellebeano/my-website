@@ -10,7 +10,7 @@ import "./single-screen.css";
 export const SiteShell = ({ children, layout }: { children: ReactNode; layout?: "section" }) => {
   const { pathname } = useLocation();
   const routePath = pathname.replace(/\/+$/, "") || "/";
-  const documentView = ["/search", "/updates", "/books"].includes(routePath);
+  const documentView = ["/cv", "/updates", "/books"].includes(routePath);
   const sectionView = layout === "section" || (routePath !== "/" && routePath !== "/projects" && !routePath.startsWith("/projects/"));
   return (
     <div className={`site-frame${documentView ? " site-frame--document" : ""}${sectionView ? " site-frame--section" : ""}`}>
@@ -22,7 +22,7 @@ export const SiteShell = ({ children, layout }: { children: ReactNode; layout?: 
       <main id="main-content" tabIndex={-1} className="site-main">{children}</main>
       <footer className="site-footer">
         <CVFooter />
-        <div className="footer-tools"><Link className="nav-link" to="/search">Search & CV</Link><CVDownloads /><PreviousVersions /></div>
+        <div className="footer-tools"><Link className="nav-link" to="/cv">Full CV</Link><CVDownloads /><PreviousVersions /></div>
       </footer>
     </div>
   );

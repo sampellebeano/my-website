@@ -10,7 +10,7 @@
 html { scroll-behavior: smooth; }
 * { box-sizing: border-box; }
 body { margin: 0; height: 100dvh; display: grid; grid-template-rows: minmax(0, 1fr); overflow: hidden; padding: var(--site-frame-gap); }
-.page-content { display: flex; flex-direction: column; width: min(var(--site-frame-width), 100%); min-height: 0; margin-inline: auto; overflow-y: auto; scroll-behavior: smooth; scrollbar-gutter: stable; border: 1px solid var(--site-line); border-radius: var(--site-frame-radius); background: var(--site-paper); box-shadow: var(--site-frame-shadow); }
+.page-content { display: flex; flex-direction: column; width: min(var(--site-frame-width), 100%); min-height: 0; margin-inline: auto; overflow-y: auto; scroll-behavior: smooth; scrollbar-gutter: stable; border: 1px solid var(--site-frame-edge); border-radius: var(--site-frame-radius); background: var(--site-paper); box-shadow: var(--site-frame-shadow); }
 a { color: var(--site-accent); text-underline-offset: 4px; }
 a:hover { text-decoration: underline; }
 h1, h2, h3, p { margin: 0; }

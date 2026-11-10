@@ -48,8 +48,8 @@ const Experience = () => {
         </div>
         <div className="collection-footer collection-links">
           <a className="text-link" href={cvDownloads.pdf} download>CV (PDF) <span aria-hidden="true">↓</span></a>
-          <Link className="text-link" to="/search?section=qualifications">Courses & qualifications <span aria-hidden="true">↗</span></Link>
-          <Link className="text-link" to="/search">View full CV <span aria-hidden="true">↗</span></Link>
+          <Link className="text-link" to="/cv?section=qualifications">Courses & credentials <span aria-hidden="true">↗</span></Link>
+          <Link className="text-link" to="/cv">View full CV <span aria-hidden="true">↗</span></Link>
         </div>
       </section>
     </SiteShell>

@@ -22,7 +22,7 @@ a:hover { color: var(--site-accent); }
 :focus-visible { outline: 2px solid var(--site-accent); outline-offset: 4px; }
 ::selection { background: var(--site-selection); color: var(--site-ink); }
 
-.project-frame { display: flex; flex-direction: column; width: min(var(--site-frame-width), calc(100% - var(--site-frame-gap) - var(--site-frame-gap))); min-height: calc(100svh - var(--site-frame-gap) - var(--site-frame-gap)); margin: var(--site-frame-gap) auto; padding-inline: var(--site-frame-padding); border: 1px solid var(--site-line); border-radius: var(--site-frame-radius); background: var(--site-paper); box-shadow: var(--site-frame-shadow); }
+.project-frame { display: flex; flex-direction: column; width: min(var(--site-frame-width), calc(100% - var(--site-frame-gap) - var(--site-frame-gap))); min-height: calc(100svh - var(--site-frame-gap) - var(--site-frame-gap)); margin: var(--site-frame-gap) auto; padding-inline: var(--site-frame-padding); border: 1px solid var(--site-frame-edge); border-radius: var(--site-frame-radius); background: var(--site-paper); box-shadow: var(--site-frame-shadow); }
 .site-header { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: var(--site-header-height); padding-block: var(--site-header-padding); }
 .identity-name { display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; width: 44px; height: 44px; }
 .identity-name img { display: block; width: var(--site-brand-size); height: var(--site-brand-size); object-fit: contain; }

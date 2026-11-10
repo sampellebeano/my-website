@@ -97,7 +97,7 @@ function validateLink(href: string, path: string, content: PublicContent, projec
   if (!href.startsWith("#/")) invalid(path, "use HTTPS or a recognised #/ route");
   const route = new URL(href.slice(1), "https://public-content.invalid");
   const literalPath = href.slice(1).split(/[?#]/)[0];
-  const allowed = ["/", "/experience", "/projects", "/updates", "/books", "/history", "/search"];
+  const allowed = ["/", "/cv", "/experience", "/projects", "/updates", "/books", "/history"];
   if (route.origin !== "https://public-content.invalid" || route.pathname !== literalPath || !allowed.includes(route.pathname) || route.hash) {
     invalid(path, "unknown website route");
   }

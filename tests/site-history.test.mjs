@@ -13,14 +13,8 @@ function render(route) {
   return result.stdout;
 }
 
-test('edition search results identify Site history and link to the matching saved entry', () => {
-  const html = render('/search?query=October');
-  assert.match(html, /Site history · Captured 8 Oct 2026/);
-  assert.match(html, /<h2[^>]*><a[^>]*href="\/history\?entry=cv-search-2026-10-08"[^>]*>CV and search/);
-});
-
 test('the shared footer exposes a visible link to Site history', () => {
-  const html = render('/search');
+  const html = render('/cv');
   assert.match(html, /<a[^>]*class="[^"]*previous-versions[^>]*href="\/history"[^>]*>Site history/);
   assert.doesNotMatch(html, /<details[^>]*class="previous-versions"/);
 });

@@ -2,10 +2,10 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Navigate, Routes, Route, useLocation } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import SearchResults from "./pages/SearchResults";
+import CV from "./pages/CV";
 import Experience from "./pages/Experience";
 import Projects from "./pages/Projects";
 import ProjectOverview from "./pages/ProjectOverview";
@@ -13,8 +13,16 @@ import Updates from "./pages/Updates";
 import Books from "./pages/Books";
 import SiteHistory from "./pages/SiteHistory";
 import { RouteScroll } from "./components/RouteScroll";
+import { sections } from "./data/cv";
 
 const queryClient = new QueryClient();
+
+const LegacyCVRedirect = () => {
+  const { search } = useLocation();
+  const requestedSection = new URLSearchParams(search).get("section");
+  const section = sections.find(item => item.id === requestedSection);
+  return <Navigate replace to={section ? `/cv?section=${section.id}` : "/cv"} />;
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -25,7 +33,8 @@ const App = () => (
         <RouteScroll />
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/search" element={<SearchResults />} />
+          <Route path="/cv" element={<CV />} />
+          <Route path="/search" element={<LegacyCVRedirect />} />
           <Route path="/experience" element={<Experience />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/projects/:projectId" element={<ProjectOverview />} />

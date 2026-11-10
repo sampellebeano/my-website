@@ -37,6 +37,11 @@ test('public project and activity links resolve against their records', () => {
   const entry = daily({ links: [{ label: 'Project', href: '#/projects?entry=presight' }, { label: 'Note', href: '#/updates?entry=daily-2026-10-08' }] });
   assert.equal(parsePublicContent(collection([entry]), ['presight']).activity[0].links.length, 2);
 });
+test('public content can link to CV sections at the current CV address', () => {
+  const links = [{ label: 'Full CV', href: '#/cv' }, { label: 'Courses and credentials', href: '#/cv?section=qualifications' }];
+  assert.deepEqual(parsePublicContent(collection([daily({ links })]), []).activity[0].links, links);
+  assert.throws(() => parsePublicContent(collection([daily({ links: [{ label: 'Search', href: '#/search' }] })]), []), /unknown website route/);
+});
 test('career highlight links resolve in Experience', () => {
   const entry = daily({ links: [{ label: 'Career work', href: '#/experience?entry=aviation' }] });
   assert.equal(parsePublicContent(collection([entry]), ['kapture', 'bassh'], ['aviation']).activity.length, 1);

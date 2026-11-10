@@ -28,7 +28,8 @@
   --site-frame-gap: 32px;
   --site-frame-padding: clamp(28px, 4.4vw, 64px);
   --site-frame-radius: 24px;
-  --site-frame-shadow: 0 8px 36px #25231f06, 0 1px 3px #25231f03;
+  --site-frame-edge: #f8f7f5;
+  --site-frame-shadow: 0 8px 36px #25231f05;
   --site-header-height: 86px;
   --site-header-padding: 18px;
   --site-brand-size: 40px;

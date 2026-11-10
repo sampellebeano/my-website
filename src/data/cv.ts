@@ -1,5 +1,3 @@
-import { matchesQuery } from "../lib/text-search.ts";
-
 export type CVSection = "about" | "experience" | "work" | "qualifications" | "contact";
 
 export interface CVEntry {
@@ -8,7 +6,6 @@ export interface CVEntry {
   title: string;
   context: string;
   paragraphs: string[];
-  keywords?: string;
   roleId?: string;
 }
 
@@ -16,7 +13,7 @@ export const sections: { id: CVSection; label: string }[] = [
   { id: "about", label: "About" },
   { id: "experience", label: "Experience" },
   { id: "work", label: "Career highlights" },
-  { id: "qualifications", label: "Qualifications" },
+  { id: "qualifications", label: "Courses & credentials" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -35,7 +32,6 @@ export const entries: CVEntry[] = [
       "At the moment, I work with aviation and wealth management customers, including projects around AI and automation. I also run Executive Briefing Centre sessions with customers in Ireland, the UK, UAE and Singapore.",
       "Before moving to the UAE, I worked with customers in Ireland. Before that, I specialised in IT Operations Management and Service Operations across EMEA.",
     ],
-    keywords: "solution architect architecture presales pre sales Dubai United Arab Emirates",
   },
   {
     id: "servicenow-uae",
@@ -46,7 +42,6 @@ export const entries: CVEntry[] = [
       "I work with aviation and wealth management customers, working out how they could use ServiceNow and building demos to show it. Some of that work is around AI and automation for an airport and an international airline.",
       "I proposed one place for five separate business units to access services. I built the demo and worked out how IT, HR, Customer Experience, App Development and Asset Management would fit together. I also run Executive Briefing Centre sessions in Ireland, the UK, UAE and Singapore.",
     ],
-    keywords: "AI architecture finance financial services EBC automation autonomous workforce",
   },
   {
     id: "servicenow-ireland",
@@ -84,7 +79,6 @@ export const entries: CVEntry[] = [
     paragraphs: [
       "I proposed one place for people in five separate business units to access services. I built a demo and mapped out how IT, HR, Customer Experience, App Development and Asset Management would fit together.",
     ],
-    keywords: "human resources information technology customer service application development assets transformation enterprise front door",
   },
   {
     id: "aviation",
@@ -95,7 +89,6 @@ export const entries: CVEntry[] = [
     paragraphs: [
       "I’m working on AI and automation ideas for an airport and an international airline. My part is working through what ServiceNow could do and building demos.",
     ],
-    keywords: "AI artificial intelligence automation autonomous workforce",
   },
   {
     id: "executive-briefings",
@@ -106,7 +99,6 @@ export const entries: CVEntry[] = [
     paragraphs: [
       "I run Executive Briefing Centre sessions with customers in Ireland, the UK, UAE and Singapore. We talk through what they’re trying to do and where ServiceNow could help.",
     ],
-    keywords: "EBC CxO stakeholder engagement",
   },
   {
     id: "quip",
@@ -117,52 +109,6 @@ export const entries: CVEntry[] = [
     paragraphs: [
       "I ran the Quip Black Belt programme and built a platform for weekly webinars. The training materials I made were used to onboard sales teams across EMEA.",
     ],
-  },
-  {
-    id: "platform-certifications",
-    section: "qualifications",
-    title: "ServiceNow, ITIL and Salesforce certifications",
-    context: "Platform certifications",
-    paragraphs: [
-      "ServiceNow Certified System Administrator (2021). ITIL Foundation Certificate in IT Service Management, AXELOS (2022).",
-      "Salesforce certifications: Sales Cloud Consultant; Service Cloud Consultant; Pardot Specialist; Advanced Administrator; Platform App Builder; Administrator.",
-    ],
-    keywords: "CSA CRM certified",
-  },
-  {
-    id: "ai-courses",
-    section: "qualifications",
-    title: "AI leadership and product innovation",
-    context: "Stanford Online and Harvard Business School Online | 2025",
-    paragraphs: [
-      "Stanford Online: AI-Driven Leadership: Strategies for the Future; Mastering Generative AI for Product Innovation.",
-      "Harvard Business School Online: AI Essentials for Business.",
-    ],
-    keywords: "artificial intelligence GenAI generative certificate courses",
-  },
-  {
-    id: "business-courses",
-    section: "qualifications",
-    title: "Leadership, negotiation and entrepreneurship",
-    context: "Professional development",
-    paragraphs: [
-      "Harvard Business School Online: Certificate in Negotiation Mastery (2023). Cambridge Judge Business School: Professional Service Firm Leader Program (2021).",
-      "Saïd Business School, University of Oxford: Entrepreneurship: Venture Creation Programme, Distinction (2021). Youd Andrews: CxO Training (2024).",
-    ],
-  },
-  {
-    id: "sales-training",
-    section: "qualifications",
-    title: "Sales and demonstration training",
-    context: "Sales training",
-    paragraphs: ["SPIN Selling, Huthwaite International. ValueSelling Certification, Visualize. Storytelling Certified and Demo Certified, 2Win!"],
-  },
-  {
-    id: "education",
-    section: "qualifications",
-    title: "Computer Science & Business",
-    context: "Trinity College Dublin | II.1 Honours | 2014 to 2018",
-    paragraphs: ["I studied Computer Science & Business at Trinity College Dublin, then went into solution engineering and consulting at Salesforce and ServiceNow."],
   },
   {
     id: "leadership",
@@ -184,9 +130,55 @@ export const entries: CVEntry[] = [
   },
 ];
 
-export function searchEntries(query: string, section?: string): CVEntry[] {
-  return entries.filter((entry) => {
-    if (section && entry.section !== section) return false;
-    return matchesQuery([entry.title, entry.context, ...entry.paragraphs, entry.keywords ?? ""].join(" "), query);
-  });
-}
+export const qualificationGroups = [
+  {
+    id: "platform-certifications",
+    title: "Platform certifications",
+    credentials: [
+      { title: "ServiceNow Certified System Administrator", context: "2021" },
+      { title: "ITIL Foundation Certificate in IT Service Management", context: "AXELOS · 2022" },
+      { title: "Sales Cloud Consultant", context: "Salesforce" },
+      { title: "Service Cloud Consultant", context: "Salesforce" },
+      { title: "Pardot Specialist", context: "Salesforce" },
+      { title: "Advanced Administrator", context: "Salesforce" },
+      { title: "Platform App Builder", context: "Salesforce" },
+      { title: "Administrator", context: "Salesforce" },
+    ],
+  },
+  {
+    id: "ai-courses",
+    title: "AI leadership and product innovation",
+    credentials: [
+      { title: "AI-Driven Leadership: Strategies for the Future", context: "Stanford Online · 2025" },
+      { title: "Mastering Generative AI for Product Innovation", context: "Stanford Online · 2025" },
+      { title: "AI Essentials for Business", context: "Harvard Business School Online · 2025" },
+    ],
+  },
+  {
+    id: "business-courses",
+    title: "Leadership, negotiation and entrepreneurship",
+    credentials: [
+      { title: "Certificate in Negotiation Mastery", context: "Harvard Business School Online · 2023" },
+      { title: "Professional Service Firm Leader Program", context: "Cambridge Judge Business School · 2021" },
+      { title: "Entrepreneurship: Venture Creation Programme", context: "Saïd Business School, University of Oxford · Distinction · 2021" },
+      { title: "CxO Training", context: "Youd Andrews · 2024" },
+    ],
+  },
+  {
+    id: "sales-training",
+    title: "Sales and demonstration training",
+    credentials: [
+      { title: "SPIN Selling", context: "Huthwaite International" },
+      { title: "ValueSelling Certification", context: "Visualize" },
+      { title: "Storytelling Certified", context: "2Win!" },
+      { title: "Demo Certified", context: "2Win!" },
+    ],
+  },
+  {
+    id: "education",
+    title: "Education",
+    credentials: [
+      { title: "Computer Science & Business", context: "Trinity College Dublin · II.1 Honours · 2014 to 2018" },
+    ],
+  },
+];

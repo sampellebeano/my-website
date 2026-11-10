@@ -1,5 +1,6 @@
 export interface PersonalProject {
   id: string;
+  slug?: string;
   title: string;
   href?: string;
   setupHref?: string;
@@ -8,7 +9,6 @@ export interface PersonalProject {
   status?: string;
   summary: string;
   paragraphs: string[];
-  keywords?: string;
   screenshot?: {
     src: string;
     poster: string;
@@ -17,6 +17,10 @@ export interface PersonalProject {
     width: number;
     height: number;
   };
+}
+
+export function projectOverviewPath(project: PersonalProject): string {
+  return `/projects/${project.slug ?? project.id}`;
 }
 
 // Personal builds live here. Employer initiatives belong to the career records.
@@ -36,7 +40,6 @@ export const projects: PersonalProject[] = [
       "There’s a Mac app to help set up Tailscale and Remote Login, authorise the phone’s SSH key and check the Mac’s host fingerprint.",
       "The Mac app needs macOS 15 or later and works on Apple Silicon and Intel. The iPhone app is in private testing. Downloads aren’t available here yet, but there’s a setup guide for existing testers. You can email me for release updates.",
     ],
-    keywords: "terminal SSH remote access development tools Tailscale TestFlight Mac companion preview",
     screenshot: {
       src: "/images/apps/bassh-demo.gif",
       poster: "/images/apps/bassh-demo-poster.png",
@@ -48,6 +51,7 @@ export const projects: PersonalProject[] = [
   },
   {
     id: "ryw",
+    slug: "highlighter",
     title: "highlighter",
     context: "Personal project · iPhone",
     status: "In development",
@@ -57,7 +61,6 @@ export const projects: PersonalProject[] = [
       "I’m starting with runs from Apple Health. I can look through recent runs, open the details and see the recorded routes. The running history stays on the phone.",
       "I’m still building it. For now, it shows the original GPS routes. Matching those to roads and paths, tracking street coverage and colouring repeat visits are still work in progress.",
     ],
-    keywords: "highlighter running map fitness workouts GPS routes Apple Health HealthKit Run the World Run Your World RTW RYW",
   },
   {
     id: "kapture",
@@ -70,7 +73,6 @@ export const projects: PersonalProject[] = [
       "I’m building Kapture to help people find photographers, videographers and other creators to work with. There’s an iPhone app and a website where you can browse creators.",
       "The app keeps project requests, messages, tasks and files together, from the first conversation through to handing over the work. It’s still in development.",
     ],
-    keywords: "creators discovery marketplace app photography video portfolio",
     screenshot: {
       src: "/images/apps/kapture-journey-demo.gif",
       poster: "/images/apps/kapture-journey-demo-poster.png",

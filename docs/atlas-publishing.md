@@ -8,7 +8,7 @@ The website reads approved public records from JSON. Atlas's source connection, 
 2. Review the exact public text. Remove private details and unsupported claims. A quiet day can have no entry.
 3. Add the approved record to the relevant public JSON array. Keep a stable ID when correcting a record; use a distinct ID for a separately published recap revision.
 4. Run `npm run validate:content`, `npm test` and `npx tsc --noEmit -p tsconfig.app.json`. Then build normally, or use a fresh temporary output directory when reviewing this repository's tracked build artifacts.
-5. Review the local view and search result before publishing through the normal site workflow.
+5. Review the local view before publishing through the normal site workflow.
 
 Only publish-ready content belongs in `content/`. Do not add private fields, drafts, conversations, calendars, credentials or raw work notes. Validation rejects unrecognised fields and reports their location without printing their values. This gate checks structure and references; a human review still checks the truth and publication suitability of the text.
 
@@ -53,7 +53,7 @@ Daily records additionally require `activityDate`, a real `YYYY-MM-DD` calendar 
 ]
 ```
 
-Dates display in `Asia/Dubai`, independently of the host computer. Daily notes group by `activityDate`, not publication time. Publication ordering compares actual instants and breaks ties by ID. A late-published note stays in its activity week. The overview shows the newest published item; Updates leads with the latest weekly recap and lists daily notes once, newest week first, including daily notes newer than that recap. If a week has recap revisions, its newest publication is shown in the collection; each revision remains directly addressable and searchable.
+Dates display in `Asia/Dubai`, independently of the host computer. Daily notes group by `activityDate`, not publication time. Publication ordering compares actual instants and breaks ties by ID. A late-published note stays in its activity week. The overview shows the newest published item; Updates leads with the latest weekly recap and lists daily notes once, newest week first, including daily notes newer than that recap. If a week has recap revisions, its newest publication is shown in the collection; each revision remains directly addressable.
 
 There is no placeholder post for an empty day or week. Leave `activity.json` as `[]` when nothing has been approved.
 
@@ -82,7 +82,7 @@ Add real books and Sam's actual notes. The overview shows a book only when a `re
 
 IDs must be unique across activity, books and previous-version records. Keep them stable because direct links and weekly references use them.
 
-Public links allow HTTPS without embedded credentials, or these hash routes: `#/`, `#/experience`, `#/projects`, `#/updates`, `#/books`, `#/search` and `#/history`. Link to whole sections for CV, apps and activity; site-history links can select a preserved edition with `#/history?entry=<stable-id>`. Legacy `entry` parameters must still resolve to a published record for validation, but the views keep the full section visible. Personal project IDs are `kapture`, `bassh` and `ryw`; only bassh currently has a linked standalone page. Career highlight IDs are `enterprise-front-door`, `aviation`, `executive-briefings` and `quip`, and stay inline under their roles in `#/experience`. Projects contains Sam's personal builds; employer initiatives stay under Experience unless Sam explicitly changes that classification. Add further personal builds to `src/data/projects.ts` with approved public descriptions, and add an optional `href` only when a standalone page is ready to link. Executable schemes, HTTP and unknown routes are rejected. Authored text renders as text, not HTML or Markdown.
+Public links allow HTTPS without embedded credentials, or these hash routes: `#/`, `#/cv`, `#/experience`, `#/projects`, `#/updates`, `#/books` and `#/history`. Link to whole sections for CV, apps and activity; site-history links can select a preserved edition with `#/history?entry=<stable-id>`. Legacy `entry` parameters must still resolve to a published record for validation, but the views keep the full section visible. Personal project IDs are `kapture`, `bassh` and `ryw`. Use `/#/projects/highlighter` for the highlighter overview. The `ryw` ID still resolves in existing project links. Only bassh currently has a linked standalone page. Career highlight IDs are `enterprise-front-door`, `aviation`, `executive-briefings` and `quip`, and stay inline under their roles in `#/experience`. Projects contains Sam's personal builds; employer initiatives stay under Experience unless Sam explicitly changes that classification. Add further personal builds to `src/data/projects.ts` with approved public descriptions, and add an optional `href` only when a standalone page is ready to link. Executable schemes, HTTP and unknown routes are rejected. Authored text renders as text, not HTML or Markdown.
 
 ```sh
 npm run validate:content
@@ -110,7 +110,7 @@ App downloads are currently disabled. Keep the versioned files in `public/downlo
 
 Optional `summary` and `notes` (plain-text paragraph array) explain real changes. Optional `preview` points to a captured PNG, JPEG, WebP or AVIF in the edition's own directory. Omit it when no actual screenshot exists. Paths use `history/YYYY-MM-DD/index.html`, with an optional unique suffix on the dated directory for another same-day edition. The path date must match `capturedOn`; IDs and snapshot paths remain unique.
 
-`#/history` shows all saved editions and their making notes. History search results can select an edition without hiding the rest of the timeline. The current edition is clearly separate from frozen snapshots.
+`#/history` shows all saved editions and their making notes. Selecting an edition keeps the rest of the timeline visible. The current edition is clearly separate from frozen snapshots.
 
 Capture an actual build before changing it. Record its capture date, not a guessed launch date. Preserve snapshots unchanged and exclude their history tree from future captures. Freeze a source copy first, then build into a fresh external directory. Run the capture script with `--build-dir`, `--source-dir`, `--output-dir`, `--captured-on`, a full `--base-revision`, `--id` and `--label`. `--source-dir` must be the frozen source that produced the build, not source modified after it. The output directory's basename must match the date, with an optional safe suffix. The script refuses an existing output.
 
@@ -122,4 +122,4 @@ The 2 November pre-overhaul edition is a saved local working site, not a claim a
 
 For Atlas, agree on approved sources, daily and weekly timing, draft review and publishing permissions before connecting or scheduling it. The JSON contract is ready for that connection.
 
-For “Ask about Sam”, use the same approved public knowledge behind a protected application API. Benchmark a local model on Sam's existing machine before selecting hardware. Ordinary browsing and search should remain available when inference is offline. The model service and public API remain separate implementation work.
+For “Ask about Sam”, use the same approved public knowledge behind a protected application API. Benchmark a local model on Sam's existing machine before selecting hardware. Ordinary browsing should remain available when inference is offline. The model service and public API remain separate implementation work.

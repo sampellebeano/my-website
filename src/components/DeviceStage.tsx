@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { IPhoneShowcase } from "./IPhoneShowcase";
-import { projects } from "@/data/projects";
+import { projectOverviewPath, projects } from "@/data/projects";
 
 interface DeviceStageProps {
   headingId: string;
@@ -21,7 +21,7 @@ export const DeviceStage = ({ headingId, className = "", intro, details, selecte
         {details && <div className="device-stage-details">{details}</div>}
       </div>
       <aside className="screen-phone" aria-label={selected ? `${selected.title} preview` : "Explore my apps"}>
-        <IPhoneShowcase key={selectedId ?? "launcher"} selectedId={selectedId} onSelectProject={app => navigate(`/projects/${app.id}`)} onHome={() => navigate("/projects")} />
+        <IPhoneShowcase key={selectedId ?? "launcher"} selectedId={selectedId} onSelectProject={app => navigate(projectOverviewPath(app))} onHome={() => navigate("/projects")} />
       </aside>
     </section>
   );

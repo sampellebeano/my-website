@@ -46,7 +46,7 @@ for (const app of ['bassh', 'kapture']) {
       'https://www.linkedin.com/in/samjohngreen',
       'https://github.com/sampellebeano',
       'mailto:sam.jgreen@icloud.com',
-      '/#/search',
+      '/#/cv',
       '/cv/Sam-Green-Solution-Architecture-CV.pdf',
       '/#/history',
     ]);

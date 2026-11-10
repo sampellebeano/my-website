@@ -6,11 +6,11 @@ The primary website address is [samjgreen.com](https://samjgreen.com/). The `www
 
 The compact overview features personal projects, four career roles and the latest published update. Navigation opens Experience, Projects, Updates and Books. Personal builds such as Kapture and bassh live in `src/data/projects.ts`. Employer initiatives belong to career records in `src/data/cv.ts`, associated with their role through `roleId`; they appear under Experience. Career copy distinguishes proposals and demonstrations from completed implementation. Client names are omitted from the current website copy. Daily notes and books start empty; add only real, publication-approved content.
 
-## Views and search
+## Views and CV
 
-Routes live inside the URL hash: `#/`, `#/experience`, `#/projects`, `#/updates`, `#/books` and `#/search`. Experience, projects, updates and books accept `?entry=<stable-id>` for a readable individual record; unavailable IDs return the collection with a notice. Old project links to career highlights redirect to their Experience detail.
+Routes live inside the URL hash: `#/`, `#/cv`, `#/experience`, `#/projects`, `#/updates`, `#/books` and `#/history`. Experience, projects, updates and books accept `?entry=<stable-id>` for a readable individual record; unavailable IDs return the collection with a notice. Old project links to career highlights redirect to their Experience detail.
 
-A nonempty query at `#/search?query=...` searches the CV, personal projects, published activity and books. Matching ignores case and accents and requires every query word. Existing `?section=about|experience|work|qualifications|contact` links filter the CV only; `work` is labelled Career highlights. An empty or whitespace-only query browses the full CV or selected CV section; an unknown section returns no results.
+Open `#/cv` for the full CV or add `?section=about|experience|work|qualifications|contact` to open one section. `qualifications` opens Courses & credentials and `work` opens Career highlights. Old `#/search` bookmarks redirect to `#/cv` and retain a recognised section.
 
 ## Public content
 
@@ -18,7 +18,7 @@ CV facts remain in `src/data/cv.ts`. Public daily notes and weekly recaps live i
 
 See [public authoring and the future Atlas connection](docs/atlas-publishing.md) for the exact formats. Keep private drafts outside this repository. All dates display in `Asia/Dubai`; activity weeks run Monday through Sunday. Daily notes group by their activity date even if published later.
 
-Atlas publishing and visitor LLM answers are follow-on integrations. This release provides ordinary search and a validated publishing format; it has no active model service or schedule.
+Atlas publishing and visitor LLM answers are follow-on integrations. The site has a validated publishing format for public content.
 
 ## Deployment
 
@@ -128,7 +128,7 @@ Use a new output directory for each review. Production QA should also mount the 
 
 Vercel hosts the site and deploys the GitHub repository `sampellebeano/my-website`. The production branch is `main`; other branches receive preview deployments. The project belongs to the `samjgreen` Vercel account.
 
-`vercel.json` configures the Vite build, checks TypeScript before building, and publishes `dist`. The GitHub Actions workflow in `.github/workflows/verify.yml` runs the public content and search tests, checks TypeScript and verifies the production build; it does not publish the site.
+`vercel.json` configures the Vite build, checks TypeScript before building, and publishes `dist`. The GitHub Actions workflow in `.github/workflows/verify.yml` runs the regression tests, checks TypeScript and verifies the production build.
 
 Cloudflare manages registration and DNS for `samjgreen.com`. The root domain serves the Vercel production deployment, and `www.samjgreen.com` redirects to `https://samjgreen.com/`. Use the exact DNS targets shown in the Vercel project's Domains settings and keep these records **DNS only**. Vercel manages HTTPS certificates. GitHub Pages is disabled.
 

@@ -32,8 +32,9 @@ test('Experience defaults to the current role and keeps the CV and credentials d
   assert.ok(html.includes('<article id="servicenow-uae"'));
   assertRoleIndex(html, 'servicenow-uae');
   assert.match(html, /href="\/cv\/Sam-Green-Solution-Architecture-CV\.pdf"[^>]*download/);
-  assert.match(html, /href="\/search\?section=qualifications"/);
-  assert.match(html, /href="\/search"/);
+  assert.match(html, /href="\/cv\?section=qualifications"/);
+  assert.match(html, /href="\/cv"/);
+  assert.doesNotMatch(html, /href="\/search(?:[?\/"])/);
   for (const [id, parent] of highlights) {
     if (parent === 'servicenow-uae') assert.ok(html.includes(`href="/experience?entry=${id}"`));
   }
