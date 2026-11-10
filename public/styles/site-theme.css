@@ -2,10 +2,14 @@
 :root {
   color-scheme: light;
   --site-font: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --site-canvas: #f3f2ef;
-  --site-canvas-hsl: 45.0000 14.2857% 94.5098%;
-  --site-paper: #fffefd;
-  --site-paper-hsl: 30.0000 100.0000% 99.6078%;
+  --site-canvas: #e7e0d4;
+  --site-canvas-hsl: 37.8947 28.3582% 86.8627%;
+  --site-canvas-shading: radial-gradient(ellipse at 50% 12%, #f1ede4 8%, #e1dbcf 58%, #c7bdad 100%);
+  --site-paper: #fffdf7;
+  --site-paper-hsl: 45 100% 98.4314%;
+  --site-paper-finish:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='grain' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23grain)' opacity='.05'/%3E%3C/svg%3E"),
+    linear-gradient(135deg, #ffffff80, transparent 46%, #e1cfac24);
   --site-ink: #191b1e;
   --site-ink-hsl: 216.0000 9.0909% 10.7843%;
   --site-muted: #65666b;
@@ -28,10 +32,10 @@
   --site-frame-gap: 32px;
   --site-frame-padding: clamp(28px, 4.4vw, 64px);
   --site-frame-radius: 24px;
-  --site-frame-edge: #f8f7f5;
-  --site-frame-shadow: 0 8px 36px #25231f05;
+  --site-frame-edge: #f2ede4;
+  --site-frame-shadow: 0 1px 2px #3f31231c, 0 16px 42px -12px #47382740, 0 36px 92px -48px #4738274d;
   --site-header-height: 86px;
-  --site-header-padding: 18px;
+  --site-corner-inset: clamp(16px, 1vw, 24px);
   --site-brand-size: clamp(40px, 30px + 1.15vw, 50px);
   --site-title-size: clamp(2.25rem, 1.8rem + .9vw, 3.25rem);
   --site-title-weight: 500;
@@ -50,17 +54,42 @@
   --site-body-line: 1.7;
 }
 
+html { background: var(--site-canvas) var(--site-canvas-shading) fixed; scrollbar-gutter: stable; }
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: var(--site-header-height);
+  padding-block: var(--site-corner-inset) 12px;
+}
+.site-header > .identity-name {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-self: flex-start;
+  width: max(44px, var(--site-brand-size));
+  height: max(44px, var(--site-brand-size));
+  margin-inline-start: calc(var(--site-corner-inset) - var(--site-frame-padding));
+}
+.identity-name img {
+  display: block;
+  width: var(--site-brand-size);
+  height: var(--site-brand-size);
+  border-radius: 50%;
+  object-fit: contain;
+}
+
 @media (min-width: 761px) and (max-height: 840px) {
-  :root { --site-frame-gap: 20px; --site-header-height: 70px; --site-header-padding: 12px; --site-hero-size: clamp(38px, 4vw, 56px); }
+  :root { --site-frame-gap: 20px; --site-header-height: 70px; --site-hero-size: clamp(38px, 4vw, 56px); }
 }
 @media (max-width: 1000px) {
   :root { --site-hero-size: clamp(36px, 4.8vw, 48px); }
 }
 @media (max-width: 760px) {
-  :root { --site-frame-gap: 12px; --site-frame-padding: 24px; --site-frame-radius: 18px; --site-header-height: 76px; --site-header-padding: 14px; --site-brand-size: 36px; --site-hero-size: clamp(30px, 5.2vw, 42px); }
+  :root { --site-frame-gap: 12px; --site-frame-padding: 24px; --site-frame-radius: 18px; --site-header-height: 76px; --site-brand-size: 36px; --site-hero-size: clamp(30px, 5.2vw, 42px); }
+  .site-header { gap: 12px; }
 }
 @media (max-width: 480px) {
   :root { --site-frame-padding: 18px; --site-header-height: 68px; --site-hero-size: 31px; }
+  .site-header { flex-wrap: wrap; gap: 0 12px; }
 }
-
-html { scrollbar-gutter: stable; }

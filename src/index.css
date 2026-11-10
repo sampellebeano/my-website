@@ -31,7 +31,7 @@
   * { @apply border-border; }
   html { scroll-behavior: smooth; scrollbar-gutter: stable; }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
     margin: 0;
     font-family: var(--site-font);
     font-size: var(--site-body-size);

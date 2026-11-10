@@ -9,7 +9,7 @@ const contentFrames = [
 ];
 const frames = [...contentFrames, ['../public/bassh/style.css', '.page-content']];
 
-test('current pages share a frame edge that blends into the surrounding canvas', async () => {
+test('current pages share a paper finish and a frame edge that blends into the surrounding canvas', async () => {
   const theme = postcss.parse(await readFile(new URL('../public/styles/site-theme.css', import.meta.url), 'utf8'));
   const palette = theme.nodes.find(node => node.selector === ':root');
   const color = name => palette.nodes.find(node => node.prop === name)?.value;
@@ -23,6 +23,7 @@ test('current pages share a frame edge that blends into the surrounding canvas',
     const border = rule?.nodes.find(node => node.prop === 'border')?.value;
     const token = border?.match(/var\((--[\w-]+)\)/)?.[1];
     assert.equal(token, '--site-frame-edge', selector);
+    assert.equal(rule?.nodes.find(node => node.prop === 'background-image')?.value, 'var(--site-paper-finish)', selector);
   }
 
   const edge = rgb(color('--site-frame-edge'));
