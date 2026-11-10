@@ -33,9 +33,9 @@ export const projects: PersonalProject[] = [
     icon: "/bassh/icon.png",
     context: "Personal project · iPhone & Mac",
     status: "Private testing",
-    summary: "My Mac’s terminal, on my iPhone.",
+    summary: "My Mac’s terminal on my iPhone, for when I’m away from my desk.",
     paragraphs: [
-      "I’m building bassh so I can use my Mac’s terminal from my phone. Everything runs on the Mac. The phone connects over SSH.",
+      "Sometimes I just want to run one command from my phone and get on with my day. That’s what got me building bassh. The phone connects over SSH. My tools and scripts still run on the Mac.",
       "It saves my connections and lets me keep a few sessions open. There’s an extra row of keys for Escape, Tab, Control and arrows, so I don’t have to fight the iPhone keyboard.",
       "There’s a Mac app to help set up Tailscale and Remote Login, authorise the phone’s SSH key and check the Mac’s host fingerprint.",
       "The Mac app needs macOS 15 or later and works on Apple Silicon and Intel. The iPhone app is in private testing. Downloads aren’t available here yet, but there’s a setup guide for existing testers. You can email me for release updates.",
@@ -55,9 +55,9 @@ export const projects: PersonalProject[] = [
     title: "highlighter",
     context: "Personal project · iPhone",
     status: "In development",
-    summary: "A map of the places I’ve run.",
+    summary: "A map of my runs and the places they’ve taken me.",
     paragraphs: [
-      "highlighter puts my runs on a map so I can see where I’ve been.",
+      "I wanted a map I could look at and think, ‘Oh, I remember that run.’ Sometimes seeing a little turn in the route is enough to bring the whole thing back. I’m making highlighter so I can find those runs again.",
       "I’m starting with runs from Apple Health. I can look through recent runs, open the details and see the recorded routes. The running history stays on the phone.",
       "I’m still building it. For now, it shows the original GPS routes. Matching those to roads and paths, tracking street coverage and colouring repeat visits are still work in progress.",
     ],
@@ -68,9 +68,9 @@ export const projects: PersonalProject[] = [
     icon: "/images/apps/kapture-icon.png",
     context: "Personal project · iOS & web",
     status: "In development",
-    summary: "Find a creator, plan a project and keep the work in one place.",
+    summary: "Find a creator whose work you love and make something together.",
     paragraphs: [
-      "I’m building Kapture to help people find photographers, videographers and other creators to work with. There’s an iPhone app and a website where you can browse creators.",
+      "I love the moment when you see someone’s work and think, ‘That’s the person I want to make this with.’ I’m building Kapture’s iPhone app and website to help people find photographers, videographers and other creators and start that first conversation.",
       "The app keeps project requests, messages, tasks and files together, from the first conversation through to handing over the work. It’s still in development.",
     ],
     screenshot: {

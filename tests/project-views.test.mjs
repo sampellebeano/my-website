@@ -30,7 +30,7 @@ for (const route of ['/projects/highlighter', '/projects/ryw', '/projects?entry=
     const html = render(route);
     assert.match(html, /<h1[^>]*>highlighter<\/h1>/);
     assert.match(html, /aria-label="highlighter preview"/);
-    assert.match(html, /highlighter puts my runs on a map/);
+    assert.match(html, /Oh, I remember that run/);
     assert.match(html, /No recording available yet/);
     assert.match(html, /original GPS routes/);
     assert.doesNotMatch(html, /description pages|href="[^"]*\?page=/);

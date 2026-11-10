@@ -84,7 +84,7 @@ test('a selected highlighter overview stays truthful without invented media', ()
   const html = render({ selectedId: 'ryw' });
   assert.match(html, /<h3>highlighter<\/h3>/);
   assert.match(html, /In development/);
-  assert.match(html, /A map of the places I’ve run/);
+  assert.match(html, /A map of my runs and the places they’ve taken me/);
   assert.match(html, /No recording available yet/);
   assert.doesNotMatch(html, /class="demo-recording"|images\/apps\/(?:ryw|highlighter)-|aria-label="Play (?:RYW|highlighter)/);
 });

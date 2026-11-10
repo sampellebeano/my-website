@@ -25,7 +25,7 @@ test('project collection pairs all summaries with a single launcher', () => {
   const html = render('/projects');
   assert.equal((html.match(/aria-label="Sam’s project iPhone"/g) ?? []).length, 1);
   for (const slug of ['bassh', 'highlighter', 'kapture']) assert.match(html, new RegExp(`href="/projects/${slug}"`));
-  assert.match(html, /Find a creator, plan a project and keep the work in one place/);
+  assert.match(html, /Find a creator whose work you love and make something together/);
   assert.doesNotMatch(html, /It saves my connections and lets me keep a few sessions open/);
 });
 
