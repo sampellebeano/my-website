@@ -60,6 +60,11 @@ test('a selected project renders its poster immediately for a direct route', () 
   assert.match(html, /role="status">bassh demo paused\./);
 });
 
+test('the selected app exposes Home and playback before the phone screen in focus order', () => {
+  const html = render({ selectedId: 'bassh' });
+  assert.match(html, /class="demo-phone-controls"[\s\S]*aria-label="Return to iPhone home screen"[\s\S]*aria-label="Play bassh demo"[\s\S]*class="demo-iphone" role="group"/);
+});
+
 test('a selected highlighter overview stays truthful without invented media', () => {
   const html = render({ selectedId: 'ryw' });
   assert.match(html, /<h3>highlighter<\/h3>/);
@@ -95,6 +100,7 @@ test('a growing collection shows only eight of 29 apps with labelled pagination'
   assert.match(html, /aria-label="Open Future app 8 overview"/);
   assert.doesNotMatch(html, /aria-label="Open Future app 9 overview"|aria-label="Open Future app 29 overview"/);
   assert.match(html, /aria-label="Next apps page"/);
+  assert.match(html, /class="demo-app-grid"[\s\S]*class="demo-phone-controls"[\s\S]*aria-label="Next apps page"/);
   assert.match(html, /Page 1 of 4/);
   assert.match(html, /Apps 1–8 of 29/);
   assert.doesNotMatch(html, /<img\b/, 'Missing artwork remains typographic');

@@ -63,13 +63,16 @@ test('highlighter detail retains its text-only state at the current URL', () => 
   assert.doesNotMatch(html, /images\/apps\/(?:ryw|highlighter)-|src="[^"]+\.gif/);
 });
 
-test('home, project index and every app use the same dedicated phone layout', () => {
+test('home, project index and every app use one phone with an expanded layout for selection', () => {
   for (const route of ['/', '/projects', '/projects/bassh', '/projects/bassh?page=2', '/projects/highlighter', '/projects/kapture']) {
     const html = render(route);
     assert.match(html, /<section class="device-stage(?: [^"]*)?"/, route);
-    assert.match(html, /<div class="device-stage-copy">/, route);
     assert.equal((html.match(/<aside class="screen-phone"/g) ?? []).length, 1, route);
     assert.equal((html.match(/class="phone-showcase-device"/g) ?? []).length, 1, route);
+    if (route.startsWith('/projects/')) {
+      assert.match(html, /<section class="device-stage app-overview"/, route);
+      assert.match(html, /class="device-stage-intro"[\s\S]*<\/h1>[\s\S]*<aside class="screen-phone"[\s\S]*<\/aside><div class="device-stage-details"/, route);
+    }
   }
 });
 

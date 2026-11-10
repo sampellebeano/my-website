@@ -1,4 +1,6 @@
 .phone-showcase-device {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
   width: 100%;
   max-width: 286px;
   min-width: 0;
@@ -6,6 +8,7 @@
 }
 
 .demo-iphone {
+  grid-row: 1;
   position: relative;
   padding: 6px;
   border: 1px solid #777d7e;
@@ -122,7 +125,7 @@
 .demo-project-overview p { margin: 0; font-size: 5.1cqw; line-height: 1.7; }
 .demo-project-overview .demo-overview-status { margin-bottom: 9cqw; color: #62717a; font-size: 4cqw; }
 .demo-project-overview .demo-overview-availability { margin-top: 9cqw; color: #62717a; font-size: 4cqw; }
-.demo-phone-controls { display: flex; align-items: center; justify-content: space-between; gap: 4px; min-height: 44px; margin-top: 8px; font-size: 11px; }
+.demo-phone-controls { display: flex; grid-row: 2; align-items: center; justify-content: space-between; gap: 4px; min-height: 44px; margin-top: 8px; font-size: 11px; }
 .demo-phone-button { display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-width: 44px; min-height: 44px; padding: 8px; border: 0; border-radius: 6px; color: hsl(var(--foreground)); background: transparent; cursor: pointer; }
 .demo-phone-button:hover:not(:disabled) { background: hsl(var(--muted)); }
 .demo-phone-button:focus-visible { outline: 2px solid hsl(var(--foreground)); outline-offset: 1px; }

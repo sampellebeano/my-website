@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 export const RouteScroll = () => {
   const { pathname, search } = useLocation();
-  useEffect(() => {
+  // Set the viewport before the project phone measures its destination.
+  useLayoutEffect(() => {
     const entry = new URLSearchParams(search).get("entry");
     const target = entry ? document.getElementById(entry) : null;
     if (target) {
@@ -12,7 +13,7 @@ export const RouteScroll = () => {
       target.focus({ preventScroll: true });
       return;
     }
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     document.getElementById("main-content")?.focus({ preventScroll: true });
   }, [pathname, search]);
   return null;

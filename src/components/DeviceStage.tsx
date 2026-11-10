@@ -16,13 +16,11 @@ export const DeviceStage = ({ headingId, className = "", intro, details, selecte
   const selected = projects.find(project => project.id === selectedId);
   return (
     <section className={`device-stage${className ? ` ${className}` : ""}`} aria-labelledby={headingId}>
-      <div className="device-stage-copy">
-        <div className="device-stage-intro">{intro}</div>
-        {details && <div className="device-stage-details">{details}</div>}
-      </div>
+      <div className="device-stage-intro">{intro}</div>
       <aside className="screen-phone" aria-label={selected ? `${selected.title} preview` : "Explore my apps"}>
-        <IPhoneShowcase key={selectedId ?? "launcher"} selectedId={selectedId} onSelectProject={app => navigate(projectOverviewPath(app))} onHome={() => navigate("/projects")} />
+        <IPhoneShowcase selectedId={selectedId} onSelectProject={app => navigate(projectOverviewPath(app))} onHome={() => navigate("/projects")} />
       </aside>
+      {details && <div className="device-stage-details">{details}</div>}
     </section>
   );
 };

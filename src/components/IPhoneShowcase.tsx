@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState } from "react";
+import { Component, createRef, useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { ArrowLeft, ArrowRight, BatteryFull, Pause, Play, Signal, Wifi } from "lucide-react";
 import { projects as personalProjects, type PersonalProject } from "@/data/projects";
 import "./iphone-showcase.css";
@@ -11,6 +11,50 @@ export interface IPhoneShowcaseProps {
 }
 
 const APPS_PER_PAGE = 8;
+const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
+
+interface ShowcaseHandsetProps {
+  expanded: boolean;
+  children: ReactNode;
+}
+
+class ShowcaseHandset extends Component<ShowcaseHandsetProps, object, DOMRect | null> {
+  private handset = createRef<HTMLDivElement>();
+  private movement?: Animation;
+
+  getSnapshotBeforeUpdate(previous: ShowcaseHandsetProps) {
+    if (previous.expanded === this.props.expanded || window.matchMedia(REDUCED_MOTION).matches) return null;
+    return this.handset.current?.getBoundingClientRect() ?? null;
+  }
+
+  componentDidUpdate(_previous: ShowcaseHandsetProps, _state: object, from: DOMRect | null) {
+    const handset = this.handset.current;
+    if (!from || !handset?.animate) return;
+
+    // The snapshot includes any in-flight movement, so reversals start where the phone is.
+    this.cancelMovement();
+    const to = handset.getBoundingClientRect();
+    if (!from.width || !to.width || (from.x === to.x && from.y === to.y && from.width === to.width)) return;
+
+    this.movement = handset.animate([
+      { transform: `translate(${from.x - to.x}px, ${from.y - to.y}px) scale(${from.width / to.width})`, transformOrigin: "top left" },
+      { transform: "none", transformOrigin: "top left" },
+    ], { duration: 420, easing: "cubic-bezier(0.22, 1, 0.36, 1)" });
+  }
+
+  cancelMovement() {
+    this.movement?.cancel();
+    this.movement = undefined;
+  }
+
+  componentWillUnmount() {
+    this.cancelMovement();
+  }
+
+  render() {
+    return <div ref={this.handset} className="demo-iphone" role="group" aria-label="Sam’s project iPhone">{this.props.children}</div>;
+  }
+}
 
 export const IPhoneShowcase = ({ projects = personalProjects, selectedId, onSelectProject, onHome }: IPhoneShowcaseProps) => {
   const [localSelection, setLocalSelection] = useState<{ sourceId?: string; id: string | null } | null>(null);
@@ -28,30 +72,37 @@ export const IPhoneShowcase = ({ projects = personalProjects, selectedId, onSele
   const visibleProjects = projects.slice(firstApp, firstApp + APPS_PER_PAGE);
   const firstVisibleId = visibleProjects[0]?.id;
   const screenId = useId();
+  const handset = useRef<ShowcaseHandset>(null);
   const homeButton = useRef<HTMLButtonElement>(null);
   const launchButtons = useRef(new Map<string, HTMLButtonElement>());
   const previousSelection = useRef<string | null>(null);
+  const returningToLauncher = useRef(false);
   const paginationFocusPending = useRef(false);
   const recording = selected?.screenshot;
   const recordingSrc = recording?.src;
   const routeControlled = Boolean(onSelectProject);
 
   useEffect(() => {
-    setPlayback({ id: activeProjectId ?? null, playing: Boolean(recordingSrc) && !window.matchMedia("(prefers-reduced-motion: reduce)").matches, failed: false });
+    setPlayback({ id: activeProjectId ?? null, playing: Boolean(recordingSrc) && !window.matchMedia(REDUCED_MOTION).matches, failed: false });
     if (activeProjectId) {
       setPage(Math.floor(selectedIndex / APPS_PER_PAGE));
       previousSelection.current = activeProjectId;
       if (!routeControlled) homeButton.current?.focus({ preventScroll: true });
     } else if (previousSelection.current) {
-      launchButtons.current.get(previousSelection.current)?.focus({ preventScroll: true });
+      if (returningToLauncher.current || !routeControlled) {
+        launchButtons.current.get(previousSelection.current)?.focus({ preventScroll: true });
+      }
+      returningToLauncher.current = false;
       previousSelection.current = null;
     }
   }, [activeProjectId, recordingSrc, selectedIndex, routeControlled]);
 
   useEffect(() => {
-    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const preference = window.matchMedia(REDUCED_MOTION);
     const stop = () => {
-      if (preference.matches) setPlayback(value => ({ ...value, playing: false }));
+      if (!preference.matches) return;
+      handset.current?.cancelMovement();
+      setPlayback(value => ({ ...value, playing: false }));
     };
     preference.addEventListener("change", stop);
     return () => preference.removeEventListener("change", stop);
@@ -73,6 +124,7 @@ export const IPhoneShowcase = ({ projects = personalProjects, selectedId, onSele
   };
 
   const goHome = () => {
+    returningToLauncher.current = true;
     if (onHome) onHome();
     else setLocalSelection({ sourceId: selectedId, id: null });
   };
@@ -82,6 +134,20 @@ export const IPhoneShowcase = ({ projects = personalProjects, selectedId, onSele
     setPage(nextPage);
   };
 
+  const controls = (
+    <div className="demo-phone-controls">
+      {selected ? <>
+        <button ref={homeButton} type="button" className="demo-phone-button" onClick={goHome} aria-label="Return to iPhone home screen" aria-controls={screenId}><ArrowLeft size={14} aria-hidden="true" />Home</button>
+        <span className="demo-current-app">{selected.title}</span>
+        {recording && !failed && <button type="button" className="demo-phone-button" aria-label={`${playing ? "Pause" : "Play"} ${selected.title} demo`} aria-controls={screenId} onClick={() => setPlayback({ id: selected.id, playing: !playing, failed: false })}>{playing ? <Pause size={14} aria-hidden="true" /> : <Play size={14} aria-hidden="true" />}{playing ? "Pause" : "Play"}</button>}
+      </> : pageCount > 1 ? <>
+        <button type="button" className="demo-phone-button" aria-label="Previous apps page" aria-controls={screenId} disabled={currentPage === 0} onClick={() => changePage(currentPage - 1)}><ArrowLeft size={14} aria-hidden="true" /><span>Prev</span></button>
+        <span className="demo-page-count" aria-label={`Page ${currentPage + 1} of ${pageCount}`}>{currentPage + 1} / {pageCount}</span>
+        <button type="button" className="demo-phone-button" aria-label="Next apps page" aria-controls={screenId} disabled={currentPage === pageCount - 1} onClick={() => changePage(currentPage + 1)}><span>Next</span><ArrowRight size={14} aria-hidden="true" /></button>
+      </> : <span className="demo-phone-hint">Pick an app to have a look.</span>}
+    </div>
+  );
+
   return (
     <div className="phone-showcase-device" onKeyDown={event => {
       if (event.key === "Escape" && selected) {
@@ -89,7 +155,8 @@ export const IPhoneShowcase = ({ projects = personalProjects, selectedId, onSele
         goHome();
       }
     }}>
-      <div className="demo-iphone" role="group" aria-label="Sam’s project iPhone">
+      {selected && controls}
+      <ShowcaseHandset ref={handset} expanded={Boolean(selected)}>
         <div className="demo-iphone-screen" id={screenId}>
           <div className="demo-home" hidden={Boolean(selected)}>
             <div className="demo-status-bar" aria-hidden="true">
@@ -129,18 +196,8 @@ export const IPhoneShowcase = ({ projects = personalProjects, selectedId, onSele
             </div>
           )}
         </div>
-      </div>
-      <div className="demo-phone-controls">
-        {selected ? <>
-          <button ref={homeButton} type="button" className="demo-phone-button" onClick={goHome} aria-label="Return to iPhone home screen" aria-controls={screenId}><ArrowLeft size={14} aria-hidden="true" />Home</button>
-          <span className="demo-current-app">{selected.title}</span>
-          {recording && !failed && <button type="button" className="demo-phone-button" aria-label={`${playing ? "Pause" : "Play"} ${selected.title} demo`} aria-controls={screenId} onClick={() => setPlayback({ id: selected.id, playing: !playing, failed: false })}>{playing ? <Pause size={14} aria-hidden="true" /> : <Play size={14} aria-hidden="true" />}{playing ? "Pause" : "Play"}</button>}
-        </> : pageCount > 1 ? <>
-          <button type="button" className="demo-phone-button" aria-label="Previous apps page" aria-controls={screenId} disabled={currentPage === 0} onClick={() => changePage(currentPage - 1)}><ArrowLeft size={14} aria-hidden="true" /><span>Prev</span></button>
-          <span className="demo-page-count" aria-label={`Page ${currentPage + 1} of ${pageCount}`}>{currentPage + 1} / {pageCount}</span>
-          <button type="button" className="demo-phone-button" aria-label="Next apps page" aria-controls={screenId} disabled={currentPage === pageCount - 1} onClick={() => changePage(currentPage + 1)}><span>Next</span><ArrowRight size={14} aria-hidden="true" /></button>
-        </> : <span className="demo-phone-hint">Pick an app to have a look.</span>}
-      </div>
+      </ShowcaseHandset>
+      {!selected && controls}
       <p className="sr-only" role="status">{selected ? recording ? `${selected.title} demo ${failed ? "unavailable" : playing ? "playing" : "paused"}.` : `${selected.title} project overview. No recording available yet.` : `iPhone home screen. Choose an app to view its recording or project overview.${projects.length ? ` Apps ${firstApp + 1}–${Math.min(firstApp + APPS_PER_PAGE, projects.length)} of ${projects.length}.` : ""}`}</p>
     </div>
   );

@@ -89,7 +89,7 @@ The original downloadable CV is available in both formats:
 
 [Word CV](public/cv/Sam-Green-Solution-Architecture-CV.docx)
 
-Replace these files when updating the CV. Vite copies them unchanged into the published site. Website content is maintained in `src/data/cv.ts`, with the homepage introduction and featured work in `src/pages/Index.tsx`.
+Replace these files when updating the CV. Vite copies them unchanged into the published site. Website content is maintained in `src/data/cv.ts`, with the homepage introduction and featured work in `src/pages/Showcase.tsx`.
 
 ## Local development
 

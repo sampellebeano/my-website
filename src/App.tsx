@@ -3,12 +3,10 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HashRouter, Navigate, Routes, Route, useLocation } from "react-router-dom";
-import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import CV from "./pages/CV";
 import Experience from "./pages/Experience";
-import Projects from "./pages/Projects";
-import ProjectOverview from "./pages/ProjectOverview";
+import Showcase from "./pages/Showcase";
 import Updates from "./pages/Updates";
 import Books from "./pages/Books";
 import SiteHistory from "./pages/SiteHistory";
@@ -32,12 +30,11 @@ const App = () => (
       <HashRouter>
         <RouteScroll />
         <Routes>
-          <Route path="/" element={<Index />} />
+          <Route path="/" element={<Showcase />} />
           <Route path="/cv" element={<CV />} />
           <Route path="/search" element={<LegacyCVRedirect />} />
           <Route path="/experience" element={<Experience />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/projects/:projectId" element={<ProjectOverview />} />
+          <Route path="/projects/:projectId?" element={<Showcase />} />
           <Route path="/updates" element={<Updates />} />
           <Route path="/books" element={<Books />} />
           <Route path="/history" element={<SiteHistory />} />
