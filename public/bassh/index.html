@@ -3,65 +3,73 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>bassh for Mac — Download | Sam Green</title>
-    <meta name="description" content="Download the signed and Apple-notarized bassh Mac companion for macOS 15 or later. Follow the ZIP installation guide. The iPhone app remains in private testing." />
+    <title>bassh — iPhone terminal &amp; Mac companion | Sam Green</title>
+    <meta name="description" content="I’m building bassh to use my Mac’s terminal from my iPhone over SSH. App downloads aren’t currently available from this site." />
     <link rel="canonical" href="https://samjgreen.com/bassh" />
-    <meta property="og:title" content="bassh for Mac — Download" />
-    <meta property="og:description" content="Your Mac. From your iPhone. Download the signed and notarized Mac companion preview. The iPhone app is in private testing." />
+    <meta property="og:title" content="bassh — iPhone terminal &amp; Mac companion" />
+    <meta property="og:description" content="I’m building bassh to use my Mac’s terminal from my iPhone over SSH. App downloads aren’t currently available from this site." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://samjgreen.com/bassh" />
-    <meta property="og:image" content="https://samjgreen.com/bassh/icon.png" />
+    <meta property="og:image" content="https://samjgreen.com/bassh/icon-2cae0699f753.png" />
     <meta property="og:image:alt" content="bassh terminal icon" />
     <meta name="twitter:card" content="summary" />
-    <link rel="icon" href="/bassh/icon.png" type="image/png" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+    <link rel="stylesheet" href="/styles/site-theme.css" />
     <link rel="stylesheet" href="/bassh/style.css" />
-    <script src="/bassh/download.js" defer></script>
     <script src="/bassh/navigation.js" defer></script>
   </head>
   <body>
     <div class="page-content" id="page-content">
       <a class="skip-link" href="#main-content">Skip to content</a>
-      <header class="page-nav">
-        <a class="home-link" href="/">Sam Green<span aria-hidden="true">.</span></a>
-        <nav aria-label="Page navigation">
-          <a class="back-button" href="/"><span aria-hidden="true">←</span> Back to homepage</a>
-          <a class="text-link" href="#setup">Setup guide <span aria-hidden="true">↓</span></a>
+      <header class="site-header">
+        <a class="identity-name" href="/" aria-label="Sam Green home"><img src="/favicon.png" width="40" height="40" alt="" /></a>
+        <nav aria-label="Main navigation" class="site-navigation">
+          <a class="site-nav-link" href="/">Home</a>
+          <a class="site-nav-link is-active" href="/#/projects" aria-current="true">Projects</a>
+          <a class="site-nav-link" href="/#/experience">Experience</a>
         </nav>
       </header>
       <main id="main-content" tabindex="-1">
+        <nav class="context-nav" aria-label="bassh navigation">
+          <a class="back-link" href="/#/projects/bassh"><span aria-hidden="true">←</span> Back to bassh</a>
+          <a class="text-link" href="#setup">Setup guide <span aria-hidden="true">↓</span></a>
+        </nav>
         <section class="hero" aria-labelledby="page-title">
           <div class="hero-copy">
-            <div class="app-identity"><img src="/bassh/icon.png" width="64" height="64" alt="" /><span>bassh</span></div>
+            <div class="app-identity"><img src="/bassh/icon-2cae0699f753.png" width="64" height="64" alt="" /><span>bassh</span></div>
             <p class="eyebrow">iPhone terminal · Mac companion</p>
-            <h1 id="page-title">Your Mac.<br />From your iPhone.</h1>
-            <p class="intro">An iPhone terminal for your Mac over SSH. Your tools, scripts and Git run on the Mac; bassh puts the shell in your hand.</p>
-            <p class="hero-note">The Mac companion walks you through connecting your own devices with Tailscale and macOS Remote Login.</p>
+            <h1 id="page-title">Using my Mac<br />from my iPhone.</h1>
+            <p class="intro">I’m building bassh to use my Mac’s terminal from my iPhone. It connects over SSH, so my tools, scripts and Git still run on the Mac.</p>
+            <p class="hero-note">I’ve also made a Mac companion to help with Tailscale and macOS Remote Login setup.</p>
           </div>
-          <div class="download-panel" aria-labelledby="download-title">
+          <div class="app-panel" aria-labelledby="companion-title">
             <p class="eyebrow">Mac companion preview</p>
-            <h2 id="download-title">bassh for Mac</h2>
-            <p class="release-info">Version 0.2.0 (3) · <time datetime="2026-10-12">12 October 2026</time></p>
+            <h2 id="companion-title">bassh for Mac</h2>
             <p class="compatibility">macOS 15 or later<br />Apple Silicon &amp; Intel</p>
-            <a class="download-button" id="mac-download" href="/downloads/bassh/0.2.0-3-notarized/bassh-mac-0.2.0-3-notarized.zip" download aria-describedby="download-format">Download for Mac <span aria-hidden="true">↓</span></a>
-            <p class="download-format" id="download-format">ZIP · 13.0 MB · Universal app</p>
+            <p class="availability">App downloads aren’t currently available from this site.</p>
             <div class="release-links">
-              <a href="#setup">Installation guide</a>
-              <a href="/downloads/bassh/0.2.0-3-notarized/SHA256SUMS">SHA-256 checksums</a>
+              <a href="#setup">Setup guide for existing testers</a>
             </div>
             <div class="iphone-release" aria-labelledby="iphone-release-title">
               <h3 id="iphone-release-title">Coming to iPhone</h3>
-              <p>The iPhone app is in private testing and isn’t available to download yet. Email me if you’d like to hear when bassh is available on the App Store.</p>
+              <p>I’m still testing the iPhone app privately, so it isn’t available to download yet. Email me if you’d like to hear when it’s on the App Store.</p>
               <a class="release-interest-button" href="mailto:sam.jgreen@icloud.com?subject=bassh%20App%20Store%20release&amp;body=Hi%20Sam%2C%0D%0A%0D%0APlease%20let%20me%20know%20when%20bassh%20is%20available%20on%20the%20App%20Store.%0D%0A%0D%0AThanks!">Let me know when bassh goes live <span aria-hidden="true">↗</span></a>
               <p class="email-hint">Opens your email app. You can also email <a href="mailto:sam.jgreen@icloud.com">sam.jgreen@icloud.com</a>.</p>
             </div>
           </div>
         </section>
 
+        <section class="preview-section section-heading" aria-labelledby="preview-title">
+          <h2 id="preview-title">What it looks like</h2>
+          <p>Use the terminal and keyboard on your iPhone to run tools and scripts on your Mac over SSH.</p>
+          <p class="hero-note"><a class="text-link" href="/#/projects/bassh">View bassh in the iPhone <span aria-hidden="true">↗</span></a></p>
+        </section>
+
         <section class="setup-section" id="setup" aria-labelledby="setup-title">
           <div class="section-heading">
             <p class="eyebrow">Getting started</p>
-            <h2 id="setup-title">From download to your first shell.</h2>
-            <p>Install the Mac companion with step 1. The remaining steps are for existing private iPhone testers: open each one as you connect your devices.</p>
+            <h2 id="setup-title">Connect your iPhone to your Mac.</h2>
+            <p>If you’re already testing bassh and have it on both devices, these steps will get them connected.</p>
           </div>
           <ul class="setup-requirements" aria-label="Before you start">
             <li><strong>Mac</strong><span>macOS 15 or later, with bassh installed</span></li>
@@ -72,18 +80,9 @@
           <ol class="setup-steps">
             <li id="install">
               <details class="setup-step" open>
-                <summary><span class="step-heading"><span class="step-title">Install bassh for Mac</span><span class="step-brief">Extract the ZIP, move bassh to Applications, then open it.</span></span><span class="step-toggle" aria-hidden="true">+</span></summary>
+                <summary><span class="step-heading"><span class="step-title">Open bassh for Mac</span><span class="step-brief">Open your installed Mac companion.</span></span><span class="step-toggle" aria-hidden="true">+</span></summary>
                 <div class="step-content">
-                  <ol class="step-instructions">
-                    <li>Download the ZIP using the button above. Double-click it in Finder to extract <strong>bassh.app</strong>.</li>
-                    <li>Drag <strong>bassh.app</strong> into <strong>Applications</strong>.</li>
-                    <li>Open bassh from Applications.</li>
-                  </ol>
-                  <aside class="setup-callout" aria-labelledby="first-launch-title">
-                    <h3 id="first-launch-title">On the first open</h3>
-                    <p>macOS may ask you to confirm opening an app downloaded from the internet. Choose <strong>Open</strong>. This signed, notarized release includes Apple’s notarization ticket and needs no security override.</p>
-                    <p>You may also see a permission prompt if you choose a folder. Keep Gatekeeper enabled.</p>
-                  </aside>
+                  <p>Open <strong>bassh</strong> from Applications on your Mac. These instructions assume you already have access to the private test apps.</p>
                 </div>
               </details>
             </li>
@@ -110,7 +109,7 @@
                     <li>Open the Remote Login settings and turn it on.</li>
                     <li>Under <strong>Allow access for</strong>, choose <strong>Only these users</strong> and add the Mac account you intend to use.</li>
                   </ol>
-                  <p>The companion leaves this permission in your hands.</p>
+                  <p>You’ll need to turn this on yourself in macOS settings.</p>
                   <a class="text-link" href="https://support.apple.com/guide/mac-help/allow-a-remote-computer-to-access-your-mac-mchlp1066/mac">Apple’s Remote Login guide <span aria-hidden="true">↗</span></a>
                 </div>
               </details>
@@ -144,11 +143,12 @@
           <h2 id="questions-title">A few things to know</h2>
           <details>
             <summary>What’s included in the Mac companion?</summary>
-            <p>The guided Tailscale and macOS Remote Login setup. The Mac download is signed and notarized; the iPhone beta remains private. Tailscale is installed separately; advanced QR pairing is outside this preview. No public router port forwarding is needed, and your Tailscale network must allow the iPhone to reach the Mac’s SSH port.</p>
+            <p>It helps you set up Tailscale and macOS Remote Login. You’ll need to install Tailscale separately. This preview doesn’t include advanced QR pairing, and the iPhone beta is still private.</p>
+            <p>You don’t need to forward ports on your router. Your Tailscale network does need to allow your iPhone to reach the Mac’s SSH port.</p>
           </details>
           <details>
-            <summary>How do I update bassh for Mac?</summary>
-            <p>Download a newer version from this page and replace bassh.app in Applications. This preview has no automatic updater. Your Mac companion identity and saved pairing data use the existing storage locations.</p>
+            <summary>Is bassh available to download?</summary>
+            <p>App downloads aren’t currently available from this site. You can use the email link above to hear when bassh is available on the App Store.</p>
           </details>
           <details>
             <summary>How do I remove SSH access?</summary>
@@ -156,13 +156,20 @@
           </details>
         </section>
       </main>
-      <footer class="page-footer">
-        <p>A personal project by <a href="/">Sam Green</a>.</p>
-        <a class="text-link" href="/#/projects?entry=bassh">About the project <span aria-hidden="true">↗</span></a>
+      <footer class="site-footer">
+        <div class="site-contact">
+          <nav aria-label="Contact links">
+            <a class="nav-link" href="https://www.linkedin.com/in/samjohngreen" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+            <a class="nav-link" href="https://github.com/sampellebeano" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+            <a class="nav-link" href="mailto:sam.jgreen@icloud.com">Email <span aria-hidden="true">↗</span></a>
+          </nav>
+        </div>
+        <div class="footer-tools">
+          <a class="nav-link" href="/#/search">Search &amp; CV</a>
+          <a class="download-link" href="/cv/Sam-Green-Solution-Architecture-CV.pdf" download><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" /><path d="M14 2v6h6M12 12v6m-3-3 3 3 3-3" /></svg> CV (PDF)</a>
+          <a class="previous-versions text-link" href="/#/history">Site history <span aria-hidden="true">↗</span></a>
+        </div>
       </footer>
     </div>
-    <aside class="download-dock" id="download-dock" aria-label="Mac download" hidden>
-      <a class="download-button floating-download" id="floating-download" href="/downloads/bassh/0.2.0-3-notarized/bassh-mac-0.2.0-3-notarized.zip" download aria-describedby="download-format" hidden>Download for Mac <span aria-hidden="true">↓</span></a>
-    </aside>
   </body>
 </html>

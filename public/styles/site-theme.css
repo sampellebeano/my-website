@@ -1,0 +1,63 @@
+/* Shared by the current React site and standalone app pages. */
+:root {
+  color-scheme: light;
+  --site-font: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --site-canvas: #f3f2ef;
+  --site-canvas-hsl: 45.0000 14.2857% 94.5098%;
+  --site-paper: #fffefd;
+  --site-paper-hsl: 30.0000 100.0000% 99.6078%;
+  --site-ink: #191b1e;
+  --site-ink-hsl: 216.0000 9.0909% 10.7843%;
+  --site-muted: #65666b;
+  --site-muted-hsl: 230.0000 2.8846% 40.7843%;
+  --site-line: #e7e5e2;
+  --site-line-hsl: 36.0000 9.4340% 89.6078%;
+  --site-accent: #2455e8;
+  --site-accent-hsl: 225.0000 80.9917% 52.5490%;
+  --site-surface: #f5f4f1;
+  --site-surface-hsl: 45.0000 16.6667% 95.2941%;
+  --site-note: #7c602b;
+  --site-note-hsl: 39.2593 48.5030% 32.7451%;
+  --site-selection: #dce5ff;
+  --site-selection-hsl: 224.5714 100.0000% 93.1373%;
+  --site-hover-ink: #34373d;
+  --site-hover-ink-hsl: 220.0000 7.9646% 22.1569%;
+  --site-disabled: #bcbdc0;
+  --site-disabled-hsl: 225.0000 3.0769% 74.5098%;
+  --site-frame-width: 1240px;
+  --site-frame-gap: 32px;
+  --site-frame-padding: clamp(28px, 4.4vw, 64px);
+  --site-frame-radius: 24px;
+  --site-frame-shadow: 0 8px 36px #25231f06, 0 1px 3px #25231f03;
+  --site-header-height: 86px;
+  --site-header-padding: 18px;
+  --site-brand-size: 40px;
+  --site-title-size: 40px;
+  --site-title-weight: 500;
+  --site-title-line: 1.12;
+  --site-title-tracking: -.045em;
+  --site-hero-size: clamp(42px, 4.6vw, 66px);
+  --site-hero-weight: 450;
+  --site-hero-line: 1.05;
+  --site-hero-tracking: -.055em;
+  --site-kicker-size: 10px;
+  --site-kicker-tracking: .23em;
+  --site-lede-size: 15px;
+  --site-body-size: 14px;
+  --site-body-line: 1.7;
+}
+
+@media (min-width: 761px) and (max-height: 840px) {
+  :root { --site-frame-gap: 20px; --site-header-height: 70px; --site-header-padding: 12px; --site-hero-size: clamp(38px, 4vw, 56px); --site-lede-size: 14px; }
+}
+@media (max-width: 1000px) {
+  :root { --site-hero-size: clamp(36px, 4.8vw, 48px); }
+}
+@media (max-width: 760px) {
+  :root { --site-frame-gap: 12px; --site-frame-padding: 24px; --site-frame-radius: 18px; --site-header-height: 76px; --site-header-padding: 14px; --site-brand-size: 36px; --site-title-size: 34px; --site-hero-size: clamp(30px, 5.2vw, 42px); --site-lede-size: 13px; }
+}
+@media (max-width: 480px) {
+  :root { --site-frame-padding: 18px; --site-header-height: 68px; --site-hero-size: 31px; --site-kicker-size: 9px; --site-lede-size: 12px; }
+}
+
+html { scrollbar-gutter: stable; }

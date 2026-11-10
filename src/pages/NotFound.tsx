@@ -1,5 +1,6 @@
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { ErrorPage } from "@/components/ErrorPage";
 
 const NotFound = () => {
   const location = useLocation();
@@ -12,15 +13,7 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <main id="main-content" tabIndex={-1} className="min-h-screen flex items-center justify-center bg-background px-6 text-foreground">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">404</h1>
-        <p className="text-xl text-muted-foreground mb-4">Oops! Page not found</p>
-        <Link to="/" className="text-primary hover:text-foreground underline">
-          Return to Home
-        </Link>
-      </div>
-    </main>
+    <ErrorPage eyebrow="404" title="Page not found" description="That address doesn’t lead to a page on this site." to="/" linkLabel="Return home" />
   );
 };
 

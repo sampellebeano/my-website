@@ -46,9 +46,9 @@ then confirm a fresh push produces a Git-triggered production deployment.
 
 ## Previous website
 
-The CV/search site captured on 8 October 2026 is saved independently at `public/history/2026-10-08/index.html`, including its own assets and both CV files. `content/site-versions.json` records the capture date and source revision. The Previous versions control opens this actual snapshot. Use the explicit `index.html` URL: Vite's development server otherwise falls back to the current SPA for the directory URL.
+The CV/search site captured on 8 October 2026 is saved independently at `public/history/2026-10-08/index.html`, including its own assets and both CV files. `content/site-versions.json` records the capture date and source revision. The Site history view (`#/history`) opens this actual snapshot and the pre-overhaul working edition captured on 2 November 2026. Each edition can include a summary, making notes and an authentic screenshot preview when available. Use the explicit `index.html` URL: Vite's development server otherwise falls back to the current SPA for the directory URL.
 
-Never rebuild over a saved snapshot or copy an existing history tree into a new one. Historical snapshots are deliberate public artifacts, distinct from root build output.
+Never rebuild over a saved snapshot or copy an existing history tree into a new one. `scripts/capture-site-version.mjs` captures a separately built edition, prepares its local asset paths and records source/build manifests; see `docs/atlas-publishing.md` for the workflow. Historical snapshots are deliberate public artifacts, distinct from root build output.
 
 ## bassh Mac download
 

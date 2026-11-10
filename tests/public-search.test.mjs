@@ -18,11 +18,11 @@ test('matching ignores case and accents and requires every word', () => {
   assert.ok(!matchesQuery('Architecture in Dublin', 'architecture UAE'));
 });
 test('CV keywords remain searchable', () => assert.equal(searchPublicContent('presight', '', cv, content)[0].id, 'project'));
-test('results link to their actual published record', () => {
+test('results identify whole sections without opening single-record views', () => {
   const results = searchPublicContent('architecture', '', cv, content);
-  assert.equal(results[0].href, '/experience?entry=project');
-  assert.equal(results[2].href, '/updates?entry=daily-2026-10-08');
-  assert.equal(results[3].href, '/books?entry=book-example');
+  assert.equal(results[0].href, '/experience');
+  assert.equal(results[2].href, '/updates');
+  assert.equal(results[3].href, '/books');
   assert.equal(results[3].context, 'Example Author · Reading');
   assert.deepEqual(results[3].paragraphs, ['A test-only reading note.']);
 });
@@ -36,3 +36,24 @@ test('a recognised section searches only its CV records', () => {
 test('unknown sections retain the legacy empty result', () => assert.deepEqual(searchPublicContent('architecture', 'missing', cv, content), []));
 test('unmatched queries return no invented answer', () => assert.deepEqual(searchPublicContent('unfindableword', '', cv, content), []));
 test('query text is encoded in CV section result links', () => assert.equal(searchPublicContent('architecture & adoption', '', [{ ...cv[1], section: 'about', paragraphs: ['Architecture & adoption.'] }], collection())[0].href, '/search?section=about&query=architecture%20%26%20adoption'));
+test('site history searches edition labels, summaries and making notes with direct entry links', () => {
+  const edition = { id: 'saved-2026-11-02', label: 'Personal website before the overhaul', capturedOn: '2026-11-02', summary: 'A growing app gallery.', notes: ['Preserved explicit playback in the phone.'], path: 'history/2026-11-02/index.html' };
+  for (const query of ['overhaul', 'growing gallery', 'explicit playback']) {
+    const results = searchPublicContent(query, '', [], collection([], [], [edition]));
+    assert.deepEqual(results.map(result => result.source), ['version']);
+    assert.equal(results[0].href, '/history?entry=saved-2026-11-02');
+    assert.equal(results[0].context, 'Captured 2 Nov 2026');
+    assert.deepEqual(results[0].paragraphs, [edition.summary, ...edition.notes]);
+  }
+});
+test('site history search orders captures by date then ID and handles original metadata', () => {
+  const editions = [{ id: 'old', label: 'Saved website', capturedOn: '2026-10-08' }, { id: 'new-z', label: 'Saved website', capturedOn: '2026-11-02' }, { id: 'new-a', label: 'Saved website', capturedOn: '2026-11-02' }];
+  const results = searchPublicContent('saved website', '', [], collection([], [], editions));
+  assert.deepEqual(results.map(result => result.id), ['new-a', 'new-z', 'old']);
+  assert.deepEqual(results[2].paragraphs, []);
+});
+test('editions never enter empty-query or filtered CV browsing', () => {
+  const editions = [{ id: 'saved', label: 'Architecture website', capturedOn: '2026-10-08', notes: ['Architecture decisions.'] }];
+  for (const query of ['', '   ']) assert.deepEqual(searchPublicContent(query, '', cv, collection([], [], editions)).map(result => result.id), ['project', 'role']);
+  assert.deepEqual(searchPublicContent('architecture', 'work', cv, collection([], [], editions)).map(result => result.id), ['project']);
+});

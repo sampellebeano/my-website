@@ -1,0 +1,6 @@
+# Preserve release files locally without publishing app downloads.
+public/downloads/bassh/
+# Keep Word CV originals locally; publish the PDF only.
+public/cv/*.docx
+public/history/**/cv/*.docx
+dist/

@@ -2,6 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { parsePublicContent, sortActivity, formatPublicDate, activityWeek, groupActivity } from '../src/lib/public-content.ts';
 import { daily, weekly, book, collection } from './fixtures.mjs';
+import * as publicContent from '../src/lib/public-content.ts';
+
+const version = (overrides = {}) => ({ id: 'cv-search-2026-10-08', label: 'CV and search', capturedOn: '2026-10-08', sourceRevision: '6390bafd', path: 'history/2026-10-08/index.html', ...overrides });
+const workingVersion = (overrides = {}) => ({ id: 'pre-overhaul-2026-11-02', label: 'Before the personal-site overhaul', capturedOn: '2026-11-02', sourceKind: 'working-tree', baseRevision: 'a'.repeat(40), sourceManifestSha256: 'b'.repeat(64), buildManifestSha256: 'c'.repeat(64), path: 'history/2026-11-02/index.html', ...overrides });
 
 test('empty collections are valid', () => assert.deepEqual(parsePublicContent(collection(), []), collection()));
 test('unknown private fields are rejected without printing their value', () => {
@@ -54,6 +58,55 @@ test('historical paths stay in their dated snapshot', () => {
   const version = { id: 'v1', label: 'Previous website', capturedOn: '2026-10-08', sourceRevision: '6390bafd', path: 'history/2026-10-08/index.html' };
   assert.equal(parsePublicContent(collection([], [], [version]), []).versions.length, 1);
   assert.throws(() => parsePublicContent(collection([], [], [{ ...version, path: '../private/index.html' }]), []));
+});
+test('the original exact-revision edition remains valid without added metadata', () => {
+  const original = version();
+  assert.deepEqual(parsePublicContent(collection([], [], [original]), []).versions, [original]);
+});
+test('working-tree captures require their base revision and both manifest digests', () => {
+  const capture = workingVersion({ summary: 'The app gallery before the new introduction.', notes: ['Preserved the existing app recordings.'] });
+  assert.deepEqual(parsePublicContent(collection([], [], [capture]), []).versions, [capture]);
+  for (const field of ['baseRevision', 'sourceManifestSha256', 'buildManifestSha256']) {
+    const incomplete = { ...capture };
+    delete incomplete[field];
+    assert.throws(() => parsePublicContent(collection([], [], [incomplete]), []), field);
+  }
+  assert.throws(() => parsePublicContent(collection([], [], [workingVersion({ sourceRevision: 'a'.repeat(40) })]), []));
+  assert.throws(() => parsePublicContent(collection([], [], [workingVersion({ sourceManifestSha256: '/private/source' })]), []));
+});
+test('edition notes are readable nonblank paragraphs and unknown metadata stays rejected', () => {
+  for (const metadata of [{ summary: ' ' }, { notes: [' '] }, { notes: 'A note' }, { privateDraft: 'DO-NOT-PUBLISH-TEST-VALUE' }]) {
+    assert.throws(() => parsePublicContent(collection([], [], [version(metadata)]), []), error => !error.message.includes('DO-NOT-PUBLISH-TEST-VALUE'));
+  }
+});
+test('same-day editions can use a safe unique suffix with previews in their own snapshot', () => {
+  const capture = workingVersion({ path: 'history/2026-11-02-pre-overhaul/index.html', preview: 'history/2026-11-02-pre-overhaul/preview.webp' });
+  assert.equal(parsePublicContent(collection([], [], [capture]), []).versions[0].preview, capture.preview);
+  for (const path of ['history/2026-11-03/index.html', 'history/2026-11-02-/index.html', 'history/2026-11-02/../index.html']) {
+    assert.throws(() => parsePublicContent(collection([], [], [workingVersion({ path })]), []), path);
+  }
+  for (const preview of ['https://example.com/preview.webp', 'history/2026-10-08/preview.webp', 'history/2026-11-02/../preview.webp', 'history/2026-11-02/preview.svg', 'history/2026-11-02/preview.webp?x=1']) {
+    assert.throws(() => parsePublicContent(collection([], [], [workingVersion({ preview })]), []), preview);
+  }
+});
+test('different editions must not reuse a snapshot path', () => {
+  assert.throws(() => parsePublicContent(collection([], [], [version(), version({ id: 'another-edition' })]), []));
+  const captures = [workingVersion(), workingVersion({ id: 'later-capture', path: 'history/2026-11-02-later/index.html' })];
+  assert.equal(parsePublicContent(collection([], [], captures), []).versions.length, 2);
+});
+test('history links select a published edition and reject unknown or repeated entries', () => {
+  const versions = [version()];
+  const links = [{ label: 'Site history', href: '#/history' }, { label: 'Saved edition', href: '#/history?entry=cv-search-2026-10-08' }];
+  assert.equal(parsePublicContent(collection([daily({ links })], [], versions), []).activity[0].links.length, 2);
+  for (const href of ['#/history?entry=missing', '#/history?entry=cv-search-2026-10-08&entry=cv-search-2026-10-08']) {
+    assert.throws(() => parsePublicContent(collection([daily({ links: [{ label: 'Saved edition', href }] })], [], versions), []));
+  }
+});
+test('edition ordering uses newest capture dates with deterministic stable-ID ties', () => {
+  assert.equal(typeof publicContent.sortSiteVersions, 'function');
+  const versions = [version(), workingVersion({ id: 'z-edition' }), workingVersion({ id: 'a-edition' })];
+  assert.deepEqual(publicContent.sortSiteVersions(versions).map(record => record.id), ['a-edition', 'z-edition', 'cv-search-2026-10-08']);
+  assert.deepEqual(versions.map(record => record.id), ['cv-search-2026-10-08', 'z-edition', 'a-edition']);
 });
 test('publication ordering compares actual instants and has stable ties', () => {
   const entries = [daily({ id: 'b', publishedAt: '2026-10-08T21:00:00+04:00' }), daily({ id: 'a', publishedAt: '2026-10-08T17:00:00Z' }), daily({ id: 'c', publishedAt: '2026-10-08T18:00:00Z' })];

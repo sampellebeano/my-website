@@ -1,36 +1,29 @@
 import type { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { SiteNavigation } from "./SiteNavigation";
-import { SearchBox } from "./SearchBox";
 import { CVDownloads } from "./CVDownloads";
 import { CVFooter } from "./CVFooter";
 import { PreviousVersions } from "./PreviousVersions";
 import { SkipLink } from "./SkipLink";
+import "./single-screen.css";
 
-export const SiteShell = ({ children }: { children: ReactNode }) => {
-  const { search } = useLocation();
-  const query = new URLSearchParams(search).get("query") ?? "";
+export const SiteShell = ({ children, layout }: { children: ReactNode; layout?: "section" }) => {
+  const { pathname } = useLocation();
+  const routePath = pathname.replace(/\/+$/, "") || "/";
+  const documentView = ["/search", "/updates", "/books"].includes(routePath);
+  const sectionView = layout === "section" || (routePath !== "/" && routePath !== "/projects" && !routePath.startsWith("/projects/"));
   return (
-    <div className="site-frame">
+    <div className={`site-frame${documentView ? " site-frame--document" : ""}${sectionView ? " site-frame--section" : ""}`}>
       <SkipLink />
-      <aside className="site-sidebar" aria-label="Sam Green and website navigation">
-        <header>
-          <Link to="/" className="identity-name" aria-label="Sam Green home">Sam Green<span aria-hidden="true">.</span></Link>
-          <p className="identity-role">Senior Solution Consultant<br /><span>ServiceNow · UAE</span></p>
-          <p className="identity-about">I connect enterprise business priorities with ServiceNow solutions. A background in solution engineering, a curiosity for what comes next.</p>
-        </header>
+      <header className="site-header">
+        <Link to="/" className="identity-name" aria-label="Sam Green home"><img src={`${import.meta.env.BASE_URL}favicon.png`} width="40" height="40" alt="" /></Link>
         <SiteNavigation />
-        <SearchBox key={search} initialQuery={query} />
-        <div className="sidebar-links">
-          <CVDownloads />
-          <Link className="text-link full-cv-link" to="/search">View full CV <span aria-hidden="true">↗</span></Link>
-        </div>
-        <div className="sidebar-bottom">
-          <CVFooter />
-          <PreviousVersions />
-        </div>
-      </aside>
+      </header>
       <main id="main-content" tabIndex={-1} className="site-main">{children}</main>
+      <footer className="site-footer">
+        <CVFooter />
+        <div className="footer-tools"><Link className="nav-link" to="/search">Search & CV</Link><CVDownloads /><PreviousVersions /></div>
+      </footer>
     </div>
   );
 };

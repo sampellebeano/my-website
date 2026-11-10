@@ -38,7 +38,7 @@ Daily records additionally require `activityDate`, a real `YYYY-MM-DD` calendar 
     "body": ["This is a format example, not a real update."],
     "publishedAt": "2026-10-08T20:00:00+04:00",
     "activityDate": "2026-10-08",
-    "links": [{ "label": "A personal project", "href": "#/projects?entry=kapture" }]
+    "links": [{ "label": "Personal projects", "href": "#/projects" }]
   },
   {
     "id": "weekly-example-2026-10-05",
@@ -82,7 +82,7 @@ Add real books and Sam's actual notes. The overview shows a book only when a `re
 
 IDs must be unique across activity, books and previous-version records. Keep them stable because direct links and weekly references use them.
 
-Public links allow HTTPS without embedded credentials, or these hash routes: `#/`, `#/experience`, `#/projects`, `#/updates`, `#/books` and `#/search`. An `entry` parameter must resolve to a published record in its view. Personal project IDs are `kapture` and `bassh`. Career highlight IDs are `enterprise-front-door`, `aviation`, `executive-briefings` and `quip`, and use `#/experience?entry=<id>`. Projects contains Sam's personal builds; employer initiatives stay under Experience unless Sam explicitly changes that classification. Add further personal builds to `src/data/projects.ts` with approved public descriptions. Executable schemes, HTTP and unknown routes are rejected. Authored text renders as text, not HTML or Markdown.
+Public links allow HTTPS without embedded credentials, or these hash routes: `#/`, `#/experience`, `#/projects`, `#/updates`, `#/books`, `#/search` and `#/history`. Link to whole sections for CV, apps and activity; site-history links can select a preserved edition with `#/history?entry=<stable-id>`. Legacy `entry` parameters must still resolve to a published record for validation, but the views keep the full section visible. Personal project IDs are `kapture`, `bassh` and `ryw`; only bassh currently has a linked standalone page. Career highlight IDs are `enterprise-front-door`, `aviation`, `executive-briefings` and `quip`, and stay inline under their roles in `#/experience`. Projects contains Sam's personal builds; employer initiatives stay under Experience unless Sam explicitly changes that classification. Add further personal builds to `src/data/projects.ts` with approved public descriptions, and add an optional `href` only when a standalone page is ready to link. Executable schemes, HTTP and unknown routes are rejected. Authored text renders as text, not HTML or Markdown.
 
 ```sh
 npm run validate:content
@@ -96,11 +96,27 @@ node --experimental-strip-types scripts/validate-content.mjs --content-dir /path
 
 The fixture directory needs `activity.json`, `books.json` and `site-versions.json`; each can be an empty array. Never commit fixture posts to the public collections.
 
+## CV downloads
+
+Publish the PDF CV only. Preserve the Word originals locally; `.vercelignore` excludes both current and historical `.docx` CV files from source deployments. When deploying a prebuilt static output, omit those files there too. `vercel.json` redirects former Word CV URLs to their corresponding PDFs. Verify the PDF download and both current and historical Word redirects after publishing.
+
+## App downloads
+
+App downloads are currently disabled. Keep the versioned files in `public/downloads/bassh/` unchanged as local archives. `.vercelignore` excludes them from source deployments; when deploying a prebuilt static output, omit `downloads/bassh/` there too. `vercel.json` redirects all former Bassh download URLs to `/bassh`. Verify those URLs return the redirect after publishing. App screenshots in iPhone frames are shown on the overview, Projects and existing app pages. Screens use demonstration data; keep download buttons out of the current pages.
+
 ## Previous versions
 
-`content/site-versions.json` is an array of strict metadata records with `id`, `label`, `capturedOn`, `sourceRevision` (a verified Git SHA) and `path`. The current saved build uses `history/2026-10-08/index.html`; the date inside the path must match `capturedOn`. The shell resolves that relative path against the deployment base, including repository subdirectories.
+`content/site-versions.json` is an array of strict edition records. Every record has `id`, `label`, `capturedOn` and `path`, plus either an exact `sourceRevision`, or `sourceKind: "working-tree"`, `baseRevision`, `sourceManifestSha256` and `buildManifestSha256`. A base revision alone does not identify a dirty working build. Existing exact-revision records remain valid unchanged.
 
-Capture an actual build with its assets and CV files before changing that version. Record its capture date, not a guessed launch date. Preserve snapshots unchanged and exclude their history tree from future captures.
+Optional `summary` and `notes` (plain-text paragraph array) explain real changes. Optional `preview` points to a captured PNG, JPEG, WebP or AVIF in the edition's own directory. Omit it when no actual screenshot exists. Paths use `history/YYYY-MM-DD/index.html`, with an optional unique suffix on the dated directory for another same-day edition. The path date must match `capturedOn`; IDs and snapshot paths remain unique.
+
+`#/history` shows all saved editions and their making notes. History search results can select an edition without hiding the rest of the timeline. The current edition is clearly separate from frozen snapshots.
+
+Capture an actual build before changing it. Record its capture date, not a guessed launch date. Preserve snapshots unchanged and exclude their history tree from future captures. Freeze a source copy first, then build into a fresh external directory. Run the capture script with `--build-dir`, `--source-dir`, `--output-dir`, `--captured-on`, a full `--base-revision`, `--id` and `--label`. `--source-dir` must be the frozen source that produced the build, not source modified after it. The output directory's basename must match the date, with an optional safe suffix. The script refuses an existing output.
+
+The script excludes nested history, installers and Word files; rebases local HTML/CSS/module asset links; and writes `source-manifest.json` and `build-manifest.json`. Review the returned record before adding it to the version collection. Verify both manifest digests, all saved-site asset/route links and the PDF. Existing snapshots and shared app media must remain unchanged. Future captures using additional URL patterns may require extending the capture rules and their regressions.
+
+The 2 November pre-overhaul edition is a saved local working site, not a claim about what was deployed at that instant. Its original source and build are identified by the manifests; its making notes explain what the saved edition contains.
 
 ## Follow-on integrations
 
