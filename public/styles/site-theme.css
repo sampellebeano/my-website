@@ -107,6 +107,8 @@ html { background: var(--site-canvas) var(--site-canvas-shading) fixed; scrollba
   :root {
     --site-frame-gap: clamp(20px, 2vw, 44px);
     --site-frame-padding: clamp(48px, 5vw, 112px);
+    --site-brand-size: clamp(80px, 60px + 2.3vw, 100px);
+    --site-header-height: calc(var(--site-corner-inset) + var(--site-brand-size) + 12px);
   }
 }
 @media (max-width: 1000px) {

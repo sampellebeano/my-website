@@ -48,3 +48,12 @@ test('desktop frames share a viewport height and scroll when their content is lo
   assert.match(value('height'), /100svh.*--site-frame-gap/);
   assert.equal(value('overflow-y'), 'auto');
 });
+
+test('the shared header portrait doubles at the wide layout breakpoint', async () => {
+  const theme = postcss.parse(await readFile(new URL('../public/styles/site-theme.css', import.meta.url), 'utf8'));
+  const wideLayout = theme.nodes.find(node => node.name === 'media' && node.params === '(min-width: 1100px)');
+  const wideTokens = wideLayout?.nodes.find(node => node.selector === ':root')?.nodes;
+
+  assert.equal(wideTokens?.find(node => node.prop === '--site-brand-size')?.value, 'clamp(80px, 60px + 2.3vw, 100px)');
+  assert.match(wideTokens?.find(node => node.prop === '--site-header-height')?.value ?? '', /var\(--site-brand-size\)/);
+});
