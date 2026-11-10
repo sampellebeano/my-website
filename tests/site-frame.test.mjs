@@ -13,27 +13,21 @@ function luminance(rgb) {
   return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
 
-test('current pages share a responsive paper frame', async () => {
-  const themeUrl = new URL('../public/styles/site-theme.css', import.meta.url);
-  const theme = postcss.parse(await readFile(themeUrl, 'utf8'));
+test('current pages share one solid background through the responsive frame', async () => {
+  const theme = postcss.parse(await readFile(new URL('../public/styles/site-theme.css', import.meta.url), 'utf8'));
   const palette = theme.nodes.find(node => node.selector === ':root');
   const color = name => palette.nodes.find(node => node.prop === name)?.value;
   const rgb = hex => hex.match(/[a-f\d]{2}/gi).map(channel => Number.parseInt(channel, 16));
-  const canvas = rgb(color('--site-canvas'));
   const paper = rgb(color('--site-paper'));
+  const canvas = theme.nodes.find(node => node.selector === 'html');
   const frame = theme.nodes.find(node => node.selectors?.includes('.site-frame') && node.nodes?.some(decl => decl.prop === 'width'));
   assert.ok(frame, 'The shared theme sets the frame width');
   assert.deepEqual(frame.selectors, frameSelectors);
-  const frameValue = name => frame.nodes.find(node => node.prop === name)?.value;
-  assert.match(frameValue('width'), /var\(--site-frame-width\)/);
-  assert.equal(frameValue('border'), '1px solid var(--site-frame-edge)');
-  assert.equal(frameValue('background-image'), 'var(--site-paper-finish)');
-  const texturePath = color('--site-paper-finish').match(/url\("([^"]+)"\)/)?.[1];
-  assert.ok(texturePath, 'The shared finish references a paper texture');
-  assert.match(await readFile(new URL(texturePath, themeUrl), 'utf8'), /<svg\b/);
+  assert.match(frame.nodes.find(node => node.prop === 'width')?.value, /var\(--site-frame-width\)/);
+  assert.equal(canvas?.nodes.find(node => node.prop === 'background')?.value, 'var(--site-paper)');
+  assert.ok(!frame.nodes.some(node => /^(background|border|box-shadow)/.test(node.prop)));
+  assert.doesNotMatch(theme.toString(), /gradient\(|book-paper\.svg/);
 
-  const edge = rgb(color('--site-frame-edge'));
-  assert.ok(edge.every((channel, index) => channel >= canvas[index] && channel <= paper[index]), 'The edge falls between the canvas and the page surface');
   const muted = rgb(color('--site-muted'));
   assert.ok((luminance(paper) + 0.05) / (luminance(muted) + 0.05) >= 7, 'Small muted text has strong contrast on the paper');
 });
@@ -49,16 +43,12 @@ test('desktop frames share a viewport height and scroll when their content is lo
   assert.equal(value('overflow-y'), 'auto');
 });
 
-test('mobile frames let the paper canvas extend to the viewport edge', async () => {
+test('mobile frames extend to the viewport edge', async () => {
   const theme = postcss.parse(await readFile(new URL('../public/styles/site-theme.css', import.meta.url), 'utf8'));
   const mobile = theme.nodes.find(node => node.name === 'media' && node.params === '(max-width: 760px)');
   const tokens = mobile?.nodes.find(node => node.selector === ':root');
-  const canvas = mobile?.nodes.find(node => node.selector === 'html');
-  const frame = mobile?.nodes.find(node => frameSelectors.every(selector => node.selectors?.includes(selector)));
 
   assert.equal(tokens?.nodes.find(node => node.prop === '--site-frame-gap')?.value, '0px');
-  assert.match(canvas?.nodes.find(node => node.prop === 'background')?.value ?? '', /var\(--site-paper-finish\) var\(--site-paper\)$/);
-  assert.equal(frame?.nodes.find(node => node.prop === 'background')?.value, 'transparent');
 });
 
 test('the mobile portrait aligns with the page gutter and sits beside the navigation', async () => {

@@ -3,14 +3,8 @@
   color-scheme: light;
   --site-font: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --site-reading-font: Charter, "Bitstream Charter", "Iowan Old Style", Georgia, serif;
-  --site-canvas: #e7e0d4;
-  --site-canvas-hsl: 37.8947 28.3582% 86.8627%;
-  --site-canvas-shading: radial-gradient(ellipse at 50% 12%, #f1ede4 8%, #e1dbcf 58%, #c7bdad 100%);
   --site-paper: #fffcf4;
   --site-paper-hsl: 43.6364 100% 97.8431%;
-  --site-paper-finish:
-    url("./book-paper.svg"),
-    linear-gradient(100deg, #a88b6226, transparent 5%, #ffffff50 28%, transparent 76%, #ae8d6017);
   --site-ink: #191b1e;
   --site-ink-hsl: 216.0000 9.0909% 10.7843%;
   --site-muted: #514e48;
@@ -32,9 +26,6 @@
   --site-frame-width: 2200px;
   --site-frame-gap: 32px;
   --site-frame-padding: clamp(28px, 4.4vw, 64px);
-  --site-frame-radius: 24px;
-  --site-frame-edge: #f2ede4;
-  --site-frame-shadow: 0 1px 2px #3f31231c, 0 16px 42px -12px #47382740, 0 36px 92px -48px #4738274d;
   --site-header-height: 86px;
   --site-corner-inset: clamp(16px, 1vw, 24px);
   --site-brand-size: clamp(40px, 30px + 1.15vw, 50px);
@@ -55,18 +46,13 @@
   --site-body-line: 1.7;
 }
 
-html { background: var(--site-canvas) var(--site-canvas-shading) fixed; scrollbar-gutter: stable; }
+html { background: var(--site-paper); scrollbar-gutter: stable; }
 .site-frame, .page-content, .project-frame {
   display: flex;
   flex-direction: column;
   width: min(var(--site-frame-width), calc(100% - var(--site-frame-gap) - var(--site-frame-gap)));
   margin: var(--site-frame-gap) auto;
   padding-inline: var(--site-frame-padding);
-  border: 1px solid var(--site-frame-edge);
-  border-radius: var(--site-frame-radius);
-  background-color: var(--site-paper);
-  background-image: var(--site-paper-finish);
-  box-shadow: var(--site-frame-shadow);
 }
 .site-header {
   display: flex;
@@ -116,9 +102,6 @@ html { background: var(--site-canvas) var(--site-canvas-shading) fixed; scrollba
 }
 @media (max-width: 760px) {
   :root { --site-frame-gap: 0px; --site-frame-padding: 24px; --site-header-height: 76px; --site-brand-size: 46px; --site-hero-size: clamp(30px, 5.2vw, 42px); }
-  /* Start with the same solid paper colour Safari uses above the viewport. */
-  html { background: linear-gradient(var(--site-paper), transparent 96px), var(--site-paper-finish) var(--site-paper); }
-  .site-frame, .page-content, .project-frame { border: 0; border-radius: 0; background: transparent; box-shadow: none; }
   .site-header { gap: 12px; padding-block: 12px; }
   .site-header > .identity-name { align-self: center; margin-inline-start: 0; }
 }
