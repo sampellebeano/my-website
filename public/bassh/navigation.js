@@ -37,25 +37,6 @@ if (readingArea) {
   window.addEventListener("popstate", restorePosition);
   window.addEventListener("pagehide", rememberPosition);
 
-  // Forward paging from initial focus into the reading area; preserve native controls.
-  window.addEventListener("keydown", (event) => {
-    if (event.defaultPrevented || document.activeElement !== document.body) return;
-    const pageStep = readingArea.clientHeight * 0.875;
-    let top = readingArea.scrollTop;
-    switch (event.key) {
-      case "PageDown": top += pageStep; break;
-      case "PageUp": top -= pageStep; break;
-      case " ": top += event.shiftKey ? -pageStep : pageStep; break;
-      case "ArrowDown": top = event.metaKey ? readingArea.scrollHeight : top + 40; break;
-      case "ArrowUp": top = event.metaKey ? 0 : top - 40; break;
-      case "Home": top = 0; break;
-      case "End": top = readingArea.scrollHeight; break;
-      default: return;
-    }
-    event.preventDefault();
-    readingArea.scrollTo({ top });
-  });
-
   document.addEventListener("click", (event) => {
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     const link = event.target.closest?.('a[href^="#"]');

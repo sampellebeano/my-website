@@ -29,7 +29,7 @@
   --site-hover-ink-hsl: 220.0000 7.9646% 22.1569%;
   --site-disabled: #bcbdc0;
   --site-disabled-hsl: 225.0000 3.0769% 74.5098%;
-  --site-frame-width: 1240px;
+  --site-frame-width: 2200px;
   --site-frame-gap: 32px;
   --site-frame-padding: clamp(28px, 4.4vw, 64px);
   --site-frame-radius: 24px;
@@ -56,7 +56,18 @@
 }
 
 html { background: var(--site-canvas) var(--site-canvas-shading) fixed; scrollbar-gutter: stable; }
-.site-frame, .page-content, .project-frame { background-image: var(--site-paper-finish); }
+.site-frame, .page-content, .project-frame {
+  display: flex;
+  flex-direction: column;
+  width: min(var(--site-frame-width), calc(100% - var(--site-frame-gap) - var(--site-frame-gap)));
+  margin: var(--site-frame-gap) auto;
+  padding-inline: var(--site-frame-padding);
+  border: 1px solid var(--site-frame-edge);
+  border-radius: var(--site-frame-radius);
+  background-color: var(--site-paper);
+  background-image: var(--site-paper-finish);
+  box-shadow: var(--site-frame-shadow);
+}
 .site-header {
   display: flex;
   align-items: center;
@@ -81,8 +92,22 @@ html { background: var(--site-canvas) var(--site-canvas-shading) fixed; scrollba
   object-fit: contain;
 }
 
+@media (min-width: 761px) {
+  .site-frame, .page-content, .project-frame {
+    height: calc(100svh - var(--site-frame-gap) - var(--site-frame-gap));
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+  }
+  :is(.site-frame, .page-content, .project-frame) > main { flex: 1 0 auto; }
+}
 @media (min-width: 761px) and (max-height: 840px) {
   :root { --site-frame-gap: 20px; --site-header-height: 70px; --site-hero-size: clamp(38px, 4vw, 56px); }
+}
+@media (min-width: 1100px) {
+  :root {
+    --site-frame-gap: clamp(20px, 2vw, 44px);
+    --site-frame-padding: clamp(48px, 5vw, 112px);
+  }
 }
 @media (max-width: 1000px) {
   :root { --site-hero-size: clamp(36px, 4.8vw, 48px); }
@@ -92,6 +117,13 @@ html { background: var(--site-canvas) var(--site-canvas-shading) fixed; scrollba
   .site-header { gap: 12px; }
 }
 @media (max-width: 480px) {
-  :root { --site-frame-padding: 18px; --site-header-height: 68px; --site-hero-size: 31px; }
+  :root {
+    --site-frame-gap: 0px;
+    --site-frame-padding: clamp(16px, 5vw, 24px);
+    --site-frame-radius: 0px;
+    --site-header-height: 68px;
+    --site-hero-size: 31px;
+  }
+  .site-frame, .page-content, .project-frame { border-width: 0; }
   .site-header { flex-wrap: wrap; gap: 0 12px; }
 }

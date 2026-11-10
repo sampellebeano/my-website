@@ -13,8 +13,10 @@ export const RouteScroll = () => {
       target.focus({ preventScroll: true });
       return;
     }
+    const main = document.getElementById("main-content");
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-    document.getElementById("main-content")?.focus({ preventScroll: true });
+    main?.closest(".site-frame")?.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    main?.focus({ preventScroll: true });
   }, [pathname, search]);
   return null;
 };

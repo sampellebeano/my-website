@@ -20,7 +20,6 @@ a:hover { color: var(--site-accent); }
 :focus-visible { outline: 2px solid var(--site-accent); outline-offset: 4px; }
 ::selection { background: var(--site-selection); color: var(--site-ink); }
 
-.project-frame { display: flex; flex-direction: column; width: min(var(--site-frame-width), calc(100% - var(--site-frame-gap) - var(--site-frame-gap))); margin: var(--site-frame-gap) auto; padding-inline: var(--site-frame-padding); border: 1px solid var(--site-frame-edge); border-radius: var(--site-frame-radius); background-color: var(--site-paper); box-shadow: var(--site-frame-shadow); }
 .site-navigation { display: flex; flex-wrap: wrap; gap: 6px 28px; }
 .site-nav-link { display: inline-flex; align-items: center; min-height: 44px; color: var(--site-muted); font-size: var(--site-label-size); text-decoration: none; transition: color 150ms ease; }
 .site-nav-link:hover, .site-nav-link.is-active { color: var(--site-ink); }

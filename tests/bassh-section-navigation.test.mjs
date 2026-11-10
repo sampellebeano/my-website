@@ -4,6 +4,7 @@ import { readFile } from 'node:fs/promises';
 import { runInNewContext } from 'node:vm';
 
 const source = await readFile(new URL('../public/bassh/navigation.js', import.meta.url), 'utf8');
+const framePaging = await readFile(new URL('../public/scripts/frame-paging.js', import.meta.url), 'utf8');
 
 // Supply browser history, scrolling, and event delivery without a Node viewport.
 function createPage({ hash = '', state = null } = {}) {
@@ -32,12 +33,13 @@ function createPage({ hash = '', state = null } = {}) {
   const document = {
     body: {},
     activeElement: null,
+    querySelector: selector => selector.includes('.page-content') ? page : null,
     getElementById: id => id === 'page-content' ? page : targets[id],
     addEventListener: (type, callback) => { if (type === 'click') clickHandler = callback; },
   };
   const window = { addEventListener: (type, callback) => listeners.set(type, callback) };
   function scroll(top) { page.scrollTop = top; scrollHandler(); }
-  runInNewContext(source, { document, window, history, location, crypto: { randomUUID: () => `entry-${++nextId}` } });
+  runInNewContext(`${framePaging}\n${source}`, { document, window, history, location, crypto: { randomUUID: () => `entry-${++nextId}` } });
   return {
     page, history, location, scroll,
     press: (key, modifiers = {}, focus = document.body) => {

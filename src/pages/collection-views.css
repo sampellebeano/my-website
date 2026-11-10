@@ -61,6 +61,9 @@
 }
 .credential-group small { color: var(--site-muted); font-size: var(--site-small-size); }
 
+@media (min-width: 1100px) {
+  .experience-view { --site-title-size: clamp(2.75rem, 1.4rem + 2vw, 4rem); }
+}
 @media (min-width: 761px) {
   .experience-view .collection-layout { grid-template-columns: minmax(220px, .7fr) minmax(0, 1.4fr); gap: clamp(24px, 4vw, 72px); }
   .experience-view .collection-index a { padding-block: clamp(13px, 1.05vw, 22px); }

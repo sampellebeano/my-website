@@ -26,9 +26,8 @@ function assertRoleIndex(html, selectedRole) {
   assert.ok(new RegExp(`<a(?=[^>]*href="/experience\\?entry=${selectedRole}")(?=[^>]*aria-current="true")[^>]*>`).test(html), `Mark ${selectedRole} as the selected role`);
 }
 
-test('Experience uses the wider frame with the home portrait at the start of the site header', () => {
+test('Experience keeps the home portrait at the start of the site header', () => {
   const html = render('/experience');
-  assert.match(html, /class="site-frame[^"]*\bsite-frame--wide\b/);
   assert.match(html, /<header class="site-header"><a[^>]*aria-label="Sam Green home"[^>]*><img[^>]*src="\/favicon\.png"[^>]*\/><\/a><nav[^>]*aria-label="Main navigation"/);
 });
 
