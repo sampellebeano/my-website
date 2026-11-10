@@ -48,6 +48,18 @@ test('the compact launcher loads app identities without mounting any recording',
   assert.doesNotMatch(html, /<img\b[^>]*src="[^"]+(?:\.gif|-demo-poster\.png)"/, 'No recording or poster loads before a selection');
 });
 
+test('the launcher shows the current local time to the minute', () => {
+  const beforeRender = Date.now();
+  const clock = render().match(/<time datetime="([^"]+)">([^<]+)<\/time>/i);
+  const afterRender = Date.now();
+
+  assert.ok(clock, 'The launcher exposes a time element');
+  const renderedTime = new Date(clock[1]);
+  assert.ok(renderedTime.getTime() >= beforeRender && renderedTime.getTime() <= afterRender);
+  assert.equal(clock[2], renderedTime.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' }));
+  assert.doesNotMatch(render({ selectedId: 'bassh' }), /<time\b/, 'The clock stays on the launcher');
+});
+
 test('a selected project renders its poster immediately for a direct route', () => {
   const html = render({ selectedId: 'bassh', onSelectProject() {}, onHome() {} });
   const recording = html.match(/<img\b[^>]*class="demo-recording"[^>]*>/g) ?? [];

@@ -59,6 +59,7 @@
   font-size: 4.2cqw;
   font-weight: 600;
 }
+.demo-status-bar time { font-variant-numeric: tabular-nums; white-space: nowrap; }
 
 .demo-status-icons { display: flex; align-items: center; gap: 1.2cqw; }
 .demo-status-icons svg { width: 5cqw; height: 5cqw; }
@@ -143,10 +144,11 @@
   .device-stage:not(.app-overview) .demo-iphone { padding: 0; border-color: #b9c7ce; border-radius: 18px; background: #e7ecec; box-shadow: none; }
   .device-stage:not(.app-overview) .demo-iphone::before,
   .device-stage:not(.app-overview) .demo-iphone::after,
-  .device-stage:not(.app-overview) .demo-status-bar { display: none; }
+  .device-stage:not(.app-overview) .demo-status-icons { display: none; }
   .device-stage:not(.app-overview) .demo-iphone-screen { aspect-ratio: auto; border-radius: inherit; }
-  .device-stage:not(.app-overview) .demo-home { position: relative; grid-template-rows: auto auto; gap: 16px; padding: 16px clamp(12px, 4vw, 28px); }
-  .device-stage:not(.app-overview) .demo-launcher { padding: 0; }
+  .device-stage:not(.app-overview) .demo-home { position: relative; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto; gap: 16px 8px; padding: 16px clamp(12px, 4vw, 28px); }
+  .device-stage:not(.app-overview) .demo-status-bar { grid-area: 1 / 2; align-self: start; padding: 0; font-size: var(--site-small-size); }
+  .device-stage:not(.app-overview) .demo-launcher { grid-area: 2 / 1 / auto / -1; padding: 0; }
   .device-stage:not(.app-overview) .demo-app-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 56px), 1fr)); gap: 12px 8px; }
   .device-stage:not(.app-overview) .demo-app-icon { gap: 6px; }
   .device-stage:not(.app-overview) .demo-app-icon img,
@@ -154,7 +156,7 @@
   .device-stage:not(.app-overview) .demo-app-monogram { font-size: 13px; }
   .device-stage:not(.app-overview) .demo-app-name,
   .device-stage:not(.app-overview) .demo-launcher-empty { font-size: var(--site-small-size); }
-  .device-stage:not(.app-overview) .demo-home-caption { grid-row: 1; gap: 2px; padding: 0; }
+  .device-stage:not(.app-overview) .demo-home-caption { grid-area: 1 / 1; gap: 2px; padding: 0; }
   .device-stage:not(.app-overview) .demo-home-caption span:first-child { font-size: 20px; }
   .device-stage:not(.app-overview) .demo-home-caption span:last-child { font-size: var(--site-small-size); }
   .device-stage:not(.app-overview) .demo-phone-controls { min-height: 0; margin-top: 8px; }

@@ -12,6 +12,30 @@ export interface IPhoneShowcaseProps {
 
 const APPS_PER_PAGE = 8;
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
+const MINUTE_MS = 60_000;
+
+const DemoClock = () => {
+  const [now, setNow] = useState(() => new Date());
+
+  useEffect(() => {
+    let timer: number | undefined;
+    const update = () => {
+      window.clearTimeout(timer);
+      const current = new Date();
+      setNow(current);
+      timer = window.setTimeout(update, MINUTE_MS - current.getTime() % MINUTE_MS);
+    };
+
+    update();
+    document.addEventListener("visibilitychange", update);
+    return () => {
+      window.clearTimeout(timer);
+      document.removeEventListener("visibilitychange", update);
+    };
+  }, []);
+
+  return <time dateTime={now.toISOString()}>{now.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })}</time>;
+};
 
 interface ShowcaseHandsetProps {
   expanded: boolean;
@@ -160,9 +184,9 @@ export const IPhoneShowcase = ({ projects = personalProjects, selectedId, onSele
       <ShowcaseHandset ref={handset} expanded={Boolean(selected)}>
         <div className="demo-iphone-screen" id={screenId}>
           <div className="demo-home" hidden={Boolean(selected)}>
-            <div className="demo-status-bar" aria-hidden="true">
-              <span>9:41</span>
-              <span className="demo-status-icons"><Signal /><Wifi /><BatteryFull /></span>
+            <div className="demo-status-bar">
+              {!selected && <DemoClock />}
+              <span className="demo-status-icons" aria-hidden="true"><Signal /><Wifi /><BatteryFull /></span>
             </div>
             <div className="demo-launcher" aria-label="App collection">
               <div className="demo-app-grid">
