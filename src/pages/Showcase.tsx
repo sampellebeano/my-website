@@ -9,7 +9,7 @@ import { projectOverviewPath, projects, type PersonalProject } from "@/data/proj
 const HomeIntro = () => (
   <div className="home-copy">
     <p className="screen-kicker">Sam Green</p>
-    <h1 id="home-title">I work in tech.<br />I also make apps<span className="accent-dot">.</span></h1>
+    <h1 id="home-title">Solution consulting at ServiceNow.<br />Developing applications in my spare time<span className="accent-dot">.</span></h1>
     <p className="screen-lede">I’m a Solution Consultant at ServiceNow. Outside work, I’m building bassh, highlighter and Kapture. This is where I share what I’m up to.</p>
     <p className="location-line"><MapPin size={14} aria-hidden="true" /> Based in the UAE</p>
     <div className="screen-actions">
