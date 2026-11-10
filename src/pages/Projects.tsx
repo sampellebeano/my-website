@@ -1,34 +1,26 @@
-import { Link, Navigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { IPhoneShowcase } from "@/components/IPhoneShowcase";
+import { ProjectLinks } from "@/components/ProjectLinks";
 import { SiteShell } from "@/components/SiteShell";
-import { entries } from "@/data/cv";
 import { projects } from "@/data/projects";
+import ProjectOverview from "./ProjectOverview";
 
 const Projects = () => {
-  const [params] = useSearchParams();
-  const requested = params.get("entry");
-  const careerId = requested === "presight" ? "enterprise-front-door" : requested;
-  if (entries.some(entry => entry.section === "work" && entry.id === careerId)) {
-    return <Navigate replace to={`/experience?entry=${encodeURIComponent(careerId!)}`} />;
-  }
-  const selected = projects.find(entry => entry.id === requested);
+  const navigate = useNavigate();
+  const { search } = useLocation();
+  const entry = new URLSearchParams(search).get("entry");
+  if (entry && projects.some(project => project.id === entry)) return <ProjectOverview projectId={entry} />;
   return (
     <SiteShell>
-      <div className="page-heading"><p className="eyebrow">Personal builds</p><h1>Projects</h1><p>Apps and tools I’m building outside my day job.</p></div>
-      {requested && !selected && <p role="status" className="entry-notice">That project is unavailable. Browse the projects below.</p>}
-      {selected && <Link className="text-link back-link" to="/projects">← All projects</Link>}
-      <div className="article-list">
-        {(selected ? [selected] : projects).map(entry => (
-          <article key={entry.id} id={entry.id} aria-labelledby={`title-${entry.id}`} className="content-article">
-            <p className="article-context">{entry.context}</p>
-            <h2 id={`title-${entry.id}`}><Link to={`/projects?entry=${encodeURIComponent(entry.id)}`}>{entry.title}</Link></h2>
-            {entry.paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
-            {entry.download && <div className="project-download">
-              <p>{entry.download.availability}</p>
-              <a className="project-button" href={entry.download.href}>{entry.download.label} <span aria-hidden="true">↓</span></a>
-            </div>}
-          </article>
-        ))}
-      </div>
+      <section className="split-screen" aria-labelledby="projects-title">
+        <div className="screen-copy">
+          <p className="screen-kicker">Personal builds</p>
+          <h1 id="projects-title">A few ideas,<br />made real<span className="accent-dot">.</span></h1>
+          <p className="screen-lede">Apps I’m building outside work. Pick a project to see what it does and take a look inside.</p>
+          <ProjectLinks />
+        </div>
+        <aside className="screen-phone" aria-label="Explore my apps"><IPhoneShowcase onSelectProject={app => navigate(`/projects/${app.id}`)} /></aside>
+      </section>
     </SiteShell>
   );
 };

@@ -2,41 +2,62 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 
-function render(route) {
-  // Vite's SSR transform emits jsxDEV; use React's development runtime.
-  const result = spawnSync(process.execPath, ['tests/render-site.mjs', route], { encoding: 'utf8', env: { ...process.env, NODE_ENV: 'development' } });
+function render(route, fixture) {
+  const result = spawnSync(process.execPath, ['tests/render-site.mjs', route, ...(fixture ? [fixture] : [])], { encoding: 'utf8', env: { ...process.env, NODE_ENV: 'development' } });
   assert.equal(result.status, 0, result.stderr);
   return result.stdout;
 }
 
-test('Projects renders personal builds instead of employer initiatives', () => {
-  const html = render('/projects');
-  assert.ok(/>Kapture</.test(html), 'Projects must show Kapture');
-  assert.ok(/>bassh</.test(html), 'Projects must show bassh');
-  assert.ok(!/Presight|Autonomous workforce solutions for aviation|Quip Black Belt programme/.test(html), 'Employer initiatives must not appear as personal projects');
-});
-test('the overview features personal projects', () => {
-  const html = render('/');
-  assert.ok(/projects\?entry=kapture/.test(html), 'Overview must link to Kapture');
-  assert.ok(/projects\?entry=bassh/.test(html), 'Overview must link to bassh');
-  assert.ok(!/projects\?entry=(presight|aviation)/.test(html), 'Overview must not feature employer initiatives as personal projects');
-});
-test('the bassh project detail opens the public companion download page', () => {
-  const html = render('/projects?entry=bassh');
-  assert.ok(/href="\/bassh"/.test(html), 'The project must expose its public download page');
-});
-test('career highlights have readable Experience details', () => {
-  const html = render('/experience?entry=aviation');
-  assert.ok(/id="aviation"/.test(html), 'Career detail must identify the aviation record');
-  assert.ok(/Autonomous workforce solutions for aviation/.test(html), 'Career detail must render its title');
-  assert.ok(/All experience/.test(html), 'Career detail must link back to Experience');
-});
-test('the current full CV no longer publishes the client name', () => {
-  assert.ok(!/Presight/i.test(render('/search')), 'Current full CV must remove the client name');
+for (const route of ['/', '/projects']) {
+  test(`${route} exposes every personal build without employer initiatives or app downloads`, () => {
+    const html = render(route);
+    for (const id of ['bassh', 'ryw', 'kapture']) assert.match(html, new RegExp(`href="/projects/${id}"`));
+    assert.doesNotMatch(html, /Presight|Autonomous workforce solutions for aviation|Quip Black Belt programme/);
+    assert.doesNotMatch(html, /Download for Mac|project-download|href="\/downloads\//);
+    assert.equal((html.match(/aria-label="Sam’s project iPhone"/g) ?? []).length, 1);
+    assert.doesNotMatch(html, /<img\b[^>]*src="[^"]+(?:\.gif|-demo-poster\.png)"/);
+    assert.doesNotMatch(html, /images\/apps\/ryw-/);
+  });
+}
+
+test('bassh retains access to its tester setup page from its new overview and search', () => {
+  assert.match(render('/projects/bassh'), /href="\/bassh"/);
+  assert.match(render('/search?query=bassh'), /<h2\b[^>]*><a href="\/bassh">bassh<\/a>/);
 });
 
-test('the overview gives career the first position before personal projects', () => {
-  const html = render('/');
-  const sections = [...html.matchAll(/<section[^>]*aria-labelledby="([^"]+)"/g)].map(match => match[1]);
-  assert.deepEqual(sections.slice(0, 2), ['career-title', 'work-title']);
+test('legacy career highlights open their own selected text with the parent role index', () => {
+  const html = render('/experience?entry=aviation');
+  assert.match(html, /<article id="aviation"/);
+  for (const id of ['servicenow-uae', 'servicenow-ireland', 'servicenow-itom', 'salesforce']) assert.match(html, new RegExp(`href="/experience\\?entry=${id}"`));
+  assert.match(html, /Autonomous workforce solutions for aviation/);
+});
+
+for (const [section, entry, ids] of [
+  ['books', 'book-example', ['book-example', 'book-second']],
+  ['updates', 'daily-2026-10-08', ['daily-2026-10-08', 'daily-second', 'weekly-2026-10-05']],
+]) {
+  test(`legacy ${section} entry URLs retain their complete document collections`, () => {
+    const html = render(`/${section}?entry=${entry}`, 'populated');
+    for (const id of ids) assert.ok(html.includes(`id="${id}"`), id);
+    assert.ok(!/href="[^"]*entry=/.test(html));
+    assert.ok(!/<h[23]\b[^>]*><a/.test(html));
+  });
+}
+
+test('CV search remains readable and preserves the search form', () => {
+  const html = render('/search?query=aviation');
+  assert.match(html, /Autonomous workforce solutions for aviation/);
+  assert.match(html, /<form\b/);
+  assert.ok(!/<h2\b[^>]*><a/.test(html));
+});
+
+test('published notes and books remain reachable from compact navigation', () => {
+  const html = render('/', 'populated');
+  assert.match(html, /href="\/updates"/);
+  assert.match(html, /href="\/books"/);
+  assert.doesNotMatch(html, /The week in review|Architecture in Practice/);
+});
+
+test('the current full CV no longer publishes the client name', () => {
+  assert.doesNotMatch(render('/search'), /Presight/i);
 });
