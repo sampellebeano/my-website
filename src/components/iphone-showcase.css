@@ -106,14 +106,14 @@
   letter-spacing: -0.06em;
 }
 
-.demo-app-name { max-width: 100%; font-size: 3.7cqw; line-height: 1.3; font-weight: 500; text-align: center; overflow-wrap: anywhere; }
+.demo-app-name { max-width: 100%; font-size: clamp(.6875rem, 4.1cqw, 1.125rem); line-height: 1.3; font-weight: 500; text-align: center; overflow-wrap: anywhere; }
 .demo-app-icon:hover img { transform: translateY(-2px); }
 .demo-app-icon:active img { transform: scale(0.96); }
 .demo-app-icon:focus-visible { outline: 2px solid #313b40; outline-offset: 4px; }
 .demo-launcher-empty { font-size: 5cqw; line-height: 1.7; }
 .demo-home-caption { display: flex; flex-direction: column; gap: 2.7cqw; padding: 12% 9% 19%; pointer-events: none; }
 .demo-home-caption span:first-child { font-size: 8.8cqw; font-weight: 500; letter-spacing: -0.055em; line-height: 1.15; }
-.demo-home-caption span:last-child { font-size: 4cqw; line-height: 1.5; color: #62717a; }
+.demo-home-caption span:last-child { font-size: clamp(.6875rem, 4.2cqw, 1.125rem); line-height: 1.5; color: #62717a; }
 .demo-open-app { animation: demo-app-open 160ms ease-out; }
 .demo-recording { display: block; width: 100%; height: 100%; object-fit: contain; }
 .demo-home-gesture { position: absolute; bottom: 0; left: 22%; width: 56%; height: 8%; min-height: 44px; padding: 0; border: 0; border-radius: 10px; background: transparent; cursor: pointer; }
@@ -125,7 +125,7 @@
 .demo-project-overview p { margin: 0; font-size: 5.1cqw; line-height: 1.7; }
 .demo-project-overview .demo-overview-status { margin-bottom: 9cqw; color: #62717a; font-size: 4cqw; }
 .demo-project-overview .demo-overview-availability { margin-top: 9cqw; color: #62717a; font-size: 4cqw; }
-.demo-phone-controls { display: flex; grid-row: 2; align-items: center; justify-content: space-between; gap: 4px; min-height: 44px; margin-top: 8px; font-size: 11px; }
+.demo-phone-controls { display: flex; grid-row: 2; align-items: center; justify-content: space-between; gap: 4px; min-height: 44px; margin-top: 8px; font-size: var(--site-small-size); }
 .demo-phone-button { display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-width: 44px; min-height: 44px; padding: 8px; border: 0; border-radius: 6px; color: hsl(var(--foreground)); background: transparent; cursor: pointer; }
 .demo-phone-button:hover:not(:disabled) { background: hsl(var(--muted)); }
 .demo-phone-button:focus-visible { outline: 2px solid hsl(var(--foreground)); outline-offset: 1px; }
@@ -135,8 +135,8 @@
 .demo-phone-hint { flex: 1; color: hsl(var(--muted-foreground)); text-align: center; }
 
 @container (max-width: 220px) {
-  .demo-app-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6cqw; }
-  .demo-app-name { font-size: 4.4cqw; }
+  .demo-app-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6cqw 3cqw; }
+  .demo-app-name { font-size: .625rem; }
 }
 
 @media (max-width: 760px) {
@@ -148,15 +148,15 @@
   .device-stage:not(.app-overview) .demo-home { position: relative; grid-template-rows: auto auto; gap: 16px; padding: 16px clamp(12px, 4vw, 28px); }
   .device-stage:not(.app-overview) .demo-launcher { padding: 0; }
   .device-stage:not(.app-overview) .demo-app-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 56px), 1fr)); gap: 12px 8px; }
-  .device-stage:not(.app-overview) .demo-app-icon { justify-self: center; width: min(100%, clamp(48px, 16vw, 76px)); gap: 6px; }
+  .device-stage:not(.app-overview) .demo-app-icon { gap: 6px; }
   .device-stage:not(.app-overview) .demo-app-icon img,
   .device-stage:not(.app-overview) .demo-app-monogram { width: clamp(40px, 10vw, 56px); }
   .device-stage:not(.app-overview) .demo-app-monogram { font-size: 13px; }
   .device-stage:not(.app-overview) .demo-app-name,
-  .device-stage:not(.app-overview) .demo-launcher-empty { font-size: 12px; }
+  .device-stage:not(.app-overview) .demo-launcher-empty { font-size: var(--site-small-size); }
   .device-stage:not(.app-overview) .demo-home-caption { grid-row: 1; gap: 2px; padding: 0; }
   .device-stage:not(.app-overview) .demo-home-caption span:first-child { font-size: 20px; }
-  .device-stage:not(.app-overview) .demo-home-caption span:last-child { font-size: 12px; }
+  .device-stage:not(.app-overview) .demo-home-caption span:last-child { font-size: var(--site-small-size); }
   .device-stage:not(.app-overview) .demo-phone-controls { min-height: 0; margin-top: 8px; }
 }
 

@@ -34,6 +34,7 @@
     @apply bg-background text-foreground;
     margin: 0;
     font-family: var(--site-font);
+    font-size: var(--site-body-size);
     -webkit-font-smoothing: antialiased;
   }
   button, input { font: inherit; }
@@ -47,28 +48,28 @@
   .eyebrow { @apply mb-3 font-medium uppercase text-muted-foreground; font-size: var(--site-kicker-size); letter-spacing: var(--site-kicker-tracking); line-height: 1.5; }
   .page-heading { @apply mb-7; }
   .page-heading h1 { font-size: var(--site-title-size); font-weight: var(--site-title-weight); line-height: var(--site-title-line); letter-spacing: var(--site-title-tracking); text-wrap: balance; }
-  .page-heading > p:last-child:not(.eyebrow) { @apply mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground; }
+  .page-heading > p:last-child:not(.eyebrow) { @apply mt-3 max-w-2xl leading-relaxed text-muted-foreground; font-size: var(--site-lede-size); }
   .article-list { @apply divide-y divide-border border-y border-border; }
   .content-article { @apply py-7; }
   .content-article h2 { @apply mt-2 text-xl font-medium leading-snug tracking-[-0.015em]; }
   .content-article h2 a { @apply hover:text-primary; }
-  .content-article > p:not(.article-context) { @apply mt-4 max-w-[68ch] text-[15px] leading-[1.75] text-muted-foreground; }
-  .article-context { @apply text-xs leading-relaxed text-muted-foreground; }
-  .collection-links { @apply mt-6 flex flex-wrap gap-5 text-sm; }
+  .content-article > p:not(.article-context) { @apply mt-4 max-w-[68ch] leading-[1.75] text-muted-foreground; }
+  .article-context { @apply leading-relaxed text-muted-foreground; font-size: var(--site-small-size); }
+  .collection-links { @apply mt-6 flex flex-wrap gap-5; font-size: var(--site-label-size); }
   .empty-state { @apply border-y border-border py-8; }
   .empty-state h2 { @apply text-lg font-medium; }
-  .empty-state p { @apply mt-3 max-w-lg text-sm leading-relaxed text-muted-foreground; }
-  .site-contact nav { @apply flex flex-wrap gap-x-5 gap-y-2 text-xs; }
+  .empty-state p { @apply mt-3 max-w-lg leading-relaxed text-muted-foreground; }
+  .site-contact nav { @apply flex flex-wrap gap-x-5 gap-y-2; font-size: var(--site-small-size); }
   .cv-downloads { @apply flex flex-wrap gap-3; }
-  .download-link { @apply inline-flex min-h-10 items-center gap-2 text-xs font-medium text-muted-foreground hover:text-foreground; }
-  .previous-versions { @apply text-xs text-muted-foreground; }
+  .download-link { @apply inline-flex min-h-10 items-center gap-2 font-medium text-muted-foreground hover:text-foreground; font-size: var(--site-small-size); }
+  .previous-versions { @apply text-muted-foreground; font-size: var(--site-small-size); }
   .skip-link { @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-card focus:p-4; }
   .activity-week, .book-group { @apply mb-9; }
-  .week-heading { @apply mb-4 text-sm font-medium text-muted-foreground; }
+  .week-heading { @apply mb-4 font-medium text-muted-foreground; font-size: var(--site-label-size); }
   .activity-article h3, .book-article h3 { @apply mt-2 text-xl font-medium leading-snug tracking-[-0.015em]; }
-  .content-article > .publication-date { @apply mt-5 text-xs; }
-  .recap-references { @apply mt-5 text-sm; }
-  .recap-references > p { @apply mb-2 text-xs text-muted-foreground; }
+  .content-article > p.publication-date { @apply mt-5; font-size: var(--site-small-size); }
+  .recap-references { @apply mt-5; font-size: var(--site-label-size); }
+  .recap-references > p { @apply mb-2 text-muted-foreground; font-size: var(--site-small-size); }
   .recap-references ul { @apply space-y-2; }
   .latest-recap { @apply mb-10 border-y border-border py-5; }
   .latest-recap .content-article { @apply pt-0; }

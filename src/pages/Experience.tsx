@@ -15,7 +15,7 @@ const Experience = () => {
   const roleHighlights = highlights.filter(entry => entry.roleId === selectedRole.id);
 
   return (
-    <SiteShell>
+    <SiteShell layout="wide-section">
       <section className="collection-view experience-view" aria-labelledby="experience-title">
         <PageHeading className="collection-heading" eyebrow="Work" id="experience-title" title="Experience" description="What I do at ServiceNow, and what I did before that." />
         <div className="collection-layout">

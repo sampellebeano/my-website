@@ -32,8 +32,8 @@
   --site-frame-shadow: 0 8px 36px #25231f05;
   --site-header-height: 86px;
   --site-header-padding: 18px;
-  --site-brand-size: 40px;
-  --site-title-size: 40px;
+  --site-brand-size: clamp(40px, 30px + 1.15vw, 50px);
+  --site-title-size: clamp(2.25rem, 1.8rem + .9vw, 3.25rem);
   --site-title-weight: 500;
   --site-title-line: 1.12;
   --site-title-tracking: -.045em;
@@ -41,24 +41,26 @@
   --site-hero-weight: 450;
   --site-hero-line: 1.05;
   --site-hero-tracking: -.055em;
-  --site-kicker-size: 10px;
-  --site-kicker-tracking: .23em;
-  --site-lede-size: 15px;
-  --site-body-size: 14px;
+  --site-small-size: clamp(.8125rem, .74rem + .16vw, .9375rem);
+  --site-label-size: clamp(.875rem, .78rem + .24vw, 1rem);
+  --site-kicker-size: var(--site-small-size);
+  --site-kicker-tracking: .17em;
+  --site-lede-size: clamp(1rem, .9rem + .35vw, 1.3125rem);
+  --site-body-size: clamp(1rem, .94rem + .23vw, 1.125rem);
   --site-body-line: 1.7;
 }
 
 @media (min-width: 761px) and (max-height: 840px) {
-  :root { --site-frame-gap: 20px; --site-header-height: 70px; --site-header-padding: 12px; --site-hero-size: clamp(38px, 4vw, 56px); --site-lede-size: 14px; }
+  :root { --site-frame-gap: 20px; --site-header-height: 70px; --site-header-padding: 12px; --site-hero-size: clamp(38px, 4vw, 56px); }
 }
 @media (max-width: 1000px) {
   :root { --site-hero-size: clamp(36px, 4.8vw, 48px); }
 }
 @media (max-width: 760px) {
-  :root { --site-frame-gap: 12px; --site-frame-padding: 24px; --site-frame-radius: 18px; --site-header-height: 76px; --site-header-padding: 14px; --site-brand-size: 36px; --site-title-size: 34px; --site-hero-size: clamp(30px, 5.2vw, 42px); --site-lede-size: 13px; }
+  :root { --site-frame-gap: 12px; --site-frame-padding: 24px; --site-frame-radius: 18px; --site-header-height: 76px; --site-header-padding: 14px; --site-brand-size: 36px; --site-hero-size: clamp(30px, 5.2vw, 42px); }
 }
 @media (max-width: 480px) {
-  :root { --site-frame-padding: 18px; --site-header-height: 68px; --site-hero-size: 31px; --site-kicker-size: 9px; --site-lede-size: 12px; }
+  :root { --site-frame-padding: 18px; --site-header-height: 68px; --site-hero-size: 31px; }
 }
 
 html { scrollbar-gutter: stable; }
