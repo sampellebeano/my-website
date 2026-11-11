@@ -19,7 +19,7 @@ for (const app of ['bassh', 'kapture']) {
 
   test(`${app} has the same home mark as the main site`, async () => {
     const html = await readFile(new URL(`../public/${app}/index.html`, import.meta.url), 'utf8');
-    assert.match(html, /<a\b[^>]*href="\/"[^>]*aria-label="Sam Green home"[^>]*>\s*<img\b[^>]*src="\/favicon\.png"[^>]*alt=""/);
+    assert.match(html, /<a\b[^>]*href="\/"[^>]*aria-label="Sam Green home"[^>]*>\s*<img\b[^>]*src="\/images\/sam-green-portrait\.jpg"[^>]*alt=""/);
   });
 
   test(`${app} keeps global navigation separate from project navigation`, async () => {

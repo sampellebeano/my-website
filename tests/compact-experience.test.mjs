@@ -28,7 +28,7 @@ function assertRoleIndex(html, selectedRole) {
 
 test('Experience keeps the home portrait at the start of the site header', () => {
   const html = render('/experience');
-  assert.match(html, /<header class="site-header"><a[^>]*aria-label="Sam Green home"[^>]*><img[^>]*src="\/favicon\.png"[^>]*\/><\/a><nav[^>]*aria-label="Main navigation"/);
+  assert.match(html, /<header class="site-header"><a[^>]*aria-label="Sam Green home"[^>]*><img[^>]*src="\/images\/sam-green-portrait\.jpg"[^>]*\/><\/a><nav[^>]*aria-label="Main navigation"/);
 });
 
 test('Experience defaults to the current role and keeps the CV and credentials directly reachable', () => {

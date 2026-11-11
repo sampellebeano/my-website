@@ -96,7 +96,7 @@ test('missing pages retain the common home mark, navigation and a recovery link'
   const html = render('/404');
   assert.match(html, /class="site-frame/);
   assert.match(html, /aria-label="Sam Green home"/);
-  assert.match(html, /src="\/favicon.png"/);
+  assert.match(html, /src="\/images\/sam-green-portrait\.jpg"/);
   assert.match(html, /<h1[^>]*>Page not found<\/h1>/);
   assert.match(html, /href="\/projects"/);
   assert.match(html, /href="\/history"/);

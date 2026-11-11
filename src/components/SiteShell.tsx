@@ -16,7 +16,7 @@ export const SiteShell = ({ children, layout }: { children: ReactNode; layout?: 
     <div className={`site-frame${documentView ? " site-frame--document" : ""}${sectionView ? " site-frame--section" : ""}`}>
       <SkipLink />
       <header className="site-header">
-        <Link to="/" className="identity-name" aria-label="Sam Green home"><img src={`${import.meta.env.BASE_URL}favicon.png`} width="40" height="40" alt="" /></Link>
+        <Link to="/" className="identity-name" aria-label="Sam Green home"><img src={`${import.meta.env.BASE_URL}images/sam-green-portrait.jpg`} width="40" height="40" alt="" /></Link>
         <SiteNavigation />
       </header>
       <main id="main-content" tabIndex={-1} className="site-main">{children}</main>
